@@ -1,35 +1,633 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="es">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>FincaSinRed</title>
+
 <style>
-body{margin:0;background:#f5f8f4;color:#172018;font-family:system-ui,sans-serif}
-.wrap{max-width:980px;margin:auto;padding:48px 20px}
-.brand{font-size:22px;font-weight:900}.g{color:#287a32}
-.card{background:#fff;border:1px solid #dfe7df;border-radius:22px;padding:28px;margin-top:25px}
-h1{font-size:clamp(44px,7vw,72px);line-height:.92;letter-spacing:-4px;margin:18px 0}
-p{font-size:17px;line-height:1.55}
-.btn{display:inline-block;background:#287a32;color:white;text-decoration:none;padding:15px 20px;border-radius:11px;font-weight:900;margin-top:8px}
-.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:25px}
-.step{background:#f5f8f4;border-radius:13px;padding:15px;font-size:13px}
-.step b{display:block;color:#287a32;font-size:19px;margin-bottom:6px}
-.note{margin-top:20px;background:#fff7e6;border:1px solid #efd08c;border-radius:13px;padding:14px;font-size:12px;line-height:1.5}
-@media(max-width:700px){.steps{grid-template-columns:1fr 1fr}}
-</style></head>
-<body><main class="wrap">
-<div class="brand">💧 Finca<span class="g">Sin</span>Red</div>
-<div class="card">
-<small class="g"><b>VERSIÓN 6.7 · PREPARADA PARA DESPLIEGUE</b></small>
-<h1>Calcula la instalación de agua de tu finca.</h1>
-<p>FincaSinRed analiza ubicación, energía solar, bomba, hidráulica y almacenamiento para ayudarte a dimensionar una instalación rural.</p>
-<a class="btn" href="/health">COMPROBAR SERVIDOR</a>
-<div class="steps">
-<div class="step"><b>01</b>Ubicación</div>
-<div class="step"><b>02</b>Solar</div>
-<div class="step"><b>03</b>Bomba</div>
-<div class="step"><b>04</b>Depósito</div>
-<div class="step"><b>05</b>Informe</div>
-</div>
-<div class="note"><b>Estado:</b> esta versión prepara el despliegue y la comprobación de salud. El motor de cálculo se integra desde las versiones 6.1–6.6; antes de vender informes hay que ejecutar pruebas reales en el servidor y validar resultados.</div>
-</div></main></body></html>
+
+* {
+
+  box-sizing: border-box;
+
+}
+
+body {
+
+  margin: 0;
+
+  background: #f5f8f4;
+
+  color: #172018;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+
+}
+
+.wrap {
+
+  max-width: 980px;
+
+  margin: auto;
+
+  padding: 30px 20px 60px;
+
+}
+
+.brand {
+
+  font-size: 24px;
+
+  font-weight: 800;
+
+  color: #287a32;
+
+  margin-bottom: 25px;
+
+}
+
+.card {
+
+  background: white;
+
+  border: 1px solid #dfe7df;
+
+  border-radius: 22px;
+
+  padding: 30px;
+
+  box-shadow: 0 8px 30px rgba(0,0,0,.05);
+
+}
+
+h1 {
+
+  font-size: clamp(42px, 7vw, 72px);
+
+  line-height: .95;
+
+  margin: 15px 0 25px;
+
+}
+
+h2 {
+
+  margin-top: 0;
+
+  font-size: 30px;
+
+}
+
+p {
+
+  font-size: 18px;
+
+  line-height: 1.55;
+
+}
+
+.intro {
+
+  max-width: 700px;
+
+}
+
+.btn {
+
+  display: inline-block;
+
+  border: 0;
+
+  border-radius: 12px;
+
+  padding: 16px 24px;
+
+  background: #287a32;
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: 700;
+
+  text-decoration: none;
+
+  cursor: pointer;
+
+  margin-top: 15px;
+
+}
+
+.btn:hover {
+
+  background: #216429;
+
+}
+
+.steps {
+
+  display: grid;
+
+  grid-template-columns: repeat(2, 1fr);
+
+  gap: 16px;
+
+  margin-top: 35px;
+
+}
+
+.step {
+
+  background: #f5f8f4;
+
+  border-radius: 16px;
+
+  padding: 24px;
+
+  border: 1px solid #e2e9e1;
+
+}
+
+.step-number {
+
+  display: block;
+
+  color: #287a32;
+
+  font-size: 18px;
+
+  font-weight: 800;
+
+  margin-bottom: 8px;
+
+}
+
+.step-title {
+
+  font-size: 21px;
+
+  font-weight: 600;
+
+}
+
+.form-section {
+
+  margin-top: 35px;
+
+  padding-top: 30px;
+
+  border-top: 1px solid #e0e6df;
+
+}
+
+label {
+
+  display: block;
+
+  font-weight: 700;
+
+  margin: 18px 0 8px;
+
+}
+
+input,
+
+select {
+
+  width: 100%;
+
+  padding: 15px;
+
+  border: 1px solid #cbd5ca;
+
+  border-radius: 10px;
+
+  font-size: 17px;
+
+  background: white;
+
+}
+
+.result {
+
+  display: none;
+
+  margin-top: 30px;
+
+  padding: 24px;
+
+  border-radius: 16px;
+
+  background: #eef7ed;
+
+  border: 1px solid #c8dfc5;
+
+}
+
+.result strong {
+
+  color: #287a32;
+
+}
+
+.note {
+
+  margin-top: 30px;
+
+  padding: 20px;
+
+  background: #fff7e6;
+
+  border: 1px solid #efd38d;
+
+  border-radius: 15px;
+
+}
+
+footer {
+
+  text-align: center;
+
+  margin-top: 30px;
+
+  color: #687268;
+
+}
+
+@media (max-width: 700px) {
+
+  .wrap {
+
+    padding: 20px 15px 40px;
+
+  }
+
+  .card {
+
+    padding: 22px;
+
+  }
+
+  .steps {
+
+    grid-template-columns: 1fr;
+
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="wrap">
+
+  <div class="brand">💧 Finca<span style="color:#172018">SinRed</span></div>
+
+  <section class="card">
+
+    <div class="intro">
+
+      <div style="color:#287a32;font-weight:800;">
+
+        VERSIÓN 7.0 · CALCULADORA RURAL
+
+      </div>
+
+      <h1>
+
+        Calcula la instalación de agua de tu finca.
+
+      </h1>
+
+      <p>
+
+        FincaSinRed te ayuda a dimensionar una instalación de agua
+
+        para una finca rural: ubicación, energía solar, bomba,
+
+        hidráulica y almacenamiento.
+
+      </p>
+
+      <button class="btn" onclick="mostrarCalculadora()">
+
+        EMPEZAR CÁLCULO
+
+      </button>
+
+    </div>
+
+    <div class="steps">
+
+      <div class="step">
+
+        <span class="step-number">01</span>
+
+        <span class="step-title">📍 Ubicación</span>
+
+      </div>
+
+      <div class="step">
+
+        <span class="step-number">02</span>
+
+        <span class="step-title">☀️ Solar</span>
+
+      </div>
+
+      <div class="step">
+
+        <span class="step-number">03</span>
+
+        <span class="step-title">💧 Bomba</span>
+
+      </div>
+
+      <div class="step">
+
+        <span class="step-number">04</span>
+
+        <span class="step-title">🛢️ Depósito</span>
+
+      </div>
+
+      <div class="step">
+
+        <span class="step-number">05</span>
+
+        <span class="step-title">📄 Informe</span>
+
+      </div>
+
+    </div>
+
+    <section id="calculadora" class="form-section" style="display:none;">
+
+      <h2>Datos de tu finca</h2>
+
+      <p>
+
+        Introduce algunos datos básicos y FincaSinRed calculará
+
+        una primera estimación.
+
+      </p>
+
+      <label for="distancia">
+
+        Distancia desde el agua hasta la finca (metros)
+
+      </label>
+
+      <input
+
+        id="distancia"
+
+        type="number"
+
+        min="0"
+
+        placeholder="Ejemplo: 100"
+
+      >
+
+      <label for="altura">
+
+        Desnivel que debe superar el agua (metros)
+
+      </label>
+
+      <input
+
+        id="altura"
+
+        type="number"
+
+        min="0"
+
+        placeholder="Ejemplo: 20"
+
+      >
+
+      <label for="litros">
+
+        Agua necesaria al día (litros)
+
+      </label>
+
+      <input
+
+        id="litros"
+
+        type="number"
+
+        min="0"
+
+        placeholder="Ejemplo: 1000"
+
+      >
+
+      <label for="deposito">
+
+        Capacidad del depósito (litros)
+
+      </label>
+
+      <input
+
+        id="deposito"
+
+        type="number"
+
+        min="0"
+
+        placeholder="Ejemplo: 1000"
+
+      >
+
+      <button class="btn" onclick="calcular()">
+
+        CALCULAR INSTALACIÓN
+
+      </button>
+
+      <div id="resultado" class="result">
+
+        <h2>Resultado inicial</h2>
+
+        <p>
+
+          <strong>Distancia:</strong>
+
+          <span id="rDistancia"></span> m
+
+        </p>
+
+        <p>
+
+          <strong>Desnivel:</strong>
+
+          <span id="rAltura"></span> m
+
+        </p>
+
+        <p>
+
+          <strong>Consumo diario:</strong>
+
+          <span id="rLitros"></span> litros
+
+        </p>
+
+        <p>
+
+          <strong>Depósito:</strong>
+
+          <span id="rDeposito"></span> litros
+
+        </p>
+
+        <p id="recomendacion"></p>
+
+      </div>
+
+    </section>
+
+    <div class="note">
+
+      <strong>FincaSinRed</strong><br>
+
+      Esta calculadora está en fase de desarrollo.
+
+      Los resultados iniciales sirven como orientación y
+
+      posteriormente incorporaremos los cálculos hidráulicos,
+
+      bomba, paneles solares, batería y depósito.
+
+    </div>
+
+  </section>
+
+  <footer>
+
+    FincaSinRed · Calculadora de instalaciones rurales
+
+  </footer>
+
+</main>
+
+<script>
+
+function mostrarCalculadora() {
+
+  const calculadora = document.getElementById("calculadora");
+
+  calculadora.style.display = "block";
+
+  calculadora.scrollIntoView({
+
+    behavior: "smooth"
+
+  });
+
+}
+
+function calcular() {
+
+  const distancia =
+
+    Number(document.getElementById("distancia").value);
+
+  const altura =
+
+    Number(document.getElementById("altura").value);
+
+  const litros =
+
+    Number(document.getElementById("litros").value);
+
+  const deposito =
+
+    Number(document.getElementById("deposito").value);
+
+  if (
+
+    distancia < 0 ||
+
+    altura < 0 ||
+
+    litros <= 0 ||
+
+    deposito <= 0
+
+  ) {
+
+    alert("Introduce todos los datos correctamente.");
+
+    return;
+
+  }
+
+  document.getElementById("rDistancia").textContent =
+
+    distancia;
+
+  document.getElementById("rAltura").textContent =
+
+    altura;
+
+  document.getElementById("rLitros").textContent =
+
+    litros.toLocaleString("es-ES");
+
+  document.getElementById("rDeposito").textContent =
+
+    deposito.toLocaleString("es-ES");
+
+  let recomendacion = "";
+
+  if (deposito >= litros * 2) {
+
+    recomendacion =
+
+      "El depósito tiene una capacidad de al menos dos días de consumo.";
+
+  } else {
+
+    recomendacion =
+
+      "El depósito podría ser pequeño para disponer de una reserva amplia.";
+
+  }
+
+  document.getElementById("recomendacion").innerHTML =
+
+    "<strong>Orientación:</strong> " + recomendacion;
+
+  document.getElementById("resultado").style.display =
+
+    "block";
+
+  document.getElementById("resultado").scrollIntoView({
+
+    behavior: "smooth"
+
+  });
+
+}
+
+</script>
+
+</body>
+
+</html>
