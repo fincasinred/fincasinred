@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: fincasinred
+    runtime: docker
+    healthCheckPath: /health
+    dockerfilePath: ./Dockerfile
