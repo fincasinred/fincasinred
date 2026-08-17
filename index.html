@@ -1,8 +1,4 @@
-
-
-
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 
 <html lang="es">
 
@@ -12,83 +8,87 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FincaSinRed</title>
+<title>FincaSinRed V9</title>
 
 <style>
 
-*{
-
-  box-sizing:border-box;
-
-}
+*{box-sizing:border-box}
 
 body{
 
   margin:0;
 
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+
   background:#f5f8f4;
 
   color:#172018;
 
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-
 }
 
-.wrap{
+header{
+
+  padding:28px 20px 20px;
 
   max-width:900px;
 
   margin:auto;
 
-  padding:30px 18px 60px;
-
 }
 
-.brand{
+.logo{
 
-  font-size:26px;
+  font-size:34px;
 
   font-weight:800;
 
-  margin-bottom:25px;
+  color:#3f7f3f;
 
 }
 
-.brand span{
+.logo span{color:#172018}
 
-  color:#287a32;
+.subtitle{
+
+  margin-top:6px;
+
+  color:#5d685e;
+
+  font-size:16px;
 
 }
 
-.hero{
+main{
+
+  max-width:900px;
+
+  margin:auto;
+
+  padding:0 16px 50px;
+
+}
+
+.card{
 
   background:white;
 
-  border-radius:22px;
+  border-radius:20px;
 
-  padding:30px 24px;
+  padding:22px;
 
-  box-shadow:0 3px 15px rgba(0,0,0,.06);
+  margin:16px 0;
 
-}
-
-.badge{
-
-  color:#287a32;
-
-  font-weight:800;
-
-  font-size:15px;
+  box-shadow:0 2px 12px rgba(0,0,0,.06);
 
 }
 
 h1{
 
-  font-size:clamp(40px,8vw,72px);
+  font-size:34px;
 
-  line-height:.98;
+  line-height:1.08;
 
-  margin:18px 0;
+  margin:10px 0 12px;
 
 }
 
@@ -96,35 +96,7 @@ h2{
 
   margin-top:0;
 
-}
-
-p{
-
-  font-size:17px;
-
-  line-height:1.55;
-
-}
-
-.grid{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:15px;
-
-  margin-top:25px;
-
-}
-
-.field{
-
-  background:#f5f8f4;
-
-  padding:17px;
-
-  border-radius:15px;
+  font-size:23px;
 
 }
 
@@ -132,9 +104,9 @@ label{
 
   display:block;
 
-  font-weight:700;
+  font-weight:650;
 
-  margin-bottom:8px;
+  margin:17px 0 7px;
 
 }
 
@@ -146,11 +118,21 @@ input,select{
 
   border:1px solid #ccd5cc;
 
-  border-radius:10px;
+  border-radius:12px;
+
+  font-size:17px;
 
   background:white;
 
-  font-size:16px;
+}
+
+small{
+
+  display:block;
+
+  color:#69736b;
+
+  margin-top:5px;
 
 }
 
@@ -160,105 +142,139 @@ button{
 
   border:0;
 
-  border-radius:13px;
+  border-radius:14px;
 
   padding:17px;
 
-  margin-top:20px;
-
-  background:#287a32;
+  background:#3f7f3f;
 
   color:white;
 
-  font-size:18px;
+  font-size:19px;
 
-  font-weight:800;
+  font-weight:750;
 
-  cursor:pointer;
-
-}
-
-.result{
-
-  display:none;
-
-  margin-top:25px;
+  margin-top:20px;
 
 }
 
-.cards{
+button:active{transform:scale(.99)}
+
+.grid{
 
   display:grid;
 
   grid-template-columns:1fr 1fr;
 
-  gap:14px;
+  gap:12px;
 
 }
 
-.card{
+.result{
 
-  background:white;
+  border:1px solid #d9e4d9;
 
-  border:1px solid #dfe7df;
-
-  border-radius:15px;
+  border-radius:18px;
 
   padding:18px;
 
-}
-
-.card strong{
-
-  display:block;
-
-  font-size:25px;
-
-  color:#287a32;
-
-  margin-top:6px;
+  margin:12px 0;
 
 }
+
+.result .name{
+
+  color:#58635a;
+
+  font-size:16px;
+
+}
+
+.result .value{
+
+  color:#3f7f3f;
+
+  font-size:30px;
+
+  font-weight:800;
+
+  margin-top:5px;
+
+}
+
+.good{
+
+  background:#eef8ee;
+
+  border-color:#b9d9b9;
+
+}
+
+.warn{
+
+  background:#fff7e5;
+
+  border-color:#e6c978;
+
+}
+
+.danger{
+
+  background:#fff0ef;
+
+  border-color:#e4aaa5;
+
+}
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  margin-top:12px;
+
+}
+
+th,td{
+
+  padding:10px 7px;
+
+  border-bottom:1px solid #e2e7e2;
+
+  text-align:left;
+
+}
+
+th{font-size:14px}
+
+td{font-size:14px}
 
 .note{
 
-  margin-top:20px;
-
-  padding:18px;
-
-  background:#fff7e6;
-
-  border:1px solid #e5c879;
-
-  border-radius:14px;
+  color:#5e685f;
 
   line-height:1.5;
 
 }
 
-.small{
+.footer{
+
+  text-align:center;
+
+  color:#788078;
 
   font-size:13px;
 
-  color:#657065;
+  padding:20px;
 
 }
 
-@media(max-width:700px){
+@media(max-width:650px){
 
-  .grid,
+  .grid{grid-template-columns:1fr}
 
-  .cards{
-
-    grid-template-columns:1fr;
-
-  }
-
-  .hero{
-
-    padding:24px 18px;
-
-  }
+  h1{font-size:31px}
 
 }
 
@@ -268,75 +284,43 @@ button{
 
 <body>
 
-<main class="wrap">
+<header>
 
-<div class="brand">💧 Finca<span>SinRed</span></div>
+  <div class="logo">💧 Finca<span>SinRed</span></div>
 
-<section class="hero">
+  <div class="subtitle">Calculadora rural de agua, bombeo y energía solar</div>
 
-<div class="badge">VERSIÓN 8.0 · CALCULADORA RURAL</div>
+</header>
 
-<h1>
+<main>
 
-Calcula la instalación de agua de tu finca.
+<div class="card">
 
-</h1>
+<h1>Calcula tu instalación de agua</h1>
 
-<p>
+<p class="note">
 
-Introduce los datos básicos de tu instalación y FincaSinRed
+Dimensiona de forma orientativa el caudal, las pérdidas de carga,
 
-realizará una primera estimación hidráulica y energética.
+la altura manométrica, la potencia de bomba y la energía solar necesaria.
 
 </p>
 
-<h2>Datos de la instalación</h2>
-
-<div class="grid">
-
-<div class="field">
-
-<label for="distancia">Distancia de tubería (metros)</label>
-
-<input id="distancia" type="number" min="1" value="100">
-
 </div>
 
-<div class="field">
+<div class="card">
 
-<label for="desnivel">Desnivel vertical (metros)</label>
+<h2>📍 Datos de la finca</h2>
 
-<input id="desnivel" type="number" min="0" value="20">
+<label>Longitud de tubería principal (m)</label>
 
-</div>
+<input id="distancia" type="number" value="60" min="1">
 
-<div class="field">
+<label>Desnivel vertical (m)</label>
 
-<label for="agua">Agua necesaria al día (litros)</label>
+<input id="desnivel" type="number" value="5" min="0">
 
-<input id="agua" type="number" min="1" value="1000">
-
-</div>
-
-<div class="field">
-
-<label for="horas">Horas de funcionamiento al día</label>
-
-<input id="horas" type="number" min="0.5" step="0.5" value="4">
-
-</div>
-
-<div class="field">
-
-<label for="deposito">Capacidad del depósito (litros)</label>
-
-<input id="deposito" type="number" min="1" value="1000">
-
-</div>
-
-<div class="field">
-
-<label for="diametro">Diámetro interior de tubería (mm)</label>
+<label>Diámetro interior de la tubería (mm)</label>
 
 <select id="diametro">
 
@@ -354,355 +338,545 @@ realizará una primera estimación hidráulica y energética.
 
 </select>
 
+<label>Longitud adicional de ramales (m)</label>
+
+<input id="ramales" type="number" value="30" min="0">
+
+<label>Número de ramales</label>
+
+<input id="nramales" type="number" value="5" min="1">
+
+<label>Número de puntos de riego</label>
+
+<input id="puntos" type="number" value="30" min="1">
+
+<label>Caudal de cada punto (L/h)</label>
+
+<input id="gotero" type="number" value="4" min="0.1">
+
+<small>
+
+Si utilizas goteros diferentes, introduce el caudal real de uno.
+
+</small>
+
 </div>
 
-<div class="field">
+<div class="card">
 
-<label for="sol">Horas solares equivalentes/día</label>
+<h2>💧 Necesidad de agua</h2>
 
-<input id="sol" type="number" min="1" step="0.5" value="4">
+<label>Agua necesaria al día (L)</label>
+
+<input id="agua" type="number" value="3000" min="1">
+
+<label>Horas de funcionamiento de la bomba al día</label>
+
+<input id="horas" type="number" value="2" min="0.1" step="0.1">
+
+<label>Presión necesaria en el punto de riego (bar)</label>
+
+<input id="presion" type="number" value="1" min="0" step="0.1">
+
+<small>
+
+1 bar ≈ 10,2 metros de columna de agua.
+
+</small>
 
 </div>
 
-<div class="field">
+<div class="card">
 
-<label for="eficiencia">Rendimiento aproximado bomba</label>
+<h2>☀️ Energía</h2>
 
-<select id="eficiencia">
+<label>Horas solares útiles al día</label>
 
-<option value="0.45">45 %</option>
+<input id="sol" type="number" value="5" min="1" step="0.1">
 
-<option value="0.55" selected>55 %</option>
+<label>Rendimiento global bomba + sistema (%)</label>
 
-<option value="0.65">65 %</option>
+<input id="rendimiento" type="number" value="55" min="10" max="95">
 
-<option value="0.75">75 %</option>
+<label>¿Quieres batería?</label>
+
+<select id="bateria">
+
+<option value="no">No, bombeo directamente con solar</option>
+
+<option value="si">Sí, quiero acumulación</option>
 
 </select>
 
-</div>
+<button onclick="calcular()">CALCULAR INSTALACIÓN</button>
 
 </div>
 
-<button onclick="calcular()">
-
-CALCULAR INSTALACIÓN
-
-</button>
-
-<div id="resultado" class="result">
-
-<h2>Resultado estimado</h2>
-
-<div class="cards">
+<div id="resultado"></div>
 
 <div class="card">
 
-Caudal necesario
+<h2>⚠️ Importante</h2>
 
-<strong id="caudal">-</strong>
+<p class="note">
 
-</div>
+Los resultados son orientativos. La selección definitiva de una bomba
 
-<div class="card">
+debe comprobarse con su curva real de caudal y altura manométrica,
 
-Pérdida en tubería
+además de las pérdidas de accesorios, filtros, válvulas, codos,
 
-<strong id="perdida">-</strong>
-
-</div>
-
-<div class="card">
-
-Altura total de bombeo
-
-<strong id="hmt">-</strong>
-
-</div>
-
-<div class="card">
-
-Potencia hidráulica estimada
-
-<strong id="potencia">-</strong>
-
-</div>
-
-<div class="card">
-
-Energía diaria aproximada
-
-<strong id="energia">-</strong>
-
-</div>
-
-<div class="card">
-
-Solar orientativa
-
-<strong id="solar">-</strong>
-
-</div>
-
-</div>
-
-<div class="note" id="mensaje"></div>
-
-<p class="small">
-
-Los resultados son orientativos. El dimensionamiento definitivo
-
-debe comprobar la curva real de la bomba, las características
-
-de la tubería, accesorios, fuente de agua y condiciones reales
-
-de funcionamiento.
+goteros y características reales de la instalación.
 
 </p>
 
 </div>
 
-</section>
-
 </main>
+
+<div class="footer">
+
+FincaSinRed · Calculadora rural · Versión 9.0
+
+</div>
 
 <script>
 
+function num(id){
+
+  return parseFloat(document.getElementById(id).value) || 0;
+
+}
+
+function hazenWilliams(L,Q,d,C=140){
+
+  if(Q<=0 || d<=0 || L<=0) return 0;
+
+  // Q en m3/s, d en metros
+
+  return 10.67 * L * Math.pow(Q,1.852) /
+
+         (Math.pow(C,1.852) * Math.pow(d,4.87));
+
+}
+
+function fmt(n,dec=1){
+
+  return Number(n).toLocaleString("es-ES",{
+
+    minimumFractionDigits:dec,
+
+    maximumFractionDigits:dec
+
+  });
+
+}
+
 function calcular(){
 
-const distancia =
+  const distancia=num("distancia");
 
-Number(document.getElementById("distancia").value);
+  const desnivel=num("desnivel");
 
-const desnivel =
+  const diametro=num("diametro");
 
-Number(document.getElementById("desnivel").value);
+  const ramales=num("ramales");
 
-const agua =
+  const nramales=num("nramales");
 
-Number(document.getElementById("agua").value);
+  const puntos=num("puntos");
 
-const horas =
+  const gotero=num("gotero");
 
-Number(document.getElementById("horas").value);
+  const agua=num("agua");
 
-const deposito =
+  const horas=num("horas");
 
-Number(document.getElementById("deposito").value);
+  const presion=num("presion");
 
-const diametro =
+  const sol=num("sol");
 
-Number(document.getElementById("diametro").value);
+  const rendimiento=num("rendimiento");
 
-const sol =
+  const usarBateria=document.getElementById("bateria").value==="si";
 
-Number(document.getElementById("sol").value);
+  // Caudal necesario por volumen diario
 
-const eficiencia =
+  const caudalVolumen=agua/horas;
 
-Number(document.getElementById("eficiencia").value);
+  // Caudal teórico de todos los puntos
 
-if(
+  const caudalRiego=puntos*gotero;
 
-distancia<=0 ||
+  // Tomamos el mayor para no infradimensionar el caudal
 
-agua<=0 ||
+  const caudalNecesario=Math.max(caudalVolumen,caudalRiego);
 
-horas<=0 ||
+  // Caudal con margen de seguridad del 30%
 
-deposito<=0 ||
+  const caudalRecomendado=caudalNecesario*1.30;
 
-diametro<=0 ||
+  // Conversión
 
-sol<=0
+  const Q=caudalNecesario/3600000;
 
-){
+  const d=diametro/1000;
 
-alert("Revisa los datos introducidos.");
+  // Pérdida en tubería principal
 
-return;
+  const perdidaPrincipal=hazenWilliams(distancia,Q,d);
 
-}
+  // Pérdida orientativa de ramales
 
-/*
+  const perdidaRamales=hazenWilliams(
 
-Caudal necesario:
+    Math.max(0,ramales),
 
-litros diarios / horas de funcionamiento.
+    Q/Math.max(1,nramales),
 
-*/
+    Math.max(0.012,d*0.65)
 
-const litrosHora = agua / horas;
+  );
 
-const litrosMinuto = litrosHora / 60;
+  // Accesorios: margen orientativo del 10%
 
-const caudalM3s =
+  const perdidasAccesorios=(perdidaPrincipal+perdidaRamales)*0.10;
 
-litrosHora / 3600000;
+  const perdidaTotalTuberia=
 
-/*
+    perdidaPrincipal+perdidaRamales+perdidasAccesorios;
 
-Hazen-Williams.
+  // Presión en metros
 
-C=140 representa de forma aproximada
+  const presionMCA=presion*10.2;
 
-una tubería plástica nueva.
+  // Altura manométrica total
 
-El resultado es una estimación.
+  const alturaTotal=
 
-*/
+    desnivel+
 
-const C = 140;
+    perdidaTotalTuberia+
 
-const d = diametro / 1000;
+    presionMCA;
 
-let perdida =
+  // Margen adicional para selección de bomba
 
-10.67 *
+  const alturaRecomendada=alturaTotal*1.20;
 
-distancia *
+  // Potencia hidráulica
 
-Math.pow(caudalM3s,1.852) /
+  const potenciaHidraulica=
 
-(
+    1000*9.81*Q*alturaTotal;
 
-Math.pow(C,1.852) *
+  // Potencia eléctrica aproximada
 
-Math.pow(d,4.87)
+  const eta=Math.max(0.1,rendimiento/100);
 
-);
+  const potenciaElectrica=potenciaHidraulica/eta;
 
-/*
+  // Energía diaria
 
-Añadimos un 20% aproximado
+  const energiaDiaria=
 
-para accesorios y pérdidas adicionales.
+    (potenciaElectrica*horas)/1000;
 
-*/
+  // Panel solar con 25% de margen
 
-perdida = perdida * 1.20;
+  const panelSolar=
 
-const hmt = desnivel + perdida;
+    energiaDiaria/Math.max(1,sol)*1.25;
 
-/*
+  // Recomendación comercial orientativa
 
-Potencia hidráulica:
+  const bombaW=Math.max(100,potenciaElectrica*1.35);
 
-P = rho*g*Q*H
+  // Caudal recomendado en m3/h
 
-Después corregimos por rendimiento.
+  const caudalRecM3=caudalRecomendado/1000;
 
-*/
+  // Batería aproximada si se utiliza acumulación
 
-const rho = 1000;
+  const bateriaWh=
 
-const g = 9.81;
+    usarBateria ?
 
-const potenciaKW =
+    potenciaElectrica*horas*1.25 : 0;
 
-(rho * g * caudalM3s * hmt) /
+  // Comparativa de diámetros
 
-(1000 * eficiencia);
+  const diametros=[20,25,32,40,50,63];
 
-const energiaKWh =
+  let filas="";
 
-potenciaKW * horas;
+  diametros.forEach(x=>{
 
-/*
+    const perdida=hazenWilliams(distancia,Q,x/1000);
 
-Estimación solar.
+    const total=desnivel+perdida+presionMCA;
 
-Añadimos margen del 25%.
+    filas += `
 
-*/
+      <tr>
 
-const solarKW =
+        <td>${x} mm</td>
 
-energiaKWh /
+        <td>${fmt(perdida,2)} m</td>
 
-sol *
+        <td>${fmt(total,1)} m.c.a.</td>
 
-1.25;
+      </tr>`;
 
-const solarW =
+  });
 
-solarKW * 1000;
+  let estado="good";
 
-/*
+  let mensaje="La instalación parece razonable como primera estimación.";
 
-Resultados
+  if(diametro<=20 && caudalNecesario>1000){
 
-*/
+    estado="warn";
 
-document.getElementById("caudal").textContent =
+    mensaje="El diámetro elegido puede generar pérdidas elevadas para este caudal. Valora una tubería mayor.";
 
-Math.round(litrosHora) + " L/h";
+  }
 
-document.getElementById("perdida").textContent =
+  if(alturaTotal>50){
 
-perdida.toFixed(1) + " m";
+    estado="warn";
 
-document.getElementById("hmt").textContent =
+    mensaje="La altura manométrica es elevada. Hay que comprobar cuidadosamente la curva de la bomba.";
 
-hmt.toFixed(1) + " m.c.a.";
+  }
 
-document.getElementById("potencia").textContent =
+  if(caudalNecesario<=0 || alturaTotal<=0){
 
-Math.round(potenciaKW * 1000) + " W";
+    estado="danger";
 
-document.getElementById("energia").textContent =
+    mensaje="Revisa los datos introducidos.";
 
-energiaKWh.toFixed(2) + " kWh/día";
+  }
 
-document.getElementById("solar").textContent =
+  document.getElementById("resultado").innerHTML=`
 
-Math.ceil(solarW / 50) * 50 + " Wp aprox.";
+  <div class="card">
 
-let mensaje = "";
+    <h2>📊 Resultado estimado</h2>
 
-if(diametro <= 20 && distancia > 50){
+    <div class="result">
 
-mensaje +=
+      <div class="name">Caudal necesario</div>
 
-"⚠️ La distancia es elevada para este diámetro. ";
+      <div class="value">${fmt(caudalNecesario,0)} L/h</div>
 
-}
+    </div>
 
-if(perdida > desnivel){
+    <div class="result good">
 
-mensaje +=
+      <div class="name">Caudal recomendado con 30% de margen</div>
 
-"⚠️ Las pérdidas de tubería son importantes frente al desnivel. ";
+      <div class="value">${fmt(caudalRecomendado,0)} L/h</div>
 
-}
+    </div>
 
-if(perdida < desnivel * 0.5){
+    <div class="result">
 
-mensaje +=
+      <div class="name">Pérdida principal de tubería</div>
 
-"✅ Las pérdidas de tubería parecen moderadas frente al desnivel. ";
+      <div class="value">${fmt(perdidaPrincipal,2)} m</div>
 
-}
+    </div>
 
-if(deposito < agua){
+    <div class="result">
 
-mensaje +=
+      <div class="name">Pérdidas estimadas totales</div>
 
-"ℹ️ El depósito tiene menos capacidad que el consumo diario indicado. ";
+      <div class="value">${fmt(perdidaTotalTuberia,2)} m</div>
 
-}
+    </div>
 
-mensaje +=
+    <div class="result">
 
-"<br><br><b>Importante:</b> la bomba debe comprobarse mediante su curva de rendimiento para confirmar que proporciona el caudal necesario a la altura total calculada.";
+      <div class="name">Altura manométrica total</div>
 
-document.getElementById("mensaje").innerHTML =
+      <div class="value">${fmt(alturaTotal,1)} m.c.a.</div>
 
-mensaje;
+    </div>
 
-document.getElementById("resultado").style.display =
+    <div class="result good">
 
-"block";
+      <div class="name">Altura recomendada para buscar bomba</div>
+
+      <div class="value">${fmt(alturaRecomendada,1)} m.c.a.</div>
+
+    </div>
+
+    <div class="result">
+
+      <div class="name">Potencia hidráulica teórica</div>
+
+      <div class="value">${fmt(potenciaHidraulica,0)} W</div>
+
+    </div>
+
+    <div class="result">
+
+      <div class="name">Potencia eléctrica estimada</div>
+
+      <div class="value">${fmt(potenciaElectrica,0)} W</div>
+
+    </div>
+
+    <div class="result good">
+
+      <div class="name">Rango orientativo de bomba</div>
+
+      <div class="value">
+
+        ≥ ${fmt(bombaW,0)} W
+
+      </div>
+
+      <p class="note">
+
+        Buscar una bomba que entregue aproximadamente
+
+        <strong>${fmt(caudalRecM3,2)} m³/h</strong>
+
+        a unos <strong>${fmt(alturaRecomendada,1)} m.c.a.</strong>
+
+      </p>
+
+    </div>
+
+    <div class="result">
+
+      <div class="name">Energía diaria aproximada</div>
+
+      <div class="value">${fmt(energiaDiaria,2)} kWh/día</div>
+
+    </div>
+
+    <div class="result good">
+
+      <div class="name">Panel solar orientativo</div>
+
+      <div class="value">${fmt(panelSolar,0)} Wp</div>
+
+    </div>
+
+    ${
+
+      usarBateria ?
+
+      `<div class="result">
+
+        <div class="name">Batería orientativa</div>
+
+        <div class="value">${fmt(bateriaWh,0)} Wh</div>
+
+        <p class="note">
+
+        Es una estimación energética, no sustituye el cálculo de
+
+        batería según tensión, profundidad de descarga y autonomía.
+
+        </p>
+
+      </div>` : ""
+
+    }
+
+  </div>
+
+  <div class="card">
+
+    <h2>🔧 Comparación de diámetros</h2>
+
+    <p class="note">
+
+      Comparación aproximada manteniendo el mismo caudal.
+
+    </p>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Diámetro</th>
+
+          <th>Pérdida</th>
+
+          <th>Altura total</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        ${filas}
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+  <div class="card ${estado}">
+
+    <h2>💡 Diagnóstico</h2>
+
+    <p class="note">${mensaje}</p>
+
+  </div>
+
+  <div class="card">
+
+    <h2>🛒 Qué buscar al comprar la bomba</h2>
+
+    <p class="note">
+
+      No te fijes solamente en los vatios.
+
+      Lo importante es que la bomba consiga simultáneamente:
+
+    </p>
+
+    <ul>
+
+      <li><strong>Caudal:</strong> al menos ${fmt(caudalRecM3,2)} m³/h</li>
+
+      <li><strong>Altura:</strong> aproximadamente ${fmt(alturaRecomendada,1)} m.c.a.</li>
+
+      <li><strong>Potencia:</strong> alrededor de ${fmt(bombaW,0)} W o superior</li>
+
+    </ul>
+
+    <p class="note">
+
+      Antes de comprar, hay que comprobar la curva del fabricante:
+
+      una bomba puede anunciar muchos L/h pero entregar mucho menos
+
+      caudal cuando trabaja a determinada altura.
+
+    </p>
+
+  </div>
+
+  `;
+
+  window.scrollTo({
+
+    top:document.getElementById("resultado").offsetTop-10,
+
+    behavior:"smooth"
+
+  });
 
 }
 
