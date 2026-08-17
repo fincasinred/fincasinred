@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+
+    <!DOCTYPE html>
 
 <html lang="es">
 
@@ -12,271 +13,247 @@
 
 <style>
 
-* {
+*{
 
-  box-sizing: border-box;
-
-}
-
-body {
-
-  margin: 0;
-
-  background: #f5f8f4;
-
-  color: #172018;
-
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  box-sizing:border-box;
 
 }
 
-.wrap {
+body{
 
-  max-width: 980px;
+  margin:0;
 
-  margin: auto;
+  background:#f5f8f4;
 
-  padding: 30px 20px 60px;
+  color:#172018;
 
-}
-
-.brand {
-
-  font-size: 24px;
-
-  font-weight: 800;
-
-  color: #287a32;
-
-  margin-bottom: 25px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
 
 }
 
-.card {
+.wrap{
 
-  background: white;
+  max-width:900px;
 
-  border: 1px solid #dfe7df;
+  margin:auto;
 
-  border-radius: 22px;
-
-  padding: 30px;
-
-  box-shadow: 0 8px 30px rgba(0,0,0,.05);
+  padding:30px 18px 60px;
 
 }
 
-h1 {
+.brand{
 
-  font-size: clamp(42px, 7vw, 72px);
+  font-size:26px;
 
-  line-height: .95;
+  font-weight:800;
 
-  margin: 15px 0 25px;
-
-}
-
-h2 {
-
-  margin-top: 0;
-
-  font-size: 30px;
+  margin-bottom:25px;
 
 }
 
-p {
+.brand span{
 
-  font-size: 18px;
-
-  line-height: 1.55;
+  color:#287a32;
 
 }
 
-.intro {
+.hero{
 
-  max-width: 700px;
+  background:white;
 
-}
+  border-radius:22px;
 
-.btn {
+  padding:30px 24px;
 
-  display: inline-block;
-
-  border: 0;
-
-  border-radius: 12px;
-
-  padding: 16px 24px;
-
-  background: #287a32;
-
-  color: white;
-
-  font-size: 17px;
-
-  font-weight: 700;
-
-  text-decoration: none;
-
-  cursor: pointer;
-
-  margin-top: 15px;
+  box-shadow:0 3px 15px rgba(0,0,0,.06);
 
 }
 
-.btn:hover {
+.badge{
 
-  background: #216429;
+  color:#287a32;
 
-}
+  font-weight:800;
 
-.steps {
-
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 16px;
-
-  margin-top: 35px;
+  font-size:15px;
 
 }
 
-.step {
+h1{
 
-  background: #f5f8f4;
+  font-size:clamp(40px,8vw,72px);
 
-  border-radius: 16px;
+  line-height:.98;
 
-  padding: 24px;
-
-  border: 1px solid #e2e9e1;
+  margin:18px 0;
 
 }
 
-.step-number {
+h2{
 
-  display: block;
-
-  color: #287a32;
-
-  font-size: 18px;
-
-  font-weight: 800;
-
-  margin-bottom: 8px;
+  margin-top:0;
 
 }
 
-.step-title {
+p{
 
-  font-size: 21px;
+  font-size:17px;
 
-  font-weight: 600;
-
-}
-
-.form-section {
-
-  margin-top: 35px;
-
-  padding-top: 30px;
-
-  border-top: 1px solid #e0e6df;
+  line-height:1.55;
 
 }
 
-label {
+.grid{
 
-  display: block;
+  display:grid;
 
-  font-weight: 700;
+  grid-template-columns:1fr 1fr;
 
-  margin: 18px 0 8px;
+  gap:15px;
 
-}
-
-input,
-
-select {
-
-  width: 100%;
-
-  padding: 15px;
-
-  border: 1px solid #cbd5ca;
-
-  border-radius: 10px;
-
-  font-size: 17px;
-
-  background: white;
+  margin-top:25px;
 
 }
 
-.result {
+.field{
 
-  display: none;
+  background:#f5f8f4;
 
-  margin-top: 30px;
+  padding:17px;
 
-  padding: 24px;
-
-  border-radius: 16px;
-
-  background: #eef7ed;
-
-  border: 1px solid #c8dfc5;
+  border-radius:15px;
 
 }
 
-.result strong {
+label{
 
-  color: #287a32;
+  display:block;
 
-}
+  font-weight:700;
 
-.note {
-
-  margin-top: 30px;
-
-  padding: 20px;
-
-  background: #fff7e6;
-
-  border: 1px solid #efd38d;
-
-  border-radius: 15px;
+  margin-bottom:8px;
 
 }
 
-footer {
+input,select{
 
-  text-align: center;
+  width:100%;
 
-  margin-top: 30px;
+  padding:14px;
 
-  color: #687268;
+  border:1px solid #ccd5cc;
+
+  border-radius:10px;
+
+  background:white;
+
+  font-size:16px;
 
 }
 
-@media (max-width: 700px) {
+button{
 
-  .wrap {
+  width:100%;
 
-    padding: 20px 15px 40px;
+  border:0;
+
+  border-radius:13px;
+
+  padding:17px;
+
+  margin-top:20px;
+
+  background:#287a32;
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:800;
+
+  cursor:pointer;
+
+}
+
+.result{
+
+  display:none;
+
+  margin-top:25px;
+
+}
+
+.cards{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:14px;
+
+}
+
+.card{
+
+  background:white;
+
+  border:1px solid #dfe7df;
+
+  border-radius:15px;
+
+  padding:18px;
+
+}
+
+.card strong{
+
+  display:block;
+
+  font-size:25px;
+
+  color:#287a32;
+
+  margin-top:6px;
+
+}
+
+.note{
+
+  margin-top:20px;
+
+  padding:18px;
+
+  background:#fff7e6;
+
+  border:1px solid #e5c879;
+
+  border-radius:14px;
+
+  line-height:1.5;
+
+}
+
+.small{
+
+  font-size:13px;
+
+  color:#657065;
+
+}
+
+@media(max-width:700px){
+
+  .grid,
+
+  .cards{
+
+    grid-template-columns:1fr;
 
   }
 
-  .card {
+  .hero{
 
-    padding: 22px;
-
-  }
-
-  .steps {
-
-    grid-template-columns: 1fr;
+    padding:24px 18px;
 
   }
 
@@ -290,339 +267,439 @@ footer {
 
 <main class="wrap">
 
-  <div class="brand">💧 Finca<span style="color:#172018">SinRed</span></div>
+<div class="brand">💧 Finca<span>SinRed</span></div>
 
-  <section class="card">
+<section class="hero">
 
-    <div class="intro">
+<div class="badge">VERSIÓN 8.0 · CALCULADORA RURAL</div>
 
-      <div style="color:#287a32;font-weight:800;">
+<h1>
 
-        VERSIÓN 7.0 · CALCULADORA RURAL
+Calcula la instalación de agua de tu finca.
 
-      </div>
+</h1>
 
-      <h1>
+<p>
 
-        Calcula la instalación de agua de tu finca.
+Introduce los datos básicos de tu instalación y FincaSinRed
 
-      </h1>
+realizará una primera estimación hidráulica y energética.
 
-      <p>
+</p>
 
-        FincaSinRed te ayuda a dimensionar una instalación de agua
+<h2>Datos de la instalación</h2>
 
-        para una finca rural: ubicación, energía solar, bomba,
+<div class="grid">
 
-        hidráulica y almacenamiento.
+<div class="field">
 
-      </p>
+<label for="distancia">Distancia de tubería (metros)</label>
 
-      <button class="btn" onclick="mostrarCalculadora()">
+<input id="distancia" type="number" min="1" value="100">
 
-        EMPEZAR CÁLCULO
+</div>
 
-      </button>
+<div class="field">
 
-    </div>
+<label for="desnivel">Desnivel vertical (metros)</label>
 
-    <div class="steps">
+<input id="desnivel" type="number" min="0" value="20">
 
-      <div class="step">
+</div>
 
-        <span class="step-number">01</span>
+<div class="field">
 
-        <span class="step-title">📍 Ubicación</span>
+<label for="agua">Agua necesaria al día (litros)</label>
 
-      </div>
+<input id="agua" type="number" min="1" value="1000">
 
-      <div class="step">
+</div>
 
-        <span class="step-number">02</span>
+<div class="field">
 
-        <span class="step-title">☀️ Solar</span>
+<label for="horas">Horas de funcionamiento al día</label>
 
-      </div>
+<input id="horas" type="number" min="0.5" step="0.5" value="4">
 
-      <div class="step">
+</div>
 
-        <span class="step-number">03</span>
+<div class="field">
 
-        <span class="step-title">💧 Bomba</span>
+<label for="deposito">Capacidad del depósito (litros)</label>
 
-      </div>
+<input id="deposito" type="number" min="1" value="1000">
 
-      <div class="step">
+</div>
 
-        <span class="step-number">04</span>
+<div class="field">
 
-        <span class="step-title">🛢️ Depósito</span>
+<label for="diametro">Diámetro interior de tubería (mm)</label>
 
-      </div>
+<select id="diametro">
 
-      <div class="step">
+<option value="20">20 mm</option>
 
-        <span class="step-number">05</span>
+<option value="25" selected>25 mm</option>
 
-        <span class="step-title">📄 Informe</span>
+<option value="32">32 mm</option>
 
-      </div>
+<option value="40">40 mm</option>
 
-    </div>
+<option value="50">50 mm</option>
 
-    <section id="calculadora" class="form-section" style="display:none;">
+<option value="63">63 mm</option>
 
-      <h2>Datos de tu finca</h2>
+</select>
 
-      <p>
+</div>
 
-        Introduce algunos datos básicos y FincaSinRed calculará
+<div class="field">
 
-        una primera estimación.
+<label for="sol">Horas solares equivalentes/día</label>
 
-      </p>
+<input id="sol" type="number" min="1" step="0.5" value="4">
 
-      <label for="distancia">
+</div>
 
-        Distancia desde el agua hasta la finca (metros)
+<div class="field">
 
-      </label>
+<label for="eficiencia">Rendimiento aproximado bomba</label>
 
-      <input
+<select id="eficiencia">
 
-        id="distancia"
+<option value="0.45">45 %</option>
 
-        type="number"
+<option value="0.55" selected>55 %</option>
 
-        min="0"
+<option value="0.65">65 %</option>
 
-        placeholder="Ejemplo: 100"
+<option value="0.75">75 %</option>
 
-      >
+</select>
 
-      <label for="altura">
+</div>
 
-        Desnivel que debe superar el agua (metros)
+</div>
 
-      </label>
+<button onclick="calcular()">
 
-      <input
+CALCULAR INSTALACIÓN
 
-        id="altura"
+</button>
 
-        type="number"
+<div id="resultado" class="result">
 
-        min="0"
+<h2>Resultado estimado</h2>
 
-        placeholder="Ejemplo: 20"
+<div class="cards">
 
-      >
+<div class="card">
 
-      <label for="litros">
+Caudal necesario
 
-        Agua necesaria al día (litros)
+<strong id="caudal">-</strong>
 
-      </label>
+</div>
 
-      <input
+<div class="card">
 
-        id="litros"
+Pérdida en tubería
 
-        type="number"
+<strong id="perdida">-</strong>
 
-        min="0"
+</div>
 
-        placeholder="Ejemplo: 1000"
+<div class="card">
 
-      >
+Altura total de bombeo
 
-      <label for="deposito">
+<strong id="hmt">-</strong>
 
-        Capacidad del depósito (litros)
+</div>
 
-      </label>
+<div class="card">
 
-      <input
+Potencia hidráulica estimada
 
-        id="deposito"
+<strong id="potencia">-</strong>
 
-        type="number"
+</div>
 
-        min="0"
+<div class="card">
 
-        placeholder="Ejemplo: 1000"
+Energía diaria aproximada
 
-      >
+<strong id="energia">-</strong>
 
-      <button class="btn" onclick="calcular()">
+</div>
 
-        CALCULAR INSTALACIÓN
+<div class="card">
 
-      </button>
+Solar orientativa
 
-      <div id="resultado" class="result">
+<strong id="solar">-</strong>
 
-        <h2>Resultado inicial</h2>
+</div>
 
-        <p>
+</div>
 
-          <strong>Distancia:</strong>
+<div class="note" id="mensaje"></div>
 
-          <span id="rDistancia"></span> m
+<p class="small">
 
-        </p>
+Los resultados son orientativos. El dimensionamiento definitivo
 
-        <p>
+debe comprobar la curva real de la bomba, las características
 
-          <strong>Desnivel:</strong>
+de la tubería, accesorios, fuente de agua y condiciones reales
 
-          <span id="rAltura"></span> m
+de funcionamiento.
 
-        </p>
+</p>
 
-        <p>
+</div>
 
-          <strong>Consumo diario:</strong>
-
-          <span id="rLitros"></span> litros
-
-        </p>
-
-        <p>
-
-          <strong>Depósito:</strong>
-
-          <span id="rDeposito"></span> litros
-
-        </p>
-
-        <p id="recomendacion"></p>
-
-      </div>
-
-    </section>
-
-    <div class="note">
-
-      <strong>FincaSinRed</strong><br>
-
-      Esta calculadora está en fase de desarrollo.
-
-      Los resultados iniciales sirven como orientación y
-
-      posteriormente incorporaremos los cálculos hidráulicos,
-
-      bomba, paneles solares, batería y depósito.
-
-    </div>
-
-  </section>
-
-  <footer>
-
-    FincaSinRed · Calculadora de instalaciones rurales
-
-  </footer>
+</section>
 
 </main>
 
 <script>
 
-function mostrarCalculadora() {
+function calcular(){
 
-  const calculadora = document.getElementById("calculadora");
+const distancia =
 
-  calculadora.style.display = "block";
+Number(document.getElementById("distancia").value);
 
-  calculadora.scrollIntoView({
+const desnivel =
 
-    behavior: "smooth"
+Number(document.getElementById("desnivel").value);
 
-  });
+const agua =
+
+Number(document.getElementById("agua").value);
+
+const horas =
+
+Number(document.getElementById("horas").value);
+
+const deposito =
+
+Number(document.getElementById("deposito").value);
+
+const diametro =
+
+Number(document.getElementById("diametro").value);
+
+const sol =
+
+Number(document.getElementById("sol").value);
+
+const eficiencia =
+
+Number(document.getElementById("eficiencia").value);
+
+if(
+
+distancia<=0 ||
+
+agua<=0 ||
+
+horas<=0 ||
+
+deposito<=0 ||
+
+diametro<=0 ||
+
+sol<=0
+
+){
+
+alert("Revisa los datos introducidos.");
+
+return;
 
 }
 
-function calcular() {
+/*
 
-  const distancia =
+Caudal necesario:
 
-    Number(document.getElementById("distancia").value);
+litros diarios / horas de funcionamiento.
 
-  const altura =
+*/
 
-    Number(document.getElementById("altura").value);
+const litrosHora = agua / horas;
 
-  const litros =
+const litrosMinuto = litrosHora / 60;
 
-    Number(document.getElementById("litros").value);
+const caudalM3s =
 
-  const deposito =
+litrosHora / 3600000;
 
-    Number(document.getElementById("deposito").value);
+/*
 
-  if (
+Hazen-Williams.
 
-    distancia < 0 ||
+C=140 representa de forma aproximada
 
-    altura < 0 ||
+una tubería plástica nueva.
 
-    litros <= 0 ||
+El resultado es una estimación.
 
-    deposito <= 0
+*/
 
-  ) {
+const C = 140;
 
-    alert("Introduce todos los datos correctamente.");
+const d = diametro / 1000;
 
-    return;
+let perdida =
 
-  }
+10.67 *
 
-  document.getElementById("rDistancia").textContent =
+distancia *
 
-    distancia;
+Math.pow(caudalM3s,1.852) /
 
-  document.getElementById("rAltura").textContent =
+(
 
-    altura;
+Math.pow(C,1.852) *
 
-  document.getElementById("rLitros").textContent =
+Math.pow(d,4.87)
 
-    litros.toLocaleString("es-ES");
+);
 
-  document.getElementById("rDeposito").textContent =
+/*
 
-    deposito.toLocaleString("es-ES");
+Añadimos un 20% aproximado
 
-  let recomendacion = "";
+para accesorios y pérdidas adicionales.
 
-  if (deposito >= litros * 2) {
+*/
 
-    recomendacion =
+perdida = perdida * 1.20;
 
-      "El depósito tiene una capacidad de al menos dos días de consumo.";
+const hmt = desnivel + perdida;
 
-  } else {
+/*
 
-    recomendacion =
+Potencia hidráulica:
 
-      "El depósito podría ser pequeño para disponer de una reserva amplia.";
+P = rho*g*Q*H
 
-  }
+Después corregimos por rendimiento.
 
-  document.getElementById("recomendacion").innerHTML =
+*/
 
-    "<strong>Orientación:</strong> " + recomendacion;
+const rho = 1000;
 
-  document.getElementById("resultado").style.display =
+const g = 9.81;
 
-    "block";
+const potenciaKW =
 
-  document.getElementById("resultado").scrollIntoView({
+(rho * g * caudalM3s * hmt) /
 
-    behavior: "smooth"
+(1000 * eficiencia);
 
-  });
+const energiaKWh =
+
+potenciaKW * horas;
+
+/*
+
+Estimación solar.
+
+Añadimos margen del 25%.
+
+*/
+
+const solarKW =
+
+energiaKWh /
+
+sol *
+
+1.25;
+
+const solarW =
+
+solarKW * 1000;
+
+/*
+
+Resultados
+
+*/
+
+document.getElementById("caudal").textContent =
+
+Math.round(litrosHora) + " L/h";
+
+document.getElementById("perdida").textContent =
+
+perdida.toFixed(1) + " m";
+
+document.getElementById("hmt").textContent =
+
+hmt.toFixed(1) + " m.c.a.";
+
+document.getElementById("potencia").textContent =
+
+Math.round(potenciaKW * 1000) + " W";
+
+document.getElementById("energia").textContent =
+
+energiaKWh.toFixed(2) + " kWh/día";
+
+document.getElementById("solar").textContent =
+
+Math.ceil(solarW / 50) * 50 + " Wp aprox.";
+
+let mensaje = "";
+
+if(diametro <= 20 && distancia > 50){
+
+mensaje +=
+
+"⚠️ La distancia es elevada para este diámetro. ";
+
+}
+
+if(perdida > desnivel){
+
+mensaje +=
+
+"⚠️ Las pérdidas de tubería son importantes frente al desnivel. ";
+
+}
+
+if(perdida < desnivel * 0.5){
+
+mensaje +=
+
+"✅ Las pérdidas de tubería parecen moderadas frente al desnivel. ";
+
+}
+
+if(deposito < agua){
+
+mensaje +=
+
+"ℹ️ El depósito tiene menos capacidad que el consumo diario indicado. ";
+
+}
+
+mensaje +=
+
+"<br><br><b>Importante:</b> la bomba debe comprobarse mediante su curva de rendimiento para confirmar que proporciona el caudal necesario a la altura total calculada.";
+
+document.getElementById("mensaje").innerHTML =
+
+mensaje;
+
+document.getElementById("resultado").style.display =
+
+"block";
 
 }
 
