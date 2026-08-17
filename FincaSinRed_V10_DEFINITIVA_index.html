@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="FincaSinRed: calculadora rural de agua, riego, bombeo y energía solar.">
+<title>FincaSinRed V10 Definitiva</title>
+<style>
+*{box-sizing:border-box}:root{--g:#3f7f3f;--d:#172018;--m:#626d64;--l:#d9e3d9;--bg:#f5f8f4}
+body{margin:0;background:var(--bg);color:var(--d);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header,main{max-width:980px;margin:auto}header{padding:28px 18px 12px}.logo{font-size:37px;font-weight:850;color:var(--g)}.logo b{color:var(--d)}
+.sub{color:var(--m);font-size:16px;margin-top:5px}main{padding:0 16px 50px}
+.card{background:#fff;border-radius:20px;padding:21px;margin:16px 0;box-shadow:0 2px 12px #0000000b}
+h1{font-size:35px;line-height:1.08;margin:4px 0 12px}h2{font-size:23px;margin:0 0 14px}h3{font-size:18px;margin:18px 0 8px}
+p{line-height:1.5}.muted{color:var(--m);line-height:1.5}
+label{display:block;font-weight:750;margin:16px 0 7px}input,select{width:100%;padding:14px;border:1px solid #cbd6cb;border-radius:12px;background:#fff;color:var(--d);font-size:17px}
+small{display:block;color:var(--m);line-height:1.4;margin-top:5px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{width:100%;border:0;border-radius:14px;background:var(--g);color:#fff;padding:17px;font-size:19px;font-weight:850}
+button.alt{background:#eef5ee;color:var(--g);border:1px solid #c8ddc8}.tag{display:inline-block;background:#eef5ee;color:var(--g);border-radius:999px;padding:6px 10px;margin:3px;font-weight:750}
+.result{border:1px solid var(--l);border-radius:17px;padding:16px;margin:11px 0}.name{color:#5b665d;font-size:16px}.value{color:var(--g);font-size:29px;font-weight:850;margin-top:4px}
+.good{background:#eef8ee;border-color:#b9d9b9}.warn{background:#fff7e5;border-color:#e7cc7e}.bad{background:#fff0ef;border-color:#e2aaa5}
+table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 6px;border-bottom:1px solid #e1e6e1;font-size:14px}
+.hidden{display:none}.footer{text-align:center;color:#788078;font-size:13px;padding:20px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}h1{font-size:31px}}
+</style>
+</head>
+<body>
+<header><div class="logo">💧 Finca<b>SinRed</b></div><div class="sub">Calculadora rural de agua, riego, bombeo y energía solar · V10 DEFINITIVA</div></header>
+<main>
+
+<section class="card">
+<h1>Calcula tu instalación de agua</h1>
+<p class="muted">Calcula de forma orientativa el consumo, caudal de diseño, pérdidas, altura manométrica, bomba, paneles solares y batería. La bomba definitiva siempre debe comprobarse con su curva real.</p>
+<span class="tag">💧 Agua</span><span class="tag">🚿 Riego</span><span class="tag">🧰 Bomba</span><span class="tag">☀️ Solar</span><span class="tag">🔋 Batería</span>
+</section>
+
+<section class="card"><h2>📍 1. Datos de la finca</h2>
+<div class="grid">
+<div><label>Longitud de tubería principal (m)</label><input id="L" type="number" value="60" min="0" step=".1"></div>
+<div><label>Desnivel vertical (m)</label><input id="H" type="number" value="5" min="0" step=".1"></div>
+</div>
+<label>Longitud total de ramales (m)</label><input id="LR" type="number" value="30" min="0" step=".1"><small>Suma de todos los ramales.</small>
+<label>Número de ramales</label><input id="NR" type="number" value="5" min="1">
+<label>Diámetro interior de la tubería principal</label>
+<select id="D"><option>20</option><option selected>25</option><option>32</option><option>40</option><option>50</option><option>63</option><option>75</option><option>90</option></select>
+<small>En mm. Usa el diámetro interior real cuando lo conozcas.</small>
+<label>Material de la tubería principal</label>
+<select id="C"><option value="150" selected>PE/PVC liso nuevo</option><option value="140">PE/PVC en servicio</option><option value="130">Acero nuevo</option><option value="120">Acero en servicio</option><option value="100">Tubería vieja/áspera</option></select>
+<label>Longitud equivalente adicional por accesorios (m)</label><input id="LA" type="number" value="10" min="0" step=".1">
+<small>Úsala para representar codos, válvulas y conexiones cuando no tengas sus pérdidas individuales.</small>
+</section>
+
+<section class="card"><h2>🚿 2. Riego y consumo</h2>
+<div class="grid">
+<div><label>Número total de puntos de riego</label><input id="P" type="number" value="30" min="0"></div>
+<div><label>Caudal de cada punto (L/h)</label><input id="G" type="number" value="4" min="0" step=".1"></div>
+</div>
+<label>Puntos funcionando simultáneamente</label><input id="PS" type="number" value="30" min="0"><small>Si no funcionan todos a la vez, introduce solo los que estén abiertos simultáneamente.</small>
+<div class="grid">
+<div><label>Agua necesaria al día (L)</label><input id="W" type="number" value="3000" min="0"></div>
+<div><label>Horas de funcionamiento de la bomba al día</label><input id="T" type="number" value="2" min=".1" step=".1"></div>
+</div>
+<label>Presión mínima deseada en el punto de riego (bar)</label><input id="BAR" type="number" value="1" min="0" step=".1"><small>1 bar ≈ 10,2 m.c.a.</small>
+</section>
+
+<section class="card"><h2>🧰 3. Pérdidas y ramales</h2>
+<div class="grid">
+<div><label>Pérdida del filtro (m.c.a.)</label><input id="F" type="number" value="1" min="0" step=".1"></div>
+<div><label>Otras pérdidas (m.c.a.)</label><input id="O" type="number" value="1" min="0" step=".1"></div>
+</div>
+<label>Diámetro interior de los ramales</label><select id="DR"><option>12</option><option selected>16</option><option>20</option><option>25</option><option>32</option></select>
+<label>Material de los ramales</label><select id="CR"><option value="150" selected>PE/PVC liso</option><option value="140">PE/PVC en servicio</option><option value="130">Otro</option></select>
+</section>
+
+<section class="card"><h2>⚙️ 4. Bomba</h2>
+<label>Rendimiento global bomba + motor + electrónica (%)</label><input id="EFF" type="number" value="55" min="10" max="95">
+<small>Es una estimación. Si tienes datos del fabricante, utiliza el rendimiento real.</small>
+<label>Margen de seguridad para buscar bomba (%)</label><input id="MARGIN" type="number" value="20" min="0" max="100">
+<label>Tensión de la bomba</label><select id="V"><option>12</option><option>24</option><option selected>48</option><option>230</option></select>
+</section>
+
+<section class="card"><h2>☀️ 5. Energía solar</h2>
+<div class="grid">
+<div><label>Horas solares pico útiles/día</label><input id="SUN" type="number" value="5" min="1" step=".1"></div>
+<div><label>Pérdidas del sistema solar (%)</label><input id="SP" type="number" value="20" min="0" max="70"></div>
+</div>
+<label>Potencia de cada panel disponible (Wp)</label><input id="PANEL" type="number" value="200" min="1">
+<label>Funcionamiento</label><select id="MODE" onchange="batteryToggle()"><option value="direct" selected>Solar directo</option><option value="battery">Con batería</option></select>
+</section>
+
+<section id="battery" class="card hidden"><h2>🔋 6. Batería</h2>
+<div class="grid">
+<div><label>Autonomía deseada (h)</label><input id="AUTO" type="number" value="2" min=".1" step=".1"></div>
+<div><label>Capacidad de una batería (Ah)</label><input id="AH" type="number" value="100" min="1"></div>
+</div>
+<label>Profundidad máxima de descarga (%)</label><input id="DOD" type="number" value="80" min="10" max="100">
+<label>Eficiencia batería + electrónica (%)</label><input id="BEFF" type="number" value="90" min="50" max="100">
+<label>Tensión del banco (V)</label><select id="VB"><option>12</option><option>24</option><option selected>48</option></select>
+</section>
+
+<section class="card"><button onclick="calc()">CALCULAR INSTALACIÓN</button></section>
+<div id="out"></div>
+
+<section class="card"><h2>⚠️ Importante</h2>
+<p class="muted">Los resultados son orientativos. Para comprar una bomba, el dato clave es su punto de funcionamiento: <strong>caudal a una determinada altura</strong>. No basta con mirar los L/h máximos ni los vatios anunciados. Comprueba siempre la curva del fabricante.</p>
+</section>
+</main>
+<div class="footer">FincaSinRed · V10 definitiva · Resultados orientativos</div>
+
+<script>
+const q=id=>parseFloat(document.getElementById(id).value)||0;
+const f=(x,d=1)=>Number(x).toLocaleString("es-ES",{minimumFractionDigits:d,maximumFractionDigits:d});
+const f0=x=>Number(x).toLocaleString("es-ES",{maximumFractionDigits:0});
+function batteryToggle(){document.getElementById("battery").classList.toggle("hidden",document.getElementById("MODE").value!=="battery")}
+function loss(L,Q,d,C){if(L<=0||Q<=0||d<=0)return 0;return 10.67*L*Math.pow(Q,1.852)/(Math.pow(C,1.852)*Math.pow(d,4.87))}
+function calc(){
+const L=q("L"),H=q("H"),LR=q("LR"),NR=Math.max(1,q("NR")),D=q("D"),C=q("C"),LA=q("LA");
+const P=q("P"),G=q("G"),PS=Math.min(Math.max(0,q("PS")),P),W=q("W"),T=Math.max(.1,q("T")),BAR=q("BAR");
+const F=q("F"),O=q("O"),DR=q("DR"),CR=q("CR"),eff=Math.max(.1,Math.min(.95,q("EFF")/100)),margin=Math.max(0,q("MARGIN")/100);
+const sun=Math.max(.1,q("SUN")),solarLoss=Math.min(.9,Math.max(0,q("SP")/100)),panel=Math.max(1,q("PANEL"));
+const dailyFlow=W/T, emitterFlow=PS*G, design=Math.max(dailyFlow,emitterFlow), target=design*(1+margin);
+const Q=design/3600000;
+const mainLoss=loss(L,Q,D/1000,C),accLoss=loss(LA,Q,D/1000,C);
+const ramalQ=(emitterFlow/NR)/3600000,ramalLoss=loss(LR/NR,ramalQ,DR/1000,CR);
+const pressure=BAR*10.197162,totalLoss=mainLoss+accLoss+ramalLoss+F+O,hmt=H+pressure+totalLoss,hmtSearch=hmt*(1+margin);
+const hyd=1000*9.81*Q*hmt,electric=hyd/eff,energy=electric*T/1000;
+const pv=energy/sun/(1-solarLoss),panels=Math.max(1,Math.ceil(pv/panel)),pvReal=panels*panel;
+const area=Math.PI*Math.pow(D/1000,2)/4,vel=area?Q/area:0;
+let diag="La instalación parece razonable como primera estimación.",cls="good";
+if(vel>2){diag="La velocidad en la tubería principal es alta. Aumentar el diámetro puede reducir pérdidas.";cls="warn"}
+if(vel>3){diag="La velocidad es muy alta. Revisa el diámetro antes de comprar la bomba.";cls="bad"}
+let batt="";
+if(document.getElementById("MODE").value==="battery"){
+const auto=Math.max(.1,q("AUTO")),dod=Math.max(.1,q("DOD")/100),be=Math.max(.5,q("BEFF")/100),vb=q("VB");
+const needWh=electric*auto/dod/be,needAh=needWh/vb,oneWh=q("AH")*vb*dod*be,aut=oneWh/electric;
+batt=`<div class="result good"><div class="name">Batería necesaria para la autonomía indicada</div><div class="value">${f0(needWh)} Wh · ${f0(needAh)} Ah a ${f0(vb)} V</div></div><div class="result"><div class="name">Autonomía de la batería introducida</div><div class="value">${f(aut)} h</div></div>`;
+}
+let rows="";
+[20,25,32,40,50,63,75,90].forEach(x=>{
+const l=loss(L,Q,x/1000,C)+loss(LA,Q,x/1000,C),ht=H+pressure+l+ramalLoss+F+O;
+rows+=`<tr><td>${x} mm</td><td>${f(l,2)} m</td><td>${f(ht,1)} m.c.a.</td><td>${x==D?"✓":"—"}</td></tr>`;
+});
+document.getElementById("out").innerHTML=`
+<section class="card"><h2>📊 Resultado principal</h2>
+<div class="result"><div class="name">Caudal por consumo diario</div><div class="value">${f0(dailyFlow)} L/h</div></div>
+<div class="result"><div class="name">Caudal de puntos simultáneos</div><div class="value">${f0(emitterFlow)} L/h</div></div>
+<div class="result good"><div class="name">Caudal de diseño</div><div class="value">${f0(design)} L/h</div><p class="muted">Se usa el mayor entre consumo medio durante las horas de bombeo y emisores simultáneos.</p></div>
+<div class="result good"><div class="name">Caudal recomendado para buscar bomba (+${f(margin*100,0)}%)</div><div class="value">${f0(target)} L/h · ${f(target/1000,2)} m³/h</div></div></section>
+
+<section class="card"><h2>⛰️ Altura y pérdidas</h2>
+<div class="grid">
+<div class="result"><div class="name">Pérdida tubería principal</div><div class="value">${f(mainLoss,2)} m</div></div>
+<div class="result"><div class="name">Pérdida accesorios</div><div class="value">${f(accLoss,2)} m</div></div>
+<div class="result"><div class="name">Pérdida ramales estimada</div><div class="value">${f(ramalLoss,2)} m</div></div>
+<div class="result"><div class="name">Filtro + otras</div><div class="value">${f(F+O,2)} m</div></div></div>
+<div class="result good"><div class="name">Altura manométrica total de diseño</div><div class="value">${f(hmt,1)} m.c.a.</div><p class="muted">Incluye desnivel, presión requerida y pérdidas estimadas.</p></div>
+<div class="result good"><div class="name">Altura objetivo para buscar bomba (+${f(margin*100,0)}%)</div><div class="value">${f(hmtSearch,1)} m.c.a.</div></div></section>
+
+<section class="card"><h2>🛒 Qué bomba buscar</h2>
+<div class="result good"><div class="name">Punto de trabajo orientativo</div><div class="value">${f(target/1000,2)} m³/h a ${f(hmtSearch,1)} m.c.a.</div></div>
+<div class="result"><div class="name">Potencia hidráulica teórica</div><div class="value">${f0(hyd)} W</div></div>
+<div class="result"><div class="name">Potencia eléctrica estimada</div><div class="value">${f0(electric)} W</div><p class="muted">Calculada con rendimiento global del ${f(eff*100,0)}%.</p></div>
+<p class="muted"><strong>Tensión seleccionada:</strong> ${f0(q("V"))} V. No compres una bomba solo por los vatios.</p></section>
+
+<section class="card"><h2>☀️ Energía solar</h2>
+<div class="result"><div class="name">Energía eléctrica diaria</div><div class="value">${f(energy,2)} kWh/día</div></div>
+<div class="result good"><div class="name">Potencia FV calculada</div><div class="value">${f0(pv)} Wp</div></div>
+<div class="result good"><div class="name">Paneles de ${f0(panel)} Wp</div><div class="value">${panels} · ${f0(pvReal)} Wp instalados</div></div>
+${batt}</section>
+
+<section class="card"><h2>📏 Comparación de diámetros</h2>
+<p class="muted">Se compara la tubería principal manteniendo el mismo caudal y las mismas demás pérdidas.</p>
+<table><tr><th>Diámetro</th><th>Pérdida</th><th>HMT</th><th>Actual</th></tr>${rows}</table></section>
+
+<section class="card ${cls}"><h2>💡 Diagnóstico</h2><p class="muted">${diag}</p><p class="muted"><strong>Velocidad en tubería principal:</strong> ${f(vel,2)} m/s.</p></section>
+
+<section class="card"><h2>✅ Resumen para comprar</h2>
+<ul>
+<li><strong>Bomba:</strong> ${f(target/1000,2)} m³/h a ${f(hmtSearch,1)} m.c.a.</li>
+<li><strong>Potencia eléctrica estimada:</strong> ${f0(electric)} W.</li>
+<li><strong>Solar:</strong> ${f0(pv)} Wp calculados; ${panels} panel${panels==1?"":"es"} de ${f0(panel)} Wp.</li>
+<li><strong>Tubería principal:</strong> ${f0(D)} mm interiores.</li>
+</ul>
+<p class="muted">Antes de comprar, comprueba la curva real de la bomba y los datos reales de filtro, válvulas, codos, goteros y tuberías.</p>
+</section>`;
+window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
+}
+batteryToggle();
+</script>
+</body>
+</html>
