@@ -156,7 +156,7 @@ function calcular(){
  const eta=Math.max(.1,rendimiento/100);
  const potenciaElectrica=potenciaHidraulica/eta;
  const energiaDiaria=potenciaElectrica*horas/1000;
- const panelSolar=energiaDiaria/Math.max(1,sol)*1.25;
+ const panelSolar=energiaDiaria/Math.max(1,sol)*1.25*1000;
  const bombaW=Math.max(100,potenciaElectrica*1.35);
  const caudalRecM3=caudalRecomendado/1000;
  const bateriaWh=usarBateria?potenciaElectrica*horas*1.25:0;
