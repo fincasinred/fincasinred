@@ -201,7 +201,7 @@ function calcular(){
 function r(name,value,cls=""){return `<div class="result ${cls}"><div class="name">${name}</div><div class="value">${value}</div></div>`}
 
 function prepararProyecto(){
- if(!ultimo){calcular();return}
+ if(!ultimo){calcular();}
  const x=ultimo;
  const materiales=[
   ["Tubería principal",`${fmt(x.distancia,0)} m`,x.distancia*0.80],
