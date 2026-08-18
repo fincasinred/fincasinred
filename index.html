@@ -194,7 +194,9 @@ function calcular(){
  <div class="card ${estado}"><h2>💡 Diagnóstico</h2><p class="note">${mensaje}</p></div>
  <div class="card"><h2>🛒 Qué buscar al comprar la bomba</h2><p class="note">No te fijes solamente en los vatios. La bomba debe cumplir caudal y altura simultáneamente.</p><ul><li><strong>Caudal:</strong> al menos ${fmt(caudalRecM3,2)} m³/h</li><li><strong>Altura:</strong> aproximadamente ${fmt(alturaRecomendada,1)} m.c.a.</li><li><strong>Potencia:</strong> alrededor de ${fmt(bombaW,0)} W o superior</li></ul><p class="note">Comprueba siempre la curva del fabricante.</p></div>`;
  document.getElementById("prodPuntos").textContent = puntos + " uds.";
- document.getElementById("prodPanel").textContent = fmt(panelSolar,0) + " Wp";
+ const prodPanel = document.getElementById("prodPanel");
+
+if (prodPanel) prodPanel.textContent = fmt(panelSolar,0) + " Wp";
  document.getElementById("resultado").scrollIntoView({behavior:"smooth",block:"start"});
 }
 
