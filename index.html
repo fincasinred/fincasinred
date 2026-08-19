@@ -1,310 +1,1831 @@
 <!DOCTYPE html>
+
 <html lang="es">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FincaSinRed: calculadora rural de agua, riego, bombeo y energía solar.">
-<title>FincaSinRed V10 Definitiva</title>
+
+<meta name="description" content="FincaSinRed: calcula de forma sencilla tu instalación rural de agua, riego, bombeo y energía solar.">
+
+<title>FincaSinRed — Calculadora rural</title>
+
 <style>
+
 *{box-sizing:border-box}
-:root{--g:#3f7f3f;--gd:#2d6332;--bg:#f5f8f4;--text:#172018;--muted:#5d685e;--line:#d9e4d9}
-body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--text)}
-header,main{max-width:920px;margin:auto}
-header{padding:28px 20px 16px}
-.logo{font-size:34px;font-weight:800;color:var(--g)}
-.logo span{color:var(--text)}
-.subtitle{margin-top:6px;color:var(--muted);font-size:16px}
-main{padding:0 16px 60px}
-.card{background:#fff;border-radius:20px;padding:22px;margin:16px 0;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-h1{font-size:34px;line-height:1.08;margin:10px 0 12px}
-h2{margin-top:0;font-size:23px}
-h3{font-size:18px;margin:0 0 8px}
-label{display:block;font-weight:650;margin:17px 0 7px}
-input,select{width:100%;padding:14px;border:1px solid #ccd5cc;border-radius:12px;font-size:17px;background:#fff}
-small{display:block;color:#69736b;margin-top:5px}
-button{width:100%;border:0;border-radius:14px;padding:16px;background:var(--g);color:#fff;font-size:18px;font-weight:750;margin-top:14px}
-button.secondary{background:#eef6ee;color:var(--gd);border:1px solid #bfd8bf}
-button.dark{background:#172018}
-button:active{transform:scale(.99)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.result{border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0}
-.result .name{color:#58635a;font-size:15px}
-.result .value{color:var(--g);font-size:29px;font-weight:800;margin-top:5px}
-.good{background:#eef8ee;border-color:#b9d9b9}
-.warn{background:#fff7e5;border-color:#e6c978}
-.danger{background:#fff0ef;border-color:#e4aaa5}
-.note{color:#5e685f;line-height:1.5}
-table{width:100%;border-collapse:collapse;margin-top:12px}
-th,td{padding:10px 7px;border-bottom:1px solid #e2e7e2;text-align:left;font-size:14px}
-.material{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid #e5eae5}
-.material:last-child{border-bottom:0}
-.price{font-weight:800;color:var(--g);white-space:nowrap}
-.shop{border:1px solid var(--line);border-radius:16px;padding:15px;margin:10px 0;background:#fbfdfb}
-.shop a{display:inline-block;margin-top:8px;color:var(--gd);font-weight:700;text-decoration:none}
-.badge{display:inline-block;padding:5px 9px;border-radius:999px;background:#eef6ee;color:var(--gd);font-size:12px;font-weight:700}
-.pricebox{font-size:38px;font-weight:850;color:var(--g);margin:5px 0}
-.footer{text-align:center;color:#788078;font-size:13px;padding:20px}
-.hidden{display:none}
-@media(max-width:650px){.grid{grid-template-columns:1fr}h1{font-size:31px}.material{grid-template-columns:1fr}.price{justify-self:start}}
-@media print{button,.no-print,header .subtitle{display:none!important}.card{box-shadow:none;border:1px solid #ddd;break-inside:avoid}body{background:#fff}}
+
+:root{
+
+  --green:#3f7f3f;
+
+  --darkgreen:#2d6332;
+
+  --bg:#f5f8f4;
+
+  --text:#172018;
+
+  --muted:#667067;
+
+  --line:#d9e4d9;
+
+  --white:#fff;
+
+}
+
+body{
+
+  margin:0;
+
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+}
+
+header{
+
+  max-width:920px;
+
+  margin:auto;
+
+  padding:28px 20px 14px;
+
+}
+
+.logo{
+
+  font-size:34px;
+
+  font-weight:850;
+
+  color:var(--green);
+
+}
+
+.logo span{
+
+  color:var(--text);
+
+}
+
+.subtitle{
+
+  margin-top:7px;
+
+  color:var(--muted);
+
+  font-size:16px;
+
+  line-height:1.4;
+
+}
+
+main{
+
+  max-width:920px;
+
+  margin:auto;
+
+  padding:0 16px 60px;
+
+}
+
+.card{
+
+  background:var(--white);
+
+  border-radius:22px;
+
+  padding:24px;
+
+  margin:16px 0;
+
+  box-shadow:0 3px 16px rgba(0,0,0,.06);
+
+}
+
+.hero{
+
+  background:linear-gradient(145deg,#edf7ed,#ffffff);
+
+  border:1px solid #d6e7d6;
+
+}
+
+h1{
+
+  font-size:36px;
+
+  line-height:1.08;
+
+  margin:8px 0 14px;
+
+}
+
+h2{
+
+  font-size:24px;
+
+  margin:0 0 14px;
+
+}
+
+h3{
+
+  font-size:19px;
+
+  margin:0 0 8px;
+
+}
+
+p{
+
+  line-height:1.55;
+
+}
+
+.note{
+
+  color:var(--muted);
+
+}
+
+.step{
+
+  display:flex;
+
+  align-items:flex-start;
+
+  gap:12px;
+
+  margin:15px 0;
+
+}
+
+.step-number{
+
+  min-width:32px;
+
+  height:32px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+  color:white;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:center;
+
+  font-weight:800;
+
+}
+
+label{
+
+  display:block;
+
+  font-weight:700;
+
+  margin:18px 0 7px;
+
+}
+
+input,select{
+
+  width:100%;
+
+  padding:15px;
+
+  border:1px solid #ccd6cc;
+
+  border-radius:13px;
+
+  font-size:17px;
+
+  background:white;
+
+}
+
+small{
+
+  display:block;
+
+  color:#707970;
+
+  margin-top:6px;
+
+}
+
+button{
+
+  width:100%;
+
+  border:0;
+
+  border-radius:15px;
+
+  padding:17px;
+
+  background:var(--green);
+
+  color:white;
+
+  font-size:18px;
+
+  font-weight:800;
+
+  margin-top:15px;
+
+  cursor:pointer;
+
+}
+
+button:hover{
+
+  background:var(--darkgreen);
+
+}
+
+button.secondary{
+
+  background:#edf6ed;
+
+  color:var(--darkgreen);
+
+  border:1px solid #bfd8bf;
+
+}
+
+button.dark{
+
+  background:var(--text);
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:14px;
+
+}
+
+.result{
+
+  border:1px solid var(--line);
+
+  border-radius:17px;
+
+  padding:17px;
+
+  margin:11px 0;
+
+  background:#fbfdfb;
+
+}
+
+.result .name{
+
+  color:#5d685e;
+
+  font-size:14px;
+
+}
+
+.result .value{
+
+  color:var(--green);
+
+  font-size:28px;
+
+  font-weight:850;
+
+  margin-top:5px;
+
+}
+
+.good{
+
+  background:#eef8ee;
+
+  border-color:#b9d9b9;
+
+}
+
+.warn{
+
+  background:#fff7e5;
+
+  border-color:#e6c978;
+
+}
+
+.danger{
+
+  background:#fff0ef;
+
+  border-color:#e4aaa5;
+
+}
+
+.badge{
+
+  display:inline-block;
+
+  padding:6px 11px;
+
+  border-radius:999px;
+
+  background:#eef6ee;
+
+  color:var(--darkgreen);
+
+  font-size:12px;
+
+  font-weight:800;
+
+}
+
+.price{
+
+  font-size:42px;
+
+  color:var(--green);
+
+  font-weight:900;
+
+  margin:6px 0 12px;
+
+}
+
+.material{
+
+  padding:15px 0;
+
+  border-bottom:1px solid #e5eae5;
+
+}
+
+.material:last-child{
+
+  border-bottom:0;
+
+}
+
+.material-name{
+
+  font-weight:750;
+
+}
+
+.material-qty{
+
+  color:var(--muted);
+
+  margin-top:4px;
+
+}
+
+.shop{
+
+  border:1px solid var(--line);
+
+  border-radius:16px;
+
+  padding:15px;
+
+  margin:10px 0;
+
+  background:#fbfdfb;
+
+}
+
+.shop a{
+
+  display:inline-block;
+
+  margin-top:9px;
+
+  color:var(--darkgreen);
+
+  font-weight:800;
+
+  text-decoration:none;
+
+}
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  margin-top:12px;
+
+}
+
+th,td{
+
+  padding:10px 7px;
+
+  border-bottom:1px solid #e2e7e2;
+
+  text-align:left;
+
+  font-size:14px;
+
+}
+
+.footer{
+
+  text-align:center;
+
+  color:#788078;
+
+  font-size:13px;
+
+  padding:25px;
+
+}
+
+.hidden{
+
+  display:none;
+
+}
+
+@media(max-width:650px){
+
+  .grid{
+
+    grid-template-columns:1fr;
+
+  }
+
+  h1{
+
+    font-size:31px;
+
+  }
+
+  .card{
+
+    padding:20px;
+
+  }
+
+  .price{
+
+    font-size:38px;
+
+  }
+
+}
+
+@media print{
+
+  button,
+
+  .no-print,
+
+  header .subtitle{
+
+    display:none!important;
+
+  }
+
+  .card{
+
+    box-shadow:none;
+
+    border:1px solid #ddd;
+
+    break-inside:avoid;
+
+  }
+
+  body{
+
+    background:white;
+
+  }
+
+}
+
 </style>
+
 </head>
+
 <body>
+
 <header>
-<div class="logo">💧 Finca<span>SinRed</span></div>
-<div class="subtitle">Calculadora rural de agua, riego, bombeo y energía solar</div>
+
+  <div class="logo">💧 Finca<span>SinRed</span></div>
+
+  <div class="subtitle">
+
+    Calculadora rural de agua, riego, bombeo y energía solar
+
+  </div>
+
 </header>
 
 <main>
-<div class="card">
-<h1>Calcula tu instalación de agua</h1>
-<p class="note">Calcula de forma orientativa el caudal, pérdidas de carga, altura manométrica, potencia de bomba, energía solar y una lista de materiales. Después puedes preparar un proyecto completo.</p>
+
+<!-- PRESENTACIÓN -->
+
+<div class="card hero">
+
+  <h1>Calcula tu instalación de agua</h1>
+
+  <p class="note">
+
+    Introduce los datos de tu finca y obtén una estimación sencilla
+
+    del caudal, bomba, altura de trabajo, energía solar y materiales.
+
+  </p>
+
+  <div class="step">
+
+    <div class="step-number">1</div>
+
+    <div>
+
+      <h3>Cuéntanos cómo es tu finca</h3>
+
+      <div class="note">Distancias, desnivel y tuberías.</div>
+
+    </div>
+
+  </div>
+
+  <div class="step">
+
+    <div class="step-number">2</div>
+
+    <div>
+
+      <h3>Indica el agua que necesitas</h3>
+
+      <div class="note">Riego, caudal y horas de funcionamiento.</div>
+
+    </div>
+
+  </div>
+
+  <div class="step">
+
+    <div class="step-number">3</div>
+
+    <div>
+
+      <h3>Calcula la instalación</h3>
+
+      <div class="note">Te mostramos los resultados de forma clara.</div>
+
+    </div>
+
+  </div>
+
 </div>
 
+<!-- DATOS DE LA FINCA -->
+
 <div class="card">
+
 <h2>📍 Datos de la finca</h2>
-<label>Longitud de tubería principal (m)</label><input id="distancia" type="number" value="60" min="1">
-<label>Desnivel vertical (m)</label><input id="desnivel" type="number" value="5" min="0">
+
+<label>Longitud de tubería principal (m)</label>
+
+<input id="distancia" type="number" value="60" min="1">
+
+<label>Desnivel vertical (m)</label>
+
+<input id="desnivel" type="number" value="5" min="0">
+
 <label>Diámetro interior de la tubería (mm)</label>
-<select id="diametro"><option value="20">20 mm</option><option value="25" selected>25 mm</option><option value="32">32 mm</option><option value="40">40 mm</option><option value="50">50 mm</option><option value="63">63 mm</option></select>
-<label>Longitud total de ramales (m)</label><input id="ramales" type="number" value="30" min="0">
-<label>Número de ramales</label><input id="nramales" type="number" value="5" min="1">
-<label>Número de puntos de riego</label><input id="puntos" type="number" value="30" min="1">
-<label>Caudal de cada punto (L/h)</label><input id="gotero" type="number" value="4" min="0.1">
-<small>Introduce el caudal real del gotero/emisor.</small>
+
+<select id="diametro">
+
+  <option value="20">20 mm</option>
+
+  <option value="25" selected>25 mm</option>
+
+  <option value="32">32 mm</option>
+
+  <option value="40">40 mm</option>
+
+  <option value="50">50 mm</option>
+
+  <option value="63">63 mm</option>
+
+</select>
+
+<label>Longitud total de ramales (m)</label>
+
+<input id="ramales" type="number" value="30" min="0">
+
+<label>Número de ramales</label>
+
+<input id="nramales" type="number" value="5" min="1">
+
+<label>Número de puntos de riego</label>
+
+<input id="puntos" type="number" value="30" min="1">
+
+<label>Caudal de cada punto (L/h)</label>
+
+<input id="gotero" type="number" value="4" min="0.1">
+
+<small>
+
+Introduce el caudal real del gotero o emisor.
+
+</small>
+
 </div>
 
+<!-- AGUA -->
+
 <div class="card">
+
 <h2>💧 Necesidad de agua</h2>
-<label>Agua necesaria al día (L)</label><input id="agua" type="number" value="3000" min="1">
-<label>Horas de funcionamiento de la bomba al día</label><input id="horas" type="number" value="2" min="0.1" step="0.1">
-<label>Presión necesaria en el punto de riego (bar)</label><input id="presion" type="number" value="1" min="0" step="0.1">
-<small>1 bar ≈ 10,2 m.c.a.</small>
+
+<label>Agua necesaria al día (L)</label>
+
+<input id="agua" type="number" value="3000" min="1">
+
+<label>Horas de funcionamiento de la bomba al día</label>
+
+<input id="horas" type="number" value="2" min="0.1" step="0.1">
+
+<label>Presión necesaria en el punto de riego (bar)</label>
+
+<input id="presion" type="number" value="1" min="0" step="0.1">
+
+<small>
+
+1 bar ≈ 10,2 m.c.a.
+
+</small>
+
 </div>
 
+<!-- ENERGÍA -->
+
 <div class="card">
+
 <h2>☀️ Energía</h2>
-<label>Horas solares útiles al día</label><input id="sol" type="number" value="5" min="1" step="0.1">
-<label>Rendimiento global bomba + sistema (%)</label><input id="rendimiento" type="number" value="55" min="10" max="95">
+
+<label>Horas solares útiles al día</label>
+
+<input id="sol" type="number" value="5" min="1" step="0.1">
+
+<label>Rendimiento global bomba + sistema (%)</label>
+
+<input id="rendimiento" type="number" value="55" min="10" max="95">
+
 <label>¿Quieres batería?</label>
-<select id="bateria"><option value="no">No, bombeo directamente con solar</option><option value="si">Sí, quiero acumulación</option></select>
-<button onclick="calcular()">CALCULAR INSTALACIÓN</button>
+
+<select id="bateria">
+
+  <option value="no">
+
+    No, bombeo directamente con solar
+
+  </option>
+
+  <option value="si">
+
+    Sí, quiero acumulación
+
+  </option>
+
+</select>
+
+<button onclick="calcular()">
+
+  CALCULAR INSTALACIÓN
+
+</button>
+
 </div>
+
+<!-- RESULTADO -->
 
 <div id="resultado"></div>
 
-<div class="card no-print">
-<h2>📐 Proyecto completo — 19,99 €</h2>
-<span class="badge">SERVICIO PREMIUM</span>
-<div class="pricebox">19,99 €</div>
-<p class="note">Con tus datos, FincaSinRed prepara una ficha de proyecto con los cálculos, recomendaciones, materiales, cantidades, presupuesto orientativo y criterios de compra.</p>
-<ul>
-<li>Dimensionamiento hidráulico.</li>
-<li>Caudal y altura de trabajo.</li>
-<li>Recomendación orientativa de bomba.</li>
-<li>Solar y batería.</li>
-<li>Lista de materiales y cantidades.</li>
-<li>Presupuesto orientativo.</li>
-<li>Resumen listo para imprimir o guardar como PDF.</li>
-</ul>
-<button onclick="prepararProyecto()">PREPARAR MI PROYECTO</button>
+<!-- PROYECTO -->
 
-<button type="button" onclick="window.location.href='https://buy.stripe.com/fZu14f4c79Zjao1ayxdQQ01'">COMPRAR PROYECTO — 19,99 €</button>
-<button class="secondary" onclick="window.print()">🖨️ IMPRIMIR / GUARDAR COMO PDF</button>
-<p class="note"><small>El botón de cobro queda preparado, pero no procesa pagos todavía. Para cobrar 19,99 € habrá que conectar posteriormente una pasarela de pago real.</small></p>
+<div class="card no-print">
+
+<h2>📐 Proyecto completo</h2>
+
+<span class="badge">
+
+  SERVICIO PREMIUM
+
+</span>
+
+<div class="price">
+
+  19,99 €
+
 </div>
+
+<p class="note">
+
+Con tus datos, FincaSinRed prepara una ficha de proyecto
+
+con los cálculos, recomendaciones, materiales, cantidades,
+
+presupuesto orientativo y criterios de compra.
+
+</p>
+
+<ul>
+
+  <li>Dimensionamiento hidráulico.</li>
+
+  <li>Caudal y altura de trabajo.</li>
+
+  <li>Recomendación orientativa de bomba.</li>
+
+  <li>Solar y batería.</li>
+
+  <li>Lista de materiales y cantidades.</li>
+
+  <li>Presupuesto orientativo.</li>
+
+  <li>Resumen listo para imprimir o guardar como PDF.</li>
+
+</ul>
+
+<button onclick="prepararProyecto()">
+
+  PREPARAR MI PROYECTO
+
+</button>
+
+<button
+
+  type="button"
+
+  onclick="window.location.href='https://buy.stripe.com/fZu14f4c79Zjao1ayxdQQ01'">
+
+  COMPRAR PROYECTO — 19,99 €
+
+</button>
+
+<button
+
+  class="secondary"
+
+  onclick="window.print()">
+
+  🖨️ IMPRIMIR / GUARDAR COMO PDF
+
+</button>
+
+</div>
+
+<!-- PROYECTO GENERADO -->
 
 <div id="proyecto" class="hidden"></div>
 
+<!-- GUARDAR -->
+
 <div class="card no-print">
+
 <h2>💾 Guardar instalación</h2>
-<p class="note">Guarda los datos en este dispositivo y recupéralos después.</p>
-<button class="secondary" onclick="guardarDatos()">GUARDAR DATOS</button>
-<button class="secondary" onclick="recuperarDatos()">RECUPERAR DATOS</button>
+
+<p class="note">
+
+Guarda los datos en este dispositivo y recupéralos después.
+
+</p>
+
+<button
+
+  class="secondary"
+
+  onclick="guardarDatos()">
+
+  GUARDAR DATOS
+
+</button>
+
+<button
+
+  class="secondary"
+
+  onclick="recuperarDatos()">
+
+  RECUPERAR DATOS
+
+</button>
+
 </div>
+
+<!-- AVISO -->
 
 <div class="card">
+
 <h2>⚠️ Importante</h2>
-<p class="note">Los resultados son orientativos. La selección definitiva de una bomba debe comprobarse con su curva real de caudal y altura manométrica, además de las pérdidas de filtros, válvulas, codos, accesorios y características reales de la instalación.</p>
+
+<p class="note">
+
+Los resultados son orientativos. La selección definitiva de
+
+una bomba debe comprobarse con su curva real de caudal y
+
+altura manométrica, además de las pérdidas de filtros,
+
+válvulas, codos, accesorios y características reales de
+
+la instalación.
+
+</p>
+
 </div>
+
 </main>
 
-<div class="footer">FincaSinRed · Calculadora rural · Versión 10.0 definitiva</div>
+<div class="footer">
+
+FincaSinRed · Calculadora rural
+
+</div>
 
 <script>
-function num(id){return parseFloat(document.getElementById(id).value)||0}
-function hazenWilliams(L,Q,d,C=140){
- if(Q<=0||d<=0||L<=0)return 0;
- return 10.67*L*Math.pow(Q,1.852)/(Math.pow(C,1.852)*Math.pow(d,4.87));
+
+function num(id){
+
+  return parseFloat(
+
+    document.getElementById(id).value
+
+  ) || 0;
+
 }
-function fmt(n,dec=1){return Number(n).toLocaleString("es-ES",{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+
+function hazenWilliams(L,Q,d,C=140){
+
+  if(Q<=0 || d<=0 || L<=0){
+
+    return 0;
+
+  }
+
+  return 10.67 * L *
+
+    Math.pow(Q,1.852) /
+
+    (
+
+      Math.pow(C,1.852) *
+
+      Math.pow(d,4.87)
+
+    );
+
+}
+
+function fmt(n,dec=1){
+
+  return Number(n).toLocaleString(
+
+    "es-ES",
+
+    {
+
+      minimumFractionDigits:dec,
+
+      maximumFractionDigits:dec
+
+    }
+
+  );
+
+}
+
+function resultado(nombre,valor,clase=""){
+
+  return `
+
+    <div class="result ${clase}">
+
+      <div class="name">${nombre}</div>
+
+      <div class="value">${valor}</div>
+
+    </div>
+
+  `;
+
+}
+
 let ultimo=null;
 
 function calcular(){
- const distancia=num("distancia"),desnivel=num("desnivel"),diametro=num("diametro"),ramales=num("ramales"),
- nramales=num("nramales"),puntos=num("puntos"),gotero=num("gotero"),agua=num("agua"),horas=num("horas"),
- presion=num("presion"),sol=num("sol"),rendimiento=num("rendimiento"),
- usarBateria=document.getElementById("bateria").value==="si";
- const caudalVolumen=agua/horas,caudalRiego=puntos*gotero,caudalNecesario=Math.max(caudalVolumen,caudalRiego),
- caudalRecomendado=caudalNecesario*1.30,Q=caudalNecesario/3600000,d=diametro/1000;
- const perdidaPrincipal=hazenWilliams(distancia,Q,d);
- const perdidaRamales=hazenWilliams(Math.max(0,ramales),Q/Math.max(1,nramales),Math.max(.012,d*.65));
- const perdidasAccesorios=(perdidaPrincipal+perdidaRamales)*.10;
- const perdidaTotalTuberia=perdidaPrincipal+perdidaRamales+perdidasAccesorios;
- const presionMCA=presion*10.2;
- const alturaTotal=desnivel+perdidaTotalTuberia+presionMCA;
- const alturaRecomendada=alturaTotal*1.20;
- const potenciaHidraulica=1000*9.81*Q*alturaTotal;
- const eta=Math.max(.1,rendimiento/100);
- const potenciaElectrica=potenciaHidraulica/eta;
- const energiaDiaria=potenciaElectrica*horas/1000;
- const panelSolar=Math.max(energiaDiaria/Math.max(1,sol)*1.25*1000,potenciaElectrica*1.35);
- const bombaW=Math.max(100,potenciaElectrica*1.35);
- const caudalRecM3=caudalRecomendado/1000;
- const bateriaWh=usarBateria?potenciaElectrica*horas*1.25:0;
- const diametros=[20,25,32,40,50,63];
- let filas="";
- diametros.forEach(x=>{
-  const perdida=hazenWilliams(distancia,Q,x/1000);
-  filas+=`<tr><td>${x} mm</td><td>${fmt(perdida,2)} m</td><td>${fmt(desnivel+perdida+presionMCA,1)} m.c.a.</td></tr>`;
- });
- let estado="good",mensaje="La instalación parece razonable como primera estimación.";
- if(diametro<=20&&caudalNecesario>1000){estado="warn";mensaje="El diámetro elegido puede generar pérdidas elevadas para este caudal. Valora una tubería mayor."}
- if(alturaTotal>50){estado="warn";mensaje="La altura manométrica es elevada. Comprueba cuidadosamente la curva de la bomba."}
- if(caudalNecesario<=0||alturaTotal<=0){estado="danger";mensaje="Revisa los datos introducidos."}
 
- ultimo={distancia,desnivel,diametro,ramales,nramales,puntos,gotero,agua,horas,presion,sol,rendimiento,usarBateria,caudalNecesario,caudalRecomendado,perdidaPrincipal,perdidaRamales,perdidaTotalTuberia,alturaTotal,alturaRecomendada,potenciaHidraulica,potenciaElectrica,energiaDiaria,panelSolar,bombaW,caudalRecM3,bateriaWh};
+  const distancia=num("distancia");
 
- document.getElementById("resultado").innerHTML=`
- <div class="card"><h2>📊 Resultado estimado</h2>
- ${r("Caudal necesario",fmt(caudalNecesario,0)+" L/h")}
- ${r("Caudal recomendado con 30% de margen",fmt(caudalRecomendado,0)+" L/h","good")}
- ${r("Pérdida principal de tubería",fmt(perdidaPrincipal,2)+" m")}
- ${r("Pérdida estimada de ramales",fmt(perdidaRamales,2)+" m")}
- ${r("Pérdidas estimadas totales",fmt(perdidaTotalTuberia,2)+" m")}
- ${r("Altura manométrica total",fmt(alturaTotal,1)+" m.c.a.")}
- ${r("Altura recomendada para buscar bomba",fmt(alturaRecomendada,1)+" m.c.a.","good")}
- ${r("Potencia hidráulica teórica",fmt(potenciaHidraulica,0)+" W")}
- ${r("Potencia eléctrica estimada",fmt(potenciaElectrica,0)+" W")}
- ${r("Rango orientativo de bomba","≥ "+fmt(bombaW,0)+" W","good")}
- <p class="note">Busca una bomba que entregue aproximadamente <strong>${fmt(caudalRecM3,2)} m³/h</strong> a unos <strong>${fmt(alturaRecomendada,1)} m.c.a.</strong></p>
- ${r("Energía diaria aproximada",fmt(energiaDiaria,2)+" kWh/día")}
- ${r("Panel solar orientativo",fmt(panelSolar,0)+" Wp","good")}
- ${usarBateria?r("Batería energética orientativa",fmt(bateriaWh,0)+" Wh"):""}
- </div>
- <div class="card"><h2>🔧 Comparación de diámetros</h2><table><thead><tr><th>Diámetro</th><th>Pérdida</th><th>Altura total</th></tr></thead><tbody>${filas}</tbody></table></div>
- <div class="card ${estado}"><h2>💡 Diagnóstico</h2><p class="note">${mensaje}</p></div>
- <div class="card"><h2>🛒 Qué buscar al comprar la bomba</h2><p class="note">No te fijes solamente en los vatios. La bomba debe cumplir caudal y altura simultáneamente.</p><ul><li><strong>Caudal:</strong> al menos ${fmt(caudalRecM3,2)} m³/h</li><li><strong>Altura:</strong> aproximadamente ${fmt(alturaRecomendada,1)} m.c.a.</li><li><strong>Potencia:</strong> alrededor de ${fmt(bombaW,0)} W o superior</li></ul><p class="note">Comprueba siempre la curva del fabricante.</p></div>`;
- document.getElementById("prodPuntos").textContent = puntos + " uds.";
- const prodPanel = document.getElementById("prodPanel");
+  const desnivel=num("desnivel");
 
-if (prodPanel) prodPanel.textContent = fmt(panelSolar,0) + " Wp";
- document.getElementById("resultado").scrollIntoView({behavior:"smooth",block:"start"});
+  const diametro=num("diametro");
+
+  const ramales=num("ramales");
+
+  const nramales=num("nramales");
+
+  const puntos=num("puntos");
+
+  const gotero=num("gotero");
+
+  const agua=num("agua");
+
+  const horas=num("horas");
+
+  const presion=num("presion");
+
+  const sol=num("sol");
+
+  const rendimiento=num("rendimiento");
+
+  const usarBateria =
+
+    document.getElementById("bateria").value === "si";
+
+  const caudalVolumen =
+
+    agua / Math.max(horas,0.1);
+
+  const caudalRiego =
+
+    puntos * gotero;
+
+  const caudalNecesario =
+
+    Math.max(caudalVolumen,caudalRiego);
+
+  const caudalRecomendado =
+
+    caudalNecesario * 1.30;
+
+  const Q =
+
+    caudalNecesario / 3600000;
+
+  const d =
+
+    diametro / 1000;
+
+  const perdidaPrincipal =
+
+    hazenWilliams(
+
+      distancia,
+
+      Q,
+
+      d
+
+    );
+
+  const perdidaRamales =
+
+    hazenWilliams(
+
+      Math.max(0,ramales),
+
+      Q / Math.max(1,nramales),
+
+      Math.max(.012,d*.65)
+
+    );
+
+  const perdidasAccesorios =
+
+    (
+
+      perdidaPrincipal +
+
+      perdidaRamales
+
+    ) * .10;
+
+  const perdidaTotal =
+
+    perdidaPrincipal +
+
+    perdidaRamales +
+
+    perdidasAccesorios;
+
+  const presionMCA =
+
+    presion * 10.2;
+
+  const alturaTotal =
+
+    desnivel +
+
+    perdidaTotal +
+
+    presionMCA;
+
+  const alturaRecomendada =
+
+    alturaTotal * 1.20;
+
+  const potenciaHidraulica =
+
+    1000 *
+
+    9.81 *
+
+    Q *
+
+    alturaTotal;
+
+  const eta =
+
+    Math.max(
+
+      .10,
+
+      rendimiento / 100
+
+    );
+
+  const potenciaElectrica =
+
+    potenciaHidraulica / eta;
+
+  const energiaDiaria =
+
+    potenciaElectrica *
+
+    horas / 1000;
+
+  const panelSolar =
+
+    Math.max(
+
+      energiaDiaria /
+
+      Math.max(1,sol) *
+
+      1.25 *
+
+      1000,
+
+      potenciaElectrica *
+
+      1.35
+
+    );
+
+  const bombaW =
+
+    Math.max(
+
+      100,
+
+      potenciaElectrica * 1.35
+
+    );
+
+  const caudalRecM3 =
+
+    caudalRecomendado / 1000;
+
+  const bateriaWh =
+
+    usarBateria
+
+      ? potenciaElectrica * horas * 1.25
+
+      : 0;
+
+  ultimo={
+
+    distancia,
+
+    desnivel,
+
+    diametro,
+
+    ramales,
+
+    nramales,
+
+    puntos,
+
+    gotero,
+
+    agua,
+
+    horas,
+
+    presion,
+
+    sol,
+
+    rendimiento,
+
+    usarBateria,
+
+    caudalNecesario,
+
+    caudalRecomendado,
+
+    perdidaPrincipal,
+
+    perdidaRamales,
+
+    perdidaTotal,
+
+    alturaTotal,
+
+    alturaRecomendada,
+
+    potenciaHidraulica,
+
+    potenciaElectrica,
+
+    energiaDiaria,
+
+    panelSolar,
+
+    bombaW,
+
+    caudalRecM3,
+
+    bateriaWh
+
+  };
+
+  let estado="good";
+
+  let mensaje=
+
+    "La instalación parece razonable como primera estimación.";
+
+  if(
+
+    diametro<=20 &&
+
+    caudalNecesario>1000
+
+  ){
+
+    estado="warn";
+
+    mensaje=
+
+      "El diámetro elegido puede generar pérdidas elevadas para este caudal. Valora una tubería mayor.";
+
+  }
+
+  if(alturaTotal>50){
+
+    estado="warn";
+
+    mensaje=
+
+      "La altura manométrica es elevada. Comprueba cuidadosamente la curva de la bomba.";
+
+  }
+
+  if(
+
+    caudalNecesario<=0 ||
+
+    alturaTotal<=0
+
+  ){
+
+    estado="danger";
+
+    mensaje=
+
+      "Revisa los datos introducidos.";
+
+  }
+
+  let filas="";
+
+  [20,25,32,40,50,63].forEach(x=>{
+
+    const perdida=
+
+      hazenWilliams(
+
+        distancia,
+
+        Q,
+
+        x/1000
+
+      );
+
+    filas += `
+
+      <tr>
+
+        <td>${x} mm</td>
+
+        <td>${fmt(perdida,2)} m</td>
+
+        <td>
+
+          ${fmt(
+
+            desnivel+
+
+            perdida+
+
+            presionMCA,
+
+            1
+
+          )} m.c.a.
+
+        </td>
+
+      </tr>
+
+    `;
+
+  });
+
+  document.getElementById(
+
+    "resultado"
+
+  ).innerHTML=`
+
+    <div class="card">
+
+      <h2>📊 Resultado de tu instalación</h2>
+
+      ${resultado(
+
+        "Caudal necesario",
+
+        fmt(caudalNecesario,0)+" L/h"
+
+      )}
+
+      ${resultado(
+
+        "Caudal recomendado con margen",
+
+        fmt(caudalRecomendado,0)+" L/h",
+
+        "good"
+
+      )}
+
+      ${resultado(
+
+        "Pérdida principal de tubería",
+
+        fmt(perdidaPrincipal,2)+" m"
+
+      )}
+
+      ${resultado(
+
+        "Pérdida estimada de ramales",
+
+        fmt(perdidaRamales,2)+" m"
+
+      )}
+
+      ${resultado(
+
+        "Pérdidas estimadas totales",
+
+        fmt(perdidaTotal,2)+" m"
+
+      )}
+
+      ${resultado(
+
+        "Altura manométrica total",
+
+        fmt(alturaTotal,1)+" m.c.a."
+
+      )}
+
+      ${resultado(
+
+        "Altura recomendada para buscar bomba",
+
+        fmt(alturaRecomendada,1)+" m.c.a.",
+
+        "good"
+
+      )}
+
+      ${resultado(
+
+        "Potencia eléctrica estimada",
+
+        fmt(potenciaElectrica,0)+" W"
+
+      )}
+
+      ${resultado(
+
+        "Bomba orientativa",
+
+        "≥ "+fmt(bombaW,0)+" W",
+
+        "good"
+
+      )}
+
+      <p class="note">
+
+        Busca una bomba que entregue aproximadamente
+
+        <strong>
+
+          ${fmt(caudalRecM3,2)} m³/h
+
+        </strong>
+
+        a unos
+
+        <strong>
+
+          ${fmt(alturaRecomendada,1)} m.c.a.
+
+        </strong>
+
+      </p>
+
+      ${resultado(
+
+        "Energía diaria aproximada",
+
+        fmt(energiaDiaria,2)+" kWh/día"
+
+      )}
+
+      ${resultado(
+
+        "Panel solar orientativo",
+
+        fmt(panelSolar,0)+" Wp",
+
+        "good"
+
+      )}
+
+      ${
+
+        usarBateria
+
+        ?
+
+        resultado(
+
+          "Batería energética orientativa",
+
+          fmt(bateriaWh,0)+" Wh"
+
+        )
+
+        :
+
+        ""
+
+      }
+
+      <div class="result ${estado}">
+
+        <div class="name">Interpretación</div>
+
+        <p>${mensaje}</p>
+
+      </div>
+
+    </div>
+
+    <div class="card">
+
+      <h2>🔧 Comparación de diámetros</h2>
+
+      <p class="note">
+
+        Esta tabla sirve para comparar cómo afecta el diámetro
+
+        de la tubería a las pérdidas estimadas.
+
+      </p>
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>Diámetro</th>
+
+            <th>Pérdida</th>
+
+            <th>Altura total</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody>
+
+          ${filas}
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <div class="card">
+
+      <h2>🛒 Qué buscar al comprar</h2>
+
+      <div class="shop">
+
+        <strong>Bomba de agua</strong>
+
+        <p class="note">
+
+          Aproximadamente
+
+          ${fmt(caudalRecM3,2)} m³/h
+
+          a
+
+          ${fmt(alturaRecomendada,1)} m.c.a.
+
+        </p>
+
+      </div>
+
+      <div class="shop">
+
+        <strong>Panel solar</strong>
+
+        <p class="note">
+
+          Aproximadamente
+
+          ${fmt(panelSolar,0)} Wp
+
+          como orientación inicial.
+
+        </p>
+
+      </div>
+
+      <div class="shop">
+
+        <strong>Tubería</strong>
+
+        <p class="note">
+
+          Diámetro seleccionado:
+
+          ${diametro} mm.
+
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
 }
 
-function r(name,value,cls=""){return `<div class="result ${cls}"><div class="name">${name}</div><div class="value">${value}</div></div>`}
-
 function prepararProyecto(){
- if(!ultimo){calcular();}
- const x=ultimo;
- const materiales=[
-  ["Tubería principal",`${fmt(x.distancia,0)} m`,x.distancia*0.80],
-  ["Tubería de ramales",`${fmt(x.ramales,0)} m`,x.ramales*0.45],
-  ["Emisores/goteros",`${x.puntos} uds.`,x.puntos*0.35],
-  ["Filtro de riego",`1 ud.`,35],
-  ["Llave de corte principal","1 ud.",12],
-  ["Válvulas/llaves de ramal",`${x.nramales} uds.`,x.nramales*7],
-  ["Conectores y accesorios","Lote orientativo",25],
-  ["Bomba","1 ud.",Math.max(100,Math.round(x.bombaW))*0.18],
-  ["Panel solar",`${Math.ceil(x.panelSolar/100)*100} Wp`,Math.ceil(x.panelSolar/100)*100*0.65]
- ];
- if(x.usarBateria)materiales.push(["Batería",`${fmt(x.bateriaWh,0)} Wh aprox.`,x.bateriaWh*.25]);
- const total=materiales.reduce((s,m)=>s+m[2],0);
- const rows=materiales.map(m=>`<div class="material"><div><strong>${m[0]}</strong><br><span class="note">${m[1]}</span></div><div class="price">≈ ${fmt(m[2],0)} €</div></div>`).join("");
- const proyecto=document.getElementById("proyecto");
- proyecto.classList.remove("hidden");
- proyecto.innerHTML=`
- <div class="card"><h2>📐 Tu proyecto FincaSinRed</h2>
- <p class="note">Documento de trabajo generado con los datos introducidos. Las cantidades y precios son orientativos y deben comprobarse antes de comprar.</p>
- <div class="grid">
- ${r("Caudal recomendado",fmt(x.caudalRecM3,2)+" m³/h","good")}
- ${r("Altura recomendada",fmt(x.alturaRecomendada,1)+" m.c.a.","good")}
- ${r("Potencia bomba",fmt(x.bombaW,0)+" W")}
- ${r("Panel solar",fmt(x.panelSolar,0)+" Wp","good")}
- </div></div>
- <div class="card"><h2>📦 Lista de materiales</h2>${rows}<div class="result good"><div class="name">Presupuesto orientativo de materiales</div><div class="value">≈ ${fmt(total,0)} €</div></div><p class="note">Este presupuesto es una estimación de trabajo, no un precio de tienda ni una oferta comercial.</p></div>
- <div class="card"><h2>🛒 Productos recomendados y tiendas</h2>
- <p class="note">Esta sección está preparada para monetización por afiliación. Los productos se muestran como ejemplos y deben validarse contra el punto de trabajo calculado antes de recomendarlos como compra definitiva.</p>
 
- <div class="shop">
-  <span class="badge">BOMBA</span>
-  <h3>🚰 Bomba de agua solar 12 V</h3>
-  <p class="note">Referencia de ejemplo encontrada en Leroy Merlin: TEKMAQUINAS SPX-12V. La ficha indica 120 W, hasta 70 m de elevación y salida de 1/2". No debe recomendarse automáticamente sin comparar su curva con el resultado calculado.</p>
-  <a href="https://www.leroymerlin.es/productos/bomba-solar-sumergible-12v-para-agua-pozo-e-irrigacion-tekmaquinas-96654924.html" target="_blank">Ver producto en Leroy Merlin →</a>
-  <p><small><strong>Afiliación:</strong> sustituir este enlace por el enlace personalizado de Awin cuando la cuenta esté aprobada.</small></p>
- </div>
+  if(!ultimo){
 
- <div class="shop">
-  <span class="badge">BOMBA ALTERNATIVA</span>
-  <h3>🚰 Bombas de riego en Amazon</h3>
-  <p class="note">Aquí debe aparecer el producto concreto que coincida con el caudal y la altura calculados. Amazon permite enlaces de afiliado a productos concretos o páginas de resultados.</p>
-  <a href="https://www.amazon.es/s?k=bomba+agua+riego+solar" target="_blank">Ver opciones en Amazon →</a>
-  <p><small><strong>Afiliación:</strong> sustituir por el enlace especial generado desde Amazon Afiliados.</small></p>
- </div>
+    calcular();
 
- <div class="shop">
-  <span class="badge">RIEGO</span>
-  <h3>💧 Tubería, filtro y accesorios</h3>
-  <p class="note">La calculadora debe usar el diámetro recomendado y la longitud introducida para formar la lista de compra.</p>
-  <a href="https://www.leroymerlin.es/buscador?q=tuberia%20riego" target="_blank">Ver tubería y riego en Leroy Merlin →</a>
-  <p><small><strong>Afiliación:</strong> el enlace definitivo será el personalizado de Awin.</small></p>
- </div>
+  }
 
- <div class="shop">
-  <span class="badge">RIEGO</span>
-  <h3>💦 Goteros y conectores</h3>
-  <p class="note">Cantidad calculada: <strong id="prodPuntos">—</strong>. El caudal del emisor se toma de los datos introducidos.</p>
-  <a href="https://www.manomano.es/s/gotero%204%20l/h" target="_blank">Ver goteros en ManoMano →</a>
-  <p><small><strong>Afiliación:</strong> ManoMano indica que los enlaces de seguimiento personalizados son los que permiten atribuir la comisión.</small></p>
- </div>
+  const d=ultimo;
 
- <div class="shop">
-  <span class="badge">SOLAR</span>
-  <h3>☀️ Panel solar</h3>
-  <p class="note">Potencia orientativa calculada: <strong id="prodPanel">—</strong>. El panel definitivo debe seleccionarse según la tensión de la bomba, controlador y condiciones solares.</p>
-  <a href="https://www.amazon.es/s?k=panel+solar+monocristalino+500W" target="_blank">Ver paneles en Amazon →</a>
-  <p><small><strong>Afiliación:</strong> sustituir por el enlace especial de Amazon cuando esté disponible.</small></p>
- </div>
+  document.getElementById(
 
- <div class="shop">
-  <span class="badge">ACUMULACIÓN</span>
-  <h3>🔋 Batería</h3>
-  <p class="note">Solo se muestra si se ha seleccionado batería. La capacidad calculada es energética y no sustituye el dimensionamiento final según tensión, profundidad de descarga y autonomía.</p>
-  <a href="https://www.manomano.es/s/bateria%20lifepo4%2012v" target="_blank">Ver baterías en ManoMano →</a>
- </div>
+    "proyecto"
 
- <div class="result warn">
-  <div class="name">⚠️ Importante sobre afiliación</div>
-  <p class="note">Los enlaces que aparecen ahora son enlaces normales de tienda. <strong>No generan comisión para ti.</strong> Para cobrar comisión hay que sustituirlos por tus enlaces personalizados una vez aceptado el programa correspondiente. ManoMano gestiona su programa español mediante Awin; Leroy Merlin también utiliza Awin; Amazon genera enlaces especiales desde su programa de afiliados.</p>
- </div>
- </div>
- 
- <div class="card"><h2>🖨️ Informe</h2><p class="note">Puedes imprimir esta página o utilizar “Guardar como PDF” en el navegador.</p><button onclick="window.print()">GENERAR / GUARDAR PDF</button></div>`;
- proyecto.scrollIntoView({behavior:"smooth",block:"start"});
+  ).classList.remove("hidden");
+
+  document.getElementById(
+
+    "proyecto"
+
+  ).innerHTML=`
+
+    <div class="card">
+
+      <h2>📄 Proyecto de instalación</h2>
+
+      <p>
+
+        <strong>FincaSinRed</strong>
+
+      </p>
+
+      <p class="note">
+
+        Resumen orientativo generado a partir de los datos
+
+        introducidos.
+
+      </p>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Caudal recomendado
+
+        </div>
+
+        <div class="material-qty">
+
+          ${fmt(d.caudalRecomendado,0)} L/h
+
+        </div>
+
+      </div>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Altura recomendada
+
+        </div>
+
+        <div class="material-qty">
+
+          ${fmt(d.alturaRecomendada,1)} m.c.a.
+
+        </div>
+
+      </div>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Bomba orientativa
+
+        </div>
+
+        <div class="material-qty">
+
+          ≥ ${fmt(d.bombaW,0)} W
+
+        </div>
+
+      </div>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Panel solar orientativo
+
+        </div>
+
+        <div class="material-qty">
+
+          ${fmt(d.panelSolar,0)} Wp
+
+        </div>
+
+      </div>
+
+      ${
+
+        d.usarBateria
+
+        ?
+
+        `
+
+        <div class="material">
+
+          <div class="material-name">
+
+            Batería orientativa
+
+          </div>
+
+          <div class="material-qty">
+
+            ${fmt(d.bateriaWh,0)} Wh
+
+          </div>
+
+        </div>
+
+        `
+
+        :
+
+        ""
+
+      }
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Tubería principal
+
+        </div>
+
+        <div class="material-qty">
+
+          ${d.distancia} m · ${d.diametro} mm
+
+        </div>
+
+      </div>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Ramales
+
+        </div>
+
+        <div class="material-qty">
+
+          ${d.nramales} ramales ·
+
+          ${d.ramales} m totales
+
+        </div>
+
+      </div>
+
+      <div class="material">
+
+        <div class="material-name">
+
+          Puntos de riego
+
+        </div>
+
+        <div class="material-qty">
+
+          ${d.puntos} puntos ·
+
+          ${d.gotero} L/h cada uno
+
+        </div>
+
+      </div>
+
+      <button
+
+        class="secondary"
+
+        onclick="window.print()">
+
+        🖨️ IMPRIMIR / GUARDAR COMO PDF
+
+      </button>
+
+    </div>
+
+  `;
+
+  document
+
+    .getElementById("proyecto")
+
+    .scrollIntoView({
+
+      behavior:"smooth"
+
+    });
+
 }
 
 function guardarDatos(){
- const ids=["distancia","desnivel","diametro","ramales","nramales","puntos","gotero","agua","horas","presion","sol","rendimiento","bateria"];
- const data={};ids.forEach(id=>data[id]=document.getElementById(id).value);
- localStorage.setItem("FincaSinRed_V10",JSON.stringify(data));
- alert("Datos guardados en este dispositivo.");
+
+  const datos={};
+
+  document
+
+    .querySelectorAll(
+
+      "input,select"
+
+    )
+
+    .forEach(el=>{
+
+      datos[el.id]=el.value;
+
+    });
+
+  localStorage.setItem(
+
+    "fincaSinRedDatos",
+
+    JSON.stringify(datos)
+
+  );
+
+  alert(
+
+    "Datos guardados correctamente en este dispositivo."
+
+  );
+
 }
+
 function recuperarDatos(){
- const raw=localStorage.getItem("FincaSinRed_V10");
- if(!raw){alert("No hay una instalación guardada.");return}
- const data=JSON.parse(raw);Object.keys(data).forEach(id=>{if(document.getElementById(id))document.getElementById(id).value=data[id]});
- alert("Datos recuperados. Pulsa CALCULAR INSTALACIÓN.");
+
+  const guardados=
+
+    localStorage.getItem(
+
+      "fincaSinRedDatos"
+
+    );
+
+  if(!guardados){
+
+    alert(
+
+      "No hay datos guardados en este dispositivo."
+
+    );
+
+    return;
+
+  }
+
+  const datos=
+
+    JSON.parse(guardados);
+
+  Object.keys(datos)
+
+    .forEach(id=>{
+
+      const elemento=
+
+        document.getElementById(id);
+
+      if(elemento){
+
+        elemento.value=
+
+          datos[id];
+
+      }
+
+    });
+
+  alert(
+
+    "Datos recuperados correctamente."
+
+  );
+
 }
+
 </script>
+
 </body>
+
 </html>
