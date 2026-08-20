@@ -113,7 +113,29 @@ def crear_checkout(proyecto: ProyectoDatos):
             detail="No se han recibido datos del proyecto"
         )
 
-    return {
-        "ok": True,
-        "mensaje": "Datos recibidos correctamente para preparar el pago"
-    }
+    try:
+        session = stripe.checkout.Session.create(
+            mode="payment",
+            line_items=[
+                {
+                    "price": "price_1U5pre1xCi4MDD5SmFZc57WT",
+                    "quantity": 1
+                }
+            ],
+            metadata={
+                "proyecto": str(proyecto.datos)
+            },
+            success_url="https://fincasinred.onrender.com/?pago=ok",
+            cancel_url="https://fincasinred.onrender.com/?pago=cancelado"
+        )
+
+        return {
+            "ok": True,
+            "url": session.url
+        }
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
