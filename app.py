@@ -1,5 +1,5 @@
 from fastapi import FastAPI, HTTPException
-
+from pydantic import BaseModel
 from fastapi.responses import FileResponse
 
 import os
@@ -71,3 +71,30 @@ def crear_pago():
             detail=str(e)
 
         )
+
+
+class ProyectoDatos(BaseModel):
+
+    datos: dict
+
+@app.post("/guardar-proyecto")
+
+def guardar_proyecto(proyecto: ProyectoDatos):
+
+    if not proyecto.datos:
+
+        raise HTTPException(
+
+            status_code=400,
+
+            detail="No se han recibido datos del proyecto"
+
+        )
+
+    return {
+
+        "ok": True,
+
+        "mensaje": "Datos del proyecto recibidos correctamente"
+
+    }
