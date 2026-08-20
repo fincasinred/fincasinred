@@ -779,10 +779,8 @@ presupuesto orientativo y criterios de compra.
 </button>
 
 <button
-
   type="button"
-
-  onclick="window.location.href='https://buy.stripe.com/fZu14f4c79Zjao1ayxdQQ01'">
+  onclick="comprarProyecto()">
 
   COMPRAR PROYECTO — 19,99 €
 
@@ -1823,7 +1821,60 @@ function recuperarDatos(){
   );
 
 }
+async function comprarProyecto(){
 
+  if(!ultimo){
+    calcular();
+  }
+
+  try{
+
+    const respuesta = await fetch("/crear-checkout",{
+
+      method:"POST",
+
+      headers:{
+        "Content-Type":"application/json"
+      },
+
+      body:JSON.stringify({
+        datos:ultimo
+      })
+
+    });
+
+    const resultado = await respuesta.json();
+
+    if(!respuesta.ok){
+
+      alert(
+        "No se ha podido preparar el pago: " +
+        (resultado.detail || "Error desconocido")
+      );
+
+      return;
+    }
+
+    if(resultado.url){
+
+      window.location.href = resultado.url;
+
+    }else{
+
+      alert("No se ha recibido el enlace de pago.");
+
+    }
+
+  }catch(error){
+
+    alert(
+      "Error al conectar con FincaSinRed. " +
+      "Inténtalo de nuevo."
+    );
+
+  }
+
+}
 </script>
 
 </body>
