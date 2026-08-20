@@ -98,3 +98,22 @@ def guardar_proyecto(proyecto: ProyectoDatos):
         "mensaje": "Datos del proyecto recibidos correctamente"
 
     }
+@app.post("/crear-checkout")
+def crear_checkout(proyecto: ProyectoDatos):
+
+    if not stripe.api_key:
+        raise HTTPException(
+            status_code=500,
+            detail="Stripe no está configurado"
+        )
+
+    if not proyecto.datos:
+        raise HTTPException(
+            status_code=400,
+            detail="No se han recibido datos del proyecto"
+        )
+
+    return {
+        "ok": True,
+        "mensaje": "Datos recibidos correctamente para preparar el pago"
+    }
