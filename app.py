@@ -46,7 +46,7 @@ def crear_pago():
 
                 {
 
-                    "price": "TU_PRICE_ID",
+                    "price": "price_1U5pre1xCi4MDD5SmFZc57WT",
 
                     "quantity": 1
 
