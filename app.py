@@ -120,7 +120,7 @@ def crear_checkout(proyecto: ProyectoDatos):
             mode="payment",
             line_items=[
                 {
-                    "price": "price_1U5pre1xCi4MDD5SmFZc57WT",
+                    "price": "price_1U5rSq1xCi4MDD5SLwMswGrO",
                     "quantity": 1
                 }
             ],
