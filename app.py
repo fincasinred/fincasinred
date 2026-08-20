@@ -150,8 +150,9 @@ def verificar_pago(session_id: str):
 
     try:
         session = stripe.checkout.Session.retrieve(session_id)
-session = session.to_dict()
-        if session.payment_status != "paid":
+        session = session.to_dict()
+
+        if session.get("payment_status") != "paid":
             raise HTTPException(
                 status_code=403,
                 detail="El pago todavía no está confirmado"
