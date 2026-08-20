@@ -122,9 +122,9 @@ def crear_checkout(proyecto: ProyectoDatos):
                     "quantity": 1
                 }
             ],
-            metadata={
-                "proyecto": str(proyecto.datos)
-            },
+         metadata={
+    "proyecto": "FincaSinRed"
+},
             success_url="https://fincasinred.onrender.com/?pago=ok",
             cancel_url="https://fincasinred.onrender.com/?pago=cancelado"
         )
