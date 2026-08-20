@@ -48,7 +48,7 @@ def crear_pago():
 
                 {
 
-                    "price_1U5rSq1xCi4MDD5SLwMswGrO",
+                    "price": "price_1U5rSq1xCi4MDD5SLwMswGrO",
 
                     "quantity": 1
 
