@@ -3,7 +3,9 @@ from pydantic import BaseModel
 from fastapi.responses import FileResponse
 
 import os
-
+import json
+import zlib
+import base64
 import stripe
 
 app = FastAPI(title="FincaSinRed", version="7.0")
