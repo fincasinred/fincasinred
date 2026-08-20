@@ -150,14 +150,14 @@ def verificar_pago(session_id: str):
 
     try:
         session = stripe.checkout.Session.retrieve(session_id)
-
+session = session.to_dict()
         if session.payment_status != "paid":
             raise HTTPException(
                 status_code=403,
                 detail="El pago todavía no está confirmado"
             )
 
-        datos_codificados = session.metadata.get("proyecto")
+        datos_codificados = session.get("metadata", {}).get("proyecto")
 
         if not datos_codificados:
             raise HTTPException(
