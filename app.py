@@ -124,8 +124,12 @@ def crear_checkout(proyecto: ProyectoDatos):
                     "quantity": 1
                 }
             ],
-         metadata={
-    "proyecto": "FincaSinRed"
+  metadata={
+    "proyecto": base64.b64encode(
+        zlib.compress(
+            json.dumps(proyecto.datos, separators=(",", ":")).encode()
+        )
+    ).decode()
 },
             success_url="https://fincasinred.onrender.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
             cancel_url="https://fincasinred.onrender.com/?pago=cancelado"
