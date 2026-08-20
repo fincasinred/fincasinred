@@ -1875,6 +1875,61 @@ async function comprarProyecto(){
   }
 
 }
+  async function comprobarPago(){
+
+  const params = new URLSearchParams(
+    window.location.search
+  );
+
+  const pago = params.get("pago");
+  const sessionId = params.get("session_id");
+
+  if(pago !== "ok" || !sessionId){
+    return;
+  }
+
+  try{
+
+    const respuesta = await fetch(
+      "/verificar-pago?session_id=" +
+      encodeURIComponent(sessionId)
+    );
+
+    const resultado = await respuesta.json();
+
+    if(!respuesta.ok || !resultado.ok){
+
+      alert(
+        "No se ha podido confirmar el pago."
+      );
+
+      return;
+    }
+
+    ultimo = resultado.proyecto;
+
+    prepararProyecto();
+
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+  }catch(error){
+
+    alert(
+      "No se ha podido verificar el pago."
+    );
+
+  }
+
+}
+
+window.addEventListener(
+  "DOMContentLoaded",
+  comprobarPago
+);
 </script>
 
 </body>
