@@ -145,3 +145,43 @@ def crear_checkout(proyecto: ProyectoDatos):
             status_code=500,
             detail=str(e)
         )
+@app.get("/verificar-pago")
+def verificar_pago(session_id: str):
+
+    try:
+        session = stripe.checkout.Session.retrieve(session_id)
+
+        if session.payment_status != "paid":
+            raise HTTPException(
+                status_code=403,
+                detail="El pago todavía no está confirmado"
+            )
+
+        datos_codificados = session.metadata.get("proyecto")
+
+        if not datos_codificados:
+            raise HTTPException(
+                status_code=400,
+                detail="No se encontraron los datos del proyecto"
+            )
+
+        datos = json.loads(
+            zlib.decompress(
+                base64.b64decode(datos_codificados)
+            ).decode()
+        )
+
+        return {
+            "ok": True,
+            "pago": "pagado",
+            "proyecto": datos
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as e:
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
