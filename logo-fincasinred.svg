@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 260" role="img" aria-labelledby="title desc">
+<title id="title">FincaSinRed</title>
+<desc id="desc">Logotipo de FincaSinRed con símbolo de gota y hojas.</desc>
+<defs>
+  <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#4d9147"/>
+    <stop offset="1" stop-color="#2d6332"/>
+  </linearGradient>
+</defs>
+<rect width="900" height="260" rx="42" fill="#fff"/>
+<circle cx="125" cy="110" r="78" fill="url(#g)"/>
+<path d="M125 54c-10 23-38 43-38 72a38 38 0 0 0 76 0c0-29-28-49-38-72Z" fill="#fff"/>
+<path d="M122 128c18-2 30-13 38-28 1 25-9 43-34 47" fill="#c8e86a"/>
+<text x="230" y="128" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="800" fill="#172018">Finca</text>
+<text x="494" y="128" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="800" fill="#4d9147">Sin</text>
+<text x="665" y="128" font-family="Arial,Helvetica,sans-serif" font-size="86" font-weight="800" fill="#172018">Red</text>
+<path d="M235 151H770" stroke="#4d9147" stroke-width="7" stroke-linecap="round"/>
+<text x="235" y="198" font-family="Arial,Helvetica,sans-serif" font-size="27" font-weight="700" letter-spacing="5" fill="#2d6332">AUTONOMÍA · ENERGÍA · AGUA · VIDA</text>
+</svg>
