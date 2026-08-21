@@ -14,1092 +14,167 @@
 
 <style>
 
-*{box-sizing:border-box}
-
-:root{
-
-  --green:#3f7f3f;
-
-  --darkgreen:#2d6332;
-
-  --bg:#f5f8f4;
-
-  --text:#172018;
-
-  --muted:#667067;
-
-  --line:#d9e4d9;
-
-  --white:#fff;
-
-}
-
-body{
-
-  margin:0;
-
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-
-  background:var(--bg);
-
-  color:var(--text);
-
-}
-
-header{
-
-  max-width:920px;
-
-  margin:auto;
-
-  padding:28px 20px 14px;
-
-}
-
-.logo{
-
-  font-size:34px;
-
-  font-weight:850;
-
-  color:var(--green);
-
-}
-
-.logo span{
-
-  color:var(--text);
-
-}
-
-.subtitle{
-
-  margin-top:7px;
-
-  color:var(--muted);
-
-  font-size:16px;
-
-  line-height:1.4;
-
-}
-
-main{
-
-  max-width:920px;
-
-  margin:auto;
-
-  padding:0 16px 60px;
-
-}
-
-.card{
-
-  background:var(--white);
-
-  border-radius:22px;
-
-  padding:24px;
-
-  margin:16px 0;
-
-  box-shadow:0 3px 16px rgba(0,0,0,.06);
-
-}
-
-.hero{
-
-  background:linear-gradient(145deg,#edf7ed,#ffffff);
-
-  border:1px solid #d6e7d6;
-
-}
-
-h1{
-
-  font-size:36px;
-
-  line-height:1.08;
-
-  margin:8px 0 14px;
-
-}
-
-h2{
-
-  font-size:24px;
-
-  margin:0 0 14px;
-
-}
-
-h3{
-
-  font-size:19px;
-
-  margin:0 0 8px;
-
-}
-
-p{
-
-  line-height:1.55;
-
-}
-
-.note{
-
-  color:var(--muted);
-
-}
-
-.step{
-
-  display:flex;
-
-  align-items:flex-start;
-
-  gap:12px;
-
-  margin:15px 0;
-
-}
-
-.step-number{
-
-  min-width:32px;
-
-  height:32px;
-
-  border-radius:50%;
-
-  background:var(--green);
-
-  color:white;
-
-  display:flex;
-
-  align-items:center;
-
-  justify-content:center;
-
-  font-weight:800;
-
-}
-
-label{
-
-  display:block;
-
-  font-weight:700;
-
-  margin:18px 0 7px;
-
-}
-
-input,select{
-
-  width:100%;
-
-  padding:15px;
-
-  border:1px solid #ccd6cc;
-
-  border-radius:13px;
-
-  font-size:17px;
-
-  background:white;
-
-}
-
-small{
-
-  display:block;
-
-  color:#707970;
-
-  margin-top:6px;
-
-}
-
-button{
-
-  width:100%;
-
-  border:0;
-
-  border-radius:15px;
-
-  padding:17px;
-
-  background:var(--green);
-
-  color:white;
-
-  font-size:18px;
-
-  font-weight:800;
-
-  margin-top:15px;
-
-  cursor:pointer;
-
-}
-
-button:hover{
-
-  background:var(--darkgreen);
-
-}
-
-button.secondary{
-
-  background:#edf6ed;
-
-  color:var(--darkgreen);
-
-  border:1px solid #bfd8bf;
-
-}
-
-button.dark{
-
-  background:var(--text);
-
-}
-
-.grid{
-
-  display:grid;
-
-  grid-template-columns:1fr 1fr;
-
-  gap:14px;
-
-}
-
-.result{
-
-  border:1px solid var(--line);
-
-  border-radius:17px;
-
-  padding:17px;
-
-  margin:11px 0;
-
-  background:#fbfdfb;
-
-}
-
-.result .name{
-
-  color:#5d685e;
-
-  font-size:14px;
-
-}
-
-.result .value{
-
-  color:var(--green);
-
-  font-size:28px;
-
-  font-weight:850;
-
-  margin-top:5px;
-
-}
-
-.good{
-
-  background:#eef8ee;
-
-  border-color:#b9d9b9;
-
-}
-
-.warn{
-
-  background:#fff7e5;
-
-  border-color:#e6c978;
-
-}
-
-.danger{
-
-  background:#fff0ef;
-
-  border-color:#e4aaa5;
-
-}
-
-.badge{
-
-  display:inline-block;
-
-  padding:6px 11px;
-
-  border-radius:999px;
-
-  background:#eef6ee;
-
-  color:var(--darkgreen);
-
-  font-size:12px;
-
-  font-weight:800;
-
-}
-
-.price{
-
-  font-size:42px;
-
-  color:var(--green);
-
-  font-weight:900;
-
-  margin:6px 0 12px;
-
-}
-
-.material{
-
-  padding:15px 0;
-
-  border-bottom:1px solid #e5eae5;
-
-}
-
-.material:last-child{
-
-  border-bottom:0;
-
-}
-
-.material-name{
-
-  font-weight:750;
-
-}
-
-.material-qty{
-
-  color:var(--muted);
-
-  margin-top:4px;
-
-}
-
-.shop{
-
-  border:1px solid var(--line);
-
-  border-radius:16px;
-
-  padding:15px;
-
-  margin:10px 0;
-
-  background:#fbfdfb;
-
-}
-
-.shop a{
-
-  display:inline-block;
-
-  margin-top:9px;
-
-  color:var(--darkgreen);
-
-  font-weight:800;
-
-  text-decoration:none;
-
-}
-
-table{
-
-  width:100%;
-
-  border-collapse:collapse;
-
-  margin-top:12px;
-
-}
-
-th,td{
-
-  padding:10px 7px;
-
-  border-bottom:1px solid #e2e7e2;
-
-  text-align:left;
-
-  font-size:14px;
-
-}
-
-.footer{
-
-  text-align:center;
-
-  color:#788078;
-
-  font-size:13px;
-
-  padding:25px;
-
-}
-
-.hidden{
-
-  display:none;
-
-}
-
-@media(max-width:650px){
-
-  .grid{
-
-    grid-template-columns:1fr;
-
-  }
-
-  h1{
-
-    font-size:31px;
-
-  }
-
-  .card{
-
-    padding:20px;
-
-  }
-
-  .price{
-
-    font-size:38px;
-
-  }
-
-}
-
-@media print{
-
-  button,
-
-  .no-print,
-
-  header .subtitle{
-
-    display:none!important;
-
-  }
-
-  .card{
-
-    box-shadow:none;
-
-    border:1px solid #ddd;
-
-    break-inside:avoid;
-
-  }
-
-  body{
-
-    background:white;
-
-  }
-
-}
 /* =========================================================
-   CABECERA FincaSinRed — diseño principal
+   PORTADA PRINCIPAL FINCASINRED
    ========================================================= */
 
-.site-header {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  border-bottom: 1px solid #e8eee8;
-  position: relative;
-  z-index: 20;
-}
-
-.header-inner {
-  width: min(1200px, calc(100% - 40px));
-  min-height: 76px;
-  margin: 0 auto;
-  display: flex;
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   align-items: center;
-  justify-content: space-between;
-  gap: 30px;
+  gap: 40px;
+  min-height: 430px;
+  padding: 42px 46px;
+  overflow: hidden;
 }
 
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 11px;
-  color: var(--text);
-  text-decoration: none;
-  flex-shrink: 0;
+.hero-copy {
+  min-width: 0;
 }
 
-.brand-logo {
-  width: 52px;
-  height: 52px;
-  display: block;
-  object-fit: contain;
+.hero-copy h1 {
+  max-width: 650px;
+  margin: 0 0 20px;
+  font-size: clamp(38px, 4.5vw, 58px);
+  line-height: 1.03;
+  letter-spacing: -1.8px;
 }
 
-.brand-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.1;
+.hero-copy p {
+  max-width: 650px;
+  margin: 0 0 24px;
+  color: #536054;
+  font-size: 18px;
+  line-height: 1.55;
 }
 
-.brand-text strong {
-  font-size: 20px;
-  font-weight: 850;
-  color: #17321b;
-  letter-spacing: -0.3px;
-}
-
-.brand-text span {
-  margin-top: 4px;
-  color: #667067;
-  font-size: 11px;
-  font-weight: 500;
-}
-
-.main-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 30px;
-  flex: 1;
-}
-
-.main-nav a {
-  color: #182019;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: color 0.2s ease;
-}
-
-.main-nav a:hover {
-  color: var(--green);
-}
-
-.header-button {
+.hero-cta {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 0 20px;
-  border-radius: 9px;
+  gap: 10px;
+  padding: 15px 22px;
+  border-radius: 10px;
   background: var(--green);
   color: #ffffff;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 750;
-  white-space: nowrap;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease;
-  flex-shrink: 0;
+  font-size: 16px;
+  font-weight: 800;
+  transition: background .2s ease, transform .2s ease;
 }
 
-.header-button:hover {
+.hero-cta:hover {
   background: var(--darkgreen);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
-/* =========================================================
-   CUERPO PRINCIPAL — más parecido al diseño de referencia
-   ========================================================= */
-
-main {
-  width: min(1200px, calc(100% - 40px));
-  max-width: none;
-  margin: 0 auto;
-  padding: 34px 0 70px;
+.hero-cta span {
+  font-size: 20px;
+  line-height: 1;
 }
 
-.card {
-  border-radius: 18px;
-  padding: 28px;
+.hero-proof {
+  margin-top: 14px;
+  color: #687268;
+  font-size: 14px;
+}
+
+.hero-proof strong {
+  color: var(--darkgreen);
+}
+
+.hero-visual {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    min-height: 100%;
+    height: 100%;
+}
+
+.hero-logo {
+    display: block;
+    width: 100%;
+    max-width: 620px;
+    max-height: 470px;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    mix-blend-mode: multiply;
+}
+
+/* PASOS */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin: 20px 0;
-  box-shadow: 0 4px 22px rgba(23, 32, 24, 0.07);
 }
 
-.hero {
-  padding: 42px;
-  border: 1px solid #dce9dc;
-  background:
-    linear-gradient(
-      135deg,
-      #f1f8f1 0%,
-      #ffffff 58%,
-      #f7fbf7 100%
-    );
+.steps .step {
+  margin: 0;
+  padding: 20px;
+  background: #ffffff;
+  border: 1px solid #dce6dc;
+  border-radius: 16px;
+  box-shadow: 0 3px 14px rgba(23, 32, 24, .05);
 }
 
-.hero h1 {
-  max-width: 760px;
-  font-size: clamp(36px, 5vw, 58px);
-  line-height: 1.04;
-  letter-spacing: -1.8px;
-  margin: 0 0 18px;
+.steps .step p {
+  margin: 0;
+  color: #687268;
+  font-size: 14px;
+  line-height: 1.45;
 }
 
-.hero > .note {
-  max-width: 720px;
-  font-size: 17px;
-}
-
-/* Botones generales */
-
-button {
-  border-radius: 10px;
-  transition:
-    background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-}
-
-button:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(45, 99, 50, 0.16);
-}
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* TABLET */
 
 @media (max-width: 850px) {
 
-  .header-inner {
-    width: min(100% - 28px, 1200px);
-    gap: 16px;
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 34px 28px;
   }
 
-  .main-nav {
-    gap: 16px;
+  .hero-visual {
+    order: -1;
   }
 
-  .main-nav a {
-    font-size: 13px;
+  .hero-logo {
+    max-width: 480px;
+    max-height: 360px;
   }
 
-  .header-button {
-    padding: 0 14px;
+  .steps {
+    grid-template-columns: 1fr;
   }
-
 }
 
-@media (max-width: 700px) {
+/* MÓVIL */
 
-  .header-inner {
-    min-height: auto;
-    padding: 12px 0;
-    flex-wrap: wrap;
-  }
-
-  .brand-logo {
-    width: 46px;
-    height: 46px;
-  }
-
-  .brand-text strong {
-    font-size: 18px;
-  }
-
-  .main-nav {
-    order: 3;
-    width: 100%;
-    justify-content: flex-start;
-    overflow-x: auto;
-    padding: 4px 0 2px;
-  }
-
-  .main-nav a {
-    font-size: 13px;
-  }
-
-  .header-button {
-    margin-left: auto;
-  }
-
-  main {
-    width: min(100% - 24px, 1200px);
-    padding-top: 20px;
-  }
+@media (max-width: 600px) {
 
   .hero {
-    padding: 28px 22px;
+    padding: 28px 20px;
   }
 
-  .hero h1 {
+  .hero-copy h1 {
     font-size: 38px;
     letter-spacing: -1px;
   }
 
-}
-
-@media (max-width: 480px) {
-
-  .brand-text span {
-    display: none;
+  .hero-copy p {
+    font-size: 16px;
   }
 
-  .header-button {
-    min-height: 38px;
-    padding: 0 12px;
-    font-size: 12px;
+  .hero-logo {
+    max-width: 100%;
+    max-height: 300px;
   }
 
-  .main-nav {
-    gap: 18px;
-  }
-
-  .hero h1 {
-    font-size: 33px;
-  }
-
-}
-  /* =========================================================
-   DISEÑO VISUAL FINCASINRED
-   Mejora de cabecera, logo, tarjetas, botones y resultados
-   ========================================================= */
-
-body {
-  background: #f7f9f6;
-  color: #172018;
-}
-
-/* CABECERA */
-header,
-.site-header {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  border-bottom: 1px solid #e7ece7;
-}
-
-.header-inner {
-  max-width: 1180px;
-  min-height: 76px;
-  margin: 0 auto;
-  padding: 10px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 24px;
-}
-
-.brand {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  text-decoration: none;
-}
-
-.brand-logo {
-  display: block;
-  width: 185px;
-  height: auto;
-  max-height: 62px;
-  object-fit: contain;
-}
-
-/* Si existe el texto antiguo del logo */
-header > .logo {
-  display: none;
-}
-
-/* NAVEGACIÓN */
-.main-nav,
-.main-nav ul {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-}
-
-.main-nav a {
-  color: #172018;
-  text-decoration: none;
-  font-size: 15px;
-  font-weight: 600;
-  transition: color .2s ease;
-}
-
-.main-nav a:hover {
-  color: #3f7f3f;
-}
-
-/* BOTÓN PRINCIPAL DE CABECERA */
-.header-button,
-.header-cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 42px;
-  padding: 0 20px;
-  border-radius: 9px;
-  background: #3f7f3f;
-  color: #ffffff !important;
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 800;
-  border: 0;
-  transition: background .2s ease, transform .2s ease;
-}
-
-.header-button:hover,
-.header-cta:hover {
-  background: #2d6332;
-  transform: translateY(-1px);
-}
-
-/* CONTENIDO PRINCIPAL */
-main {
-  max-width: 1180px;
-  padding: 28px 24px 70px;
-}
-
-/* TARJETAS */
-.card {
-  background: #ffffff;
-  border: 1px solid #e4ebe4;
-  border-radius: 18px;
-  padding: 28px;
-  margin: 18px 0;
-  box-shadow: 0 5px 20px rgba(23, 32, 24, .055);
-}
-
-/* HERO */
-.hero {
-  background:
-    linear-gradient(
-      135deg,
-      #f0f8ef 0%,
-      #ffffff 65%
-    );
-  border: 1px solid #dce9dc;
-  padding: 38px;
-  overflow: hidden;
-}
-
-.hero h1 {
-  max-width: 700px;
-  font-size: 44px;
-  line-height: 1.08;
-  letter-spacing: -1px;
-  margin: 0 0 16px;
-  color: #172018;
-}
-
-.hero p {
-  max-width: 650px;
-}
-
-/* TÍTULOS */
-h2 {
-  color: #172018;
-  font-size: 25px;
-  letter-spacing: -.3px;
-}
-
-h3 {
-  color: #172018;
-}
-
-/* ETAPAS */
-.step {
-  padding: 7px 0;
-}
-
-.step-number {
-  background: #3f7f3f;
-  box-shadow: 0 0 0 5px #edf6ed;
-}
-
-/* CAMPOS */
-input,
-select {
-  border: 1px solid #d2ddd2;
-  background: #ffffff;
-  border-radius: 10px;
-  transition: border-color .2s ease, box-shadow .2s ease;
-}
-
-input:focus,
-select:focus {
-  outline: none;
-  border-color: #3f7f3f;
-  box-shadow: 0 0 0 3px rgba(63, 127, 63, .12);
-}
-
-/* BOTONES */
-button {
-  border-radius: 10px;
-  background: #3f7f3f;
-  box-shadow: none;
-  transition:
-    background .2s ease,
-    transform .15s ease,
-    box-shadow .15s ease;
-}
-
-button:hover {
-  background: #2d6332;
-  transform: translateY(-1px);
-  box-shadow: 0 5px 14px rgba(45, 99, 50, .16);
-}
-
-button.secondary {
-  background: #ffffff;
-  color: #2d6332;
-  border: 1px solid #c7d9c7;
-}
-
-button.secondary:hover {
-  background: #f1f7f1;
-}
-
-/* RESULTADOS */
-.result {
-  background: #ffffff;
-  border: 1px solid #dfe8df;
-  border-radius: 14px;
-}
-
-.result .value {
-  color: #3f7f3f;
-}
-
-/* PRECIO */
-.price {
-  color: #3f7f3f;
-  font-size: 44px;
-}
-
-/* ETIQUETAS */
-.badge {
-  background: #edf6ed;
-  color: #2d6332;
-  border: 1px solid #d4e6d4;
-}
-
-/* PROYECTO PREMIUM */
-.shop {
-  background: #ffffff;
-  border-color: #dfe8df;
-}
-
-/* PIE */
-.footer {
-  background: #ffffff;
-  border-top: 1px solid #e4ebe4;
-  padding: 28px 20px;
-}
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 900px) {
-
-  .header-inner {
-    padding: 10px 18px;
-  }
-
-  .brand-logo {
-    width: 160px;
-  }
-
-  .main-nav {
-    gap: 16px;
-  }
-
-  .main-nav a {
-    font-size: 14px;
-  }
-
-  main {
-    padding-left: 18px;
-    padding-right: 18px;
-  }
-
-  .hero h1 {
-    font-size: 38px;
-  }
-}
-
-/* =========================================================
-   MÓVIL
-   ========================================================= */
-
-@media (max-width: 650px) {
-
-  .header-inner {
-    min-height: 68px;
-    padding: 9px 14px;
-    gap: 10px;
-  }
-
-  .brand-logo {
-    width: 145px;
-    max-height: 50px;
-  }
-
-  .main-nav {
-    display: none;
-  }
-
-  .header-button,
-  .header-cta {
-    min-height: 38px;
-    padding: 0 12px;
-    font-size: 12px;
-  }
-
-  main {
-    padding: 15px 12px 45px;
-  }
-
-  .card {
-    padding: 20px;
-    border-radius: 16px;
-  }
-
-  .hero {
-    padding: 25px 20px;
-  }
-
-  .hero h1 {
-    font-size: 32px;
-    letter-spacing: -.6px;
-  }
-
-  .price {
-    font-size: 38px;
-  }
 }
 </style>
 
@@ -1157,41 +232,41 @@ button.secondary:hover {
 
 <section class="hero" aria-labelledby="hero-title">
 
-  <div class="hero-copy">
+    <div class="hero-copy">
 
-    <h1 id="hero-title">
-      Equipa tu finca sin agua ni electricidad de red
-    </h1>
+        <span class="hero-kicker">FINCAS SIN RED · AUTONOMÍA · SOLUCIONES</span>
 
-    <p>
-      Calcula una solución orientativa para llevar agua, riego y energía
-      a tu finca aislada. Te ayudamos a elegir la instalación antes de
-      comprar materiales.
-    </p>
+        <h1 id="hero-title">
+            Equipa tu finca sin agua ni electricidad de red
+        </h1>
 
-    <a class="hero-cta" href="#calculadora">
-      Calcular mi solución <span>→</span>
-    </a>
+        <p>
+            Calcula, compara y encuentra todo lo que necesitas para llevar
+            agua, energía y autonomía a tu finca aislada.
+        </p>
 
-    <div class="hero-proof">
-      ✓ <strong>Calculadora gratuita</strong>
-      · resultados claros y orientativos
+        <a class="hero-cta" href="#calculadora">
+            Calcular mi solución <span>→</span>
+        </a>
+
+        <div class="hero-proof">
+            <strong>✓ Calculadora gratuita</strong>
+            <span>Resultados claros y orientativos antes de comprar.</span>
+        </div>
+
     </div>
 
-  </div>
+    <div class="hero-visual">
 
-  <div class="hero-visual">
+        <img
+            src="/logo-fincasinred-completo.webp"
+            alt="FincaSinRed — autonomía, energía, agua y vida"
+            class="hero-logo"
+        >
 
-    <img
-      src="/logo-fincasinred-completo.webp"
-      alt="FincaSinRed — autonomía, energía, agua y vida"
-      class="hero-logo"
-    >
-
-  </div>
+    </div>
 
 </section>
-
 <section class="steps" aria-label="Cómo funciona">
 
   <div class="step">
