@@ -48,7 +48,7 @@ def crear_pago():
     try:
         session = stripe.checkout.Session.create(
             mode="payment",
-            line_items=[{"price": "price_1U5rSq1xCi4MDD5SLwMswGr0", "quantity": 1}],
+            line_items=[{"price": "price_1U5pre1xCi4MDD5SmFZc57WT", "quantity": 1}],
             success_url="https://fincasinred.onrender.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
             cancel_url="https://fincasinred.onrender.com/?pago=cancelado",
         )
@@ -77,7 +77,7 @@ def crear_checkout(proyecto: ProyectoDatos):
     try:
         session = stripe.checkout.Session.create(
             mode="payment",
-            line_items=[{"price": "price_1U5rSq1xCi4MDD5SLwMswGr0", "quantity": 1}],
+            line_items=[{"price": "price_1U5pre1xCi4MDD5SmFZc57WT", "quantity": 1}],
             metadata={
                 "proyecto": base64.b64encode(
                     zlib.compress(
