@@ -34,7 +34,9 @@ stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 @app.get("/")
 def home():
     return FileResponse("index.html")
-
+@app.get("/logo-fincasinred.svg")
+def logo():
+    return FileResponse("logo-fincasinred.svg", media_type="image/svg+xml")
 
 @app.get("/health")
 def health():
