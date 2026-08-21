@@ -49,8 +49,8 @@ def crear_pago():
         session = stripe.checkout.Session.create(
             mode="payment",
             line_items=[{"price": "price_1U5pre1xCi4MDD5SmFZc57WT", "quantity": 1}],
-            success_url="https://fincasinred.onrender.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
-            cancel_url="https://fincasinred.onrender.com/?pago=cancelado",
+           success_url="https://fincasinred.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
+cancel_url="https://fincasinred.com/?pago=cancelado",
         )
         return {"url": session.url}
     except Exception as e:
