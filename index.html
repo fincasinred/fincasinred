@@ -790,7 +790,7 @@ presupuesto orientativo y criterios de compra.
 
   class="secondary"
 
-  onclick="window.print()">
+  onclick="descargarPDF()">
 
   🖨️ IMPRIMIR / GUARDAR COMO PDF
 
@@ -1930,6 +1930,22 @@ window.addEventListener(
   "DOMContentLoaded",
   comprobarPago
 );
+async function descargarPDF() {
+    try {
+        const parametros = new URLSearchParams(window.location.search);
+        const sessionId = parametros.get("session_id");
+
+        if (!sessionId) {
+            alert("No se ha encontrado la sesión de pago.");
+            return;
+        }
+
+        window.location.href = `/descargar-pdf?session_id=${encodeURIComponent(sessionId)}`;
+    } catch (error) {
+        console.error("Error al descargar el PDF:", error);
+        alert("No se ha podido generar el PDF.");
+    }
+}
 </script>
 
 </body>
