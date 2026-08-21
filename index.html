@@ -1909,7 +1909,7 @@ async function comprarProyecto(){
     ultimo = resultado.proyecto;
 
     prepararProyecto();
-
+localStorage.setItem("fincaSinRedSessionId", sessionId);
     window.history.replaceState(
       {},
       document.title,
@@ -1933,7 +1933,9 @@ window.addEventListener(
 async function descargarPDF() {
     try {
         const parametros = new URLSearchParams(window.location.search);
-        const sessionId = parametros.get("session_id");
+        const sessionId =
+  parametros.get("session_id") ||
+  localStorage.getItem("fincaSinRedSessionId");
 
         if (!sessionId) {
             alert("No se ha encontrado la sesión de pago.");
