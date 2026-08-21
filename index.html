@@ -934,8 +934,9 @@ function resultado(nombre,valor,clase=""){
 
 }
 
-let ultimo=null;
 
+let ultimo=null;
+let pagoConfirmado=false;
 function calcular(){
 
   const distancia=num("distancia");
@@ -1523,6 +1524,13 @@ function calcular(){
 }
 
 function prepararProyecto(){
+    if(!pagoConfirmado){
+    alert(
+      "🔒 El Proyecto completo es un servicio premium. " +
+      "Compra el proyecto por 19,99 € para desbloquearlo."
+    );
+    return;
+  }
 
   if(!ultimo){
 
@@ -1882,9 +1890,11 @@ async function comprarProyecto(){
   );
 
   const pago = params.get("pago");
-  const sessionId = params.get("session_id");
+  const sessionId =
+    params.get("session_id") ||
+    localStorage.getItem("fincaSinRedSessionId");
 
-  if(pago !== "ok" || !sessionId){
+  if(!sessionId){
     return;
   }
 
@@ -1906,7 +1916,8 @@ async function comprarProyecto(){
       return;
     }
 
-    ultimo = resultado.proyecto;
+       ultimo = resultado.proyecto;
+    pagoConfirmado = true;
 
     prepararProyecto();
 localStorage.setItem("fincaSinRedSessionId", sessionId);
@@ -1931,6 +1942,12 @@ window.addEventListener(
   comprobarPago
 );
 async function descargarPDF() {
+      if(!pagoConfirmado){
+        alert(
+            "🔒 El PDF completo está disponible después de comprar el Proyecto por 19,99 €."
+        );
+        return;
+    }
     try {
         const parametros = new URLSearchParams(window.location.search);
         const sessionId =
