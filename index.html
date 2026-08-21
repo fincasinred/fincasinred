@@ -521,20 +521,631 @@ th,td{
   }
 
 }
+/* =========================================================
+   CABECERA FincaSinRed — diseño principal
+   ========================================================= */
 
+.site-header {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e8eee8;
+  position: relative;
+  z-index: 20;
+}
+
+.header-inner {
+  width: min(1200px, calc(100% - 40px));
+  min-height: 76px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--text);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 52px;
+  height: 52px;
+  display: block;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-text strong {
+  font-size: 20px;
+  font-weight: 850;
+  color: #17321b;
+  letter-spacing: -0.3px;
+}
+
+.brand-text span {
+  margin-top: 4px;
+  color: #667067;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex: 1;
+}
+
+.main-nav a {
+  color: #182019;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.main-nav a:hover {
+  color: var(--green);
+}
+
+.header-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 20px;
+  border-radius: 9px;
+  background: var(--green);
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 750;
+  white-space: nowrap;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.header-button:hover {
+  background: var(--darkgreen);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   CUERPO PRINCIPAL — más parecido al diseño de referencia
+   ========================================================= */
+
+main {
+  width: min(1200px, calc(100% - 40px));
+  max-width: none;
+  margin: 0 auto;
+  padding: 34px 0 70px;
+}
+
+.card {
+  border-radius: 18px;
+  padding: 28px;
+  margin: 20px 0;
+  box-shadow: 0 4px 22px rgba(23, 32, 24, 0.07);
+}
+
+.hero {
+  padding: 42px;
+  border: 1px solid #dce9dc;
+  background:
+    linear-gradient(
+      135deg,
+      #f1f8f1 0%,
+      #ffffff 58%,
+      #f7fbf7 100%
+    );
+}
+
+.hero h1 {
+  max-width: 760px;
+  font-size: clamp(36px, 5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -1.8px;
+  margin: 0 0 18px;
+}
+
+.hero > .note {
+  max-width: 720px;
+  font-size: 17px;
+}
+
+/* Botones generales */
+
+button {
+  border-radius: 10px;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(45, 99, 50, 0.16);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 850px) {
+
+  .header-inner {
+    width: min(100% - 28px, 1200px);
+    gap: 16px;
+  }
+
+  .main-nav {
+    gap: 16px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+  }
+
+  .header-button {
+    padding: 0 14px;
+  }
+
+}
+
+@media (max-width: 700px) {
+
+  .header-inner {
+    min-height: auto;
+    padding: 12px 0;
+    flex-wrap: wrap;
+  }
+
+  .brand-logo {
+    width: 46px;
+    height: 46px;
+  }
+
+  .brand-text strong {
+    font-size: 18px;
+  }
+
+  .main-nav {
+    order: 3;
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 4px 0 2px;
+  }
+
+  .main-nav a {
+    font-size: 13px;
+  }
+
+  .header-button {
+    margin-left: auto;
+  }
+
+  main {
+    width: min(100% - 24px, 1200px);
+    padding-top: 20px;
+  }
+
+  .hero {
+    padding: 28px 22px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+    letter-spacing: -1px;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .brand-text span {
+    display: none;
+  }
+
+  .header-button {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  .main-nav {
+    gap: 18px;
+  }
+
+  .hero h1 {
+    font-size: 33px;
+  }
+
+}
+  /* =========================================================
+   DISEÑO VISUAL FINCASINRED
+   Mejora de cabecera, logo, tarjetas, botones y resultados
+   ========================================================= */
+
+body {
+  background: #f7f9f6;
+  color: #172018;
+}
+
+/* CABECERA */
+header,
+.site-header {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  border-bottom: 1px solid #e7ece7;
+}
+
+.header-inner {
+  max-width: 1180px;
+  min-height: 76px;
+  margin: 0 auto;
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  width: 185px;
+  height: auto;
+  max-height: 62px;
+  object-fit: contain;
+}
+
+/* Si existe el texto antiguo del logo */
+header > .logo {
+  display: none;
+}
+
+/* NAVEGACIÓN */
+.main-nav,
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.main-nav a {
+  color: #172018;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  transition: color .2s ease;
+}
+
+.main-nav a:hover {
+  color: #3f7f3f;
+}
+
+/* BOTÓN PRINCIPAL DE CABECERA */
+.header-button,
+.header-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 20px;
+  border-radius: 9px;
+  background: #3f7f3f;
+  color: #ffffff !important;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+  border: 0;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.header-button:hover,
+.header-cta:hover {
+  background: #2d6332;
+  transform: translateY(-1px);
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+  max-width: 1180px;
+  padding: 28px 24px 70px;
+}
+
+/* TARJETAS */
+.card {
+  background: #ffffff;
+  border: 1px solid #e4ebe4;
+  border-radius: 18px;
+  padding: 28px;
+  margin: 18px 0;
+  box-shadow: 0 5px 20px rgba(23, 32, 24, .055);
+}
+
+/* HERO */
+.hero {
+  background:
+    linear-gradient(
+      135deg,
+      #f0f8ef 0%,
+      #ffffff 65%
+    );
+  border: 1px solid #dce9dc;
+  padding: 38px;
+  overflow: hidden;
+}
+
+.hero h1 {
+  max-width: 700px;
+  font-size: 44px;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  margin: 0 0 16px;
+  color: #172018;
+}
+
+.hero p {
+  max-width: 650px;
+}
+
+/* TÍTULOS */
+h2 {
+  color: #172018;
+  font-size: 25px;
+  letter-spacing: -.3px;
+}
+
+h3 {
+  color: #172018;
+}
+
+/* ETAPAS */
+.step {
+  padding: 7px 0;
+}
+
+.step-number {
+  background: #3f7f3f;
+  box-shadow: 0 0 0 5px #edf6ed;
+}
+
+/* CAMPOS */
+input,
+select {
+  border: 1px solid #d2ddd2;
+  background: #ffffff;
+  border-radius: 10px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #3f7f3f;
+  box-shadow: 0 0 0 3px rgba(63, 127, 63, .12);
+}
+
+/* BOTONES */
+button {
+  border-radius: 10px;
+  background: #3f7f3f;
+  box-shadow: none;
+  transition:
+    background .2s ease,
+    transform .15s ease,
+    box-shadow .15s ease;
+}
+
+button:hover {
+  background: #2d6332;
+  transform: translateY(-1px);
+  box-shadow: 0 5px 14px rgba(45, 99, 50, .16);
+}
+
+button.secondary {
+  background: #ffffff;
+  color: #2d6332;
+  border: 1px solid #c7d9c7;
+}
+
+button.secondary:hover {
+  background: #f1f7f1;
+}
+
+/* RESULTADOS */
+.result {
+  background: #ffffff;
+  border: 1px solid #dfe8df;
+  border-radius: 14px;
+}
+
+.result .value {
+  color: #3f7f3f;
+}
+
+/* PRECIO */
+.price {
+  color: #3f7f3f;
+  font-size: 44px;
+}
+
+/* ETIQUETAS */
+.badge {
+  background: #edf6ed;
+  color: #2d6332;
+  border: 1px solid #d4e6d4;
+}
+
+/* PROYECTO PREMIUM */
+.shop {
+  background: #ffffff;
+  border-color: #dfe8df;
+}
+
+/* PIE */
+.footer {
+  background: #ffffff;
+  border-top: 1px solid #e4ebe4;
+  padding: 28px 20px;
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+  .header-inner {
+    padding: 10px 18px;
+  }
+
+  .brand-logo {
+    width: 160px;
+  }
+
+  .main-nav {
+    gap: 16px;
+  }
+
+  .main-nav a {
+    font-size: 14px;
+  }
+
+  main {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .hero h1 {
+    font-size: 38px;
+  }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .header-inner {
+    min-height: 68px;
+    padding: 9px 14px;
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 145px;
+    max-height: 50px;
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .header-button,
+  .header-cta {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 12px;
+  }
+
+  main {
+    padding: 15px 12px 45px;
+  }
+
+  .card {
+    padding: 20px;
+    border-radius: 16px;
+  }
+
+  .hero {
+    padding: 25px 20px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    letter-spacing: -.6px;
+  }
+
+  .price {
+    font-size: 38px;
+  }
+}
 </style>
 
 </head>
 
 <body>
 
-<header>
+<header class="site-header">
 
-  <div class="logo">💧 Finca<span>SinRed</span></div>
+  <div class="header-inner">
 
-  <div class="subtitle">
+    <a href="/" class="brand" aria-label="FincaSinRed - Inicio">
 
-    Calculadora rural de agua, riego, bombeo y energía solar
+      <img
+        src="/logo-fincasinred.svg"
+        alt="FincaSinRed"
+        class="brand-logo"
+      >
+
+      <div class="brand-text">
+
+        <strong>FincaSinRed</strong>
+
+        <span>Soluciones para fincas sin red</span>
+
+      </div>
+
+    </a>
+
+    <nav class="main-nav" aria-label="Navegación principal">
+
+      <a href="/">Inicio</a>
+
+      <a href="#calculadora">Calculadoras</a>
+
+      <a href="#proyecto">Proyecto</a>
+
+      <a href="#importante">Información</a>
+
+    </nav>
+
+    <a href="#calculadora" class="header-button">
+
+      Calcular mi solución
+
+    </a>
 
   </div>
 
