@@ -96,8 +96,8 @@ def crear_checkout(proyecto: ProyectoDatos):
                     )
                 ).decode("ascii")
             },
-            success_url="https://fincasinred.onrender.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
-            cancel_url="https://fincasinred.onrender.com/?pago=cancelado",
+            success_url="https://www.fincasinred.com/?pago=ok&session_id={CHECKOUT_SESSION_ID}",
+            cancel_url="https://www.fincasinred.com/?pago=cancelado",
         )
         return {"ok": True, "url": session.url}
     except Exception as e:
