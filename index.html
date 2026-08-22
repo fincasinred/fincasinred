@@ -1697,12 +1697,7 @@ main {
 
         </div>
 
-<<<<<<< HEAD
-<button
-=======
-
         <div class="field">
-
           <label for="rendimiento">
             Rendimiento global (%)
           </label>
@@ -1714,18 +1709,14 @@ main {
             min="10"
             max="95"
           >
-
         </div>
 
-
         <div class="field full">
-
           <label for="bateria">
             ¿Quieres batería?
           </label>
 
           <select id="bateria">
-
             <option value="no">
               No, bombeo directamente con solar
             </option>
@@ -1733,9 +1724,7 @@ main {
             <option value="si">
               Sí, quiero acumulación
             </option>
-
           </select>
-
         </div>
 
       </div>
@@ -1911,21 +1900,15 @@ main {
 
 
         <div class="recommendation-price">
+    <span>Proyecto completo FincaSinRed</span>
 
-          <span>
-            Proyecto completo FincaSinRed
-          </span>
+    <strong>19,99 €</strong>
 
-          <strong>
-            19,99 €
-          </strong>
-
-          <small>
-            Incluye cálculos, recomendaciones,
-            materiales, cantidades y resumen del proyecto.
-          </small>
-
-        </div>
+    <small>
+        Incluye cálculos, recomendaciones,
+        materiales, cantidades y resumen del proyecto.
+    </small>
+</div>
 
 
         <!-- ESTE ES EL BOTÓN QUE QUERÍAS MOVER -->
@@ -1933,13 +1916,7 @@ main {
         
 
 
-        <button
-          type="button"
-          class="secondary-button"
-          onclick="prepararProyecto()"
-        >
-          Generar proyecto completo
-        </button>
+        
 
 
         <!-- DIBUJO SIMPLE DE LA INSTALACIÓN -->
@@ -2125,7 +2102,7 @@ main {
     </h2>
 
     <div class="price">
-      19,99 €
+
     </div>
 
     <p class="note">
@@ -2168,13 +2145,7 @@ main {
 
     
 
-    <button
-      type="button"
-      class="secondary-button"
-      onclick="descargarPDF()"
-    >
-      🖨️ Imprimir / guardar como PDF
-    </button>
+    
 
   </section>
 
@@ -2978,13 +2949,7 @@ function pintarResumen() {
   }
 }
 function prepararProyecto(){
-    if(!pagoConfirmado){
-    alert(
-      "🔒 El Proyecto completo es un servicio premium. " +
-      "Compra el proyecto por 19,99 € para desbloquearlo."
-    );
-    return;
-  }
+    
 
   if(!ultimo){
 
@@ -3284,6 +3249,7 @@ function recuperarDatos(){
 
 }
 async function comprarProyecto(){
+  
 
   if(!ultimo){
     calcular();
@@ -3433,32 +3399,35 @@ window.addEventListener(
   "DOMContentLoaded",
   comprobarPago
 );
-async function descargarPDF() {
-      if(!pagoConfirmado){
-        alert(
-            "🔒 El PDF completo está disponible después de comprar el Proyecto por 19,99 €."
-        );
-        return;
-    }
-    try {
-        const parametros = new URLSearchParams(window.location.search);
-        const sessionId =
-  parametros.get("session_id") ||
-  localStorage.getItem("fincaSinRedSessionId");
+function descargarPDF() {
 
-        if (!sessionId) {
-            alert("No se ha encontrado la sesión de pago.");
-            return;
-        }
+  window.print();
 
-        window.location.href = `/descargar-pdf?session_id=${encodeURIComponent(sessionId)}`;
-    } catch (error) {
-        console.error("Error al descargar el PDF:", error);
-        alert("No se ha podido generar el PDF.");
-    }
+}
+function descargarPDF() {
+
+  window.print();
+
 }
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
+  // Eliminar cualquier precio visible del servicio premium.
+  document.querySelectorAll(".recommendation-price, .price").forEach(function (elemento) {
+    elemento.remove();
+  });
+
+  // El proyecto y el PDF quedan disponibles sin pago.
+  pagoConfirmado = true;
+
+  // Eliminar la etiqueta visual de "SERVICIO PREMIUM".
+  document.querySelectorAll("#proyecto .badge").forEach(function (elemento) {
+    elemento.remove();
+  });
+
+});
+</script>
 </body>
 
 </html>
