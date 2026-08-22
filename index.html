@@ -13,171 +13,1226 @@
 <title>FincaSinRed — Calculadora rural</title>
 
 <style>
+/* =========================================================
+   FINCASINRED — DISEÑO PRINCIPAL
+   Todo el diseño está aquí para facilitar futuros cambios.
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --green: #24752c;
+  --green-dark: #195b20;
+  --green-soft: #eef7ee;
+  --green-border: #d7e7d7;
+
+  --text: #111a14;
+  --muted: #667068;
+
+  --bg: #f7f9f7;
+  --white: #ffffff;
+  --line: #e1e8e2;
+
+  --shadow: 0 5px 24px rgba(20, 40, 24, 0.07);
+  --radius: 18px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  line-height: 1.5;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
 
 /* =========================================================
-   PORTADA PRINCIPAL FINCASINRED
+   CABECERA
+   ========================================================= */
+
+.site-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e7ece8;
+  position: relative;
+  z-index: 50;
+}
+
+.header-inner {
+  width: min(1200px, calc(100% - 40px));
+  min-height: 72px;
+  margin: 0 auto;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 28px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.1;
+}
+
+.brand-text strong {
+  font-size: 20px;
+  font-weight: 850;
+  letter-spacing: -0.5px;
+}
+
+.brand-text span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.main-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  flex: 1;
+}
+
+.main-nav a {
+  color: #182019;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+
+  transition:
+    color .2s ease,
+    opacity .2s ease;
+}
+
+.main-nav a:hover {
+  color: var(--green);
+}
+
+.header-button {
+  min-height: 40px;
+  padding: 0 18px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  background: var(--green);
+  color: #ffffff;
+
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+
+  white-space: nowrap;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.header-button:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+   ========================================================= */
+
+main {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 0 0 70px;
+}
+
+/* =========================================================
+   HERO
    ========================================================= */
 
 .hero {
+  min-height: 410px;
+  margin: 0;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: center;
-  gap: 40px;
-  min-height: 430px;
-  padding: 42px 46px;
+  grid-template-columns: 0.92fr 1.08fr;
+  align-items: stretch;
+
   overflow: hidden;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ffffff 0%,
+      #ffffff 45%,
+      #f3f8f3 72%,
+      #edf5ed 100%
+    );
+
+  border-bottom: 1px solid var(--green-border);
 }
 
 .hero-copy {
-  min-width: 0;
+  padding: 58px 20px 50px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-kicker {
+  margin-bottom: 14px;
+
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: .8px;
 }
 
 .hero-copy h1 {
   max-width: 650px;
-  margin: 0 0 20px;
-  font-size: clamp(38px, 4.5vw, 58px);
-  line-height: 1.03;
-  letter-spacing: -1.8px;
+
+  margin: 0 0 18px;
+
+  font-size: clamp(40px, 5vw, 62px);
+  line-height: 1.02;
+  letter-spacing: -2.2px;
+}
+
+.hero-copy h1 .highlight {
+  color: var(--green);
 }
 
 .hero-copy p {
   max-width: 650px;
+
   margin: 0 0 24px;
-  color: #536054;
-  font-size: 18px;
+
+  color: #465149;
+
+  font-size: 17px;
   line-height: 1.55;
 }
 
+.hero-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+
+  margin-bottom: 26px;
+}
+
+.hero-feature {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #303a33;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hero-feature-icon {
+  width: 28px;
+  height: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #bcd9be;
+  border-radius: 8px;
+
+  color: var(--green);
+  background: #f7fbf7;
+
+  font-size: 16px;
+}
+
 .hero-cta {
+  width: fit-content;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 15px 22px;
-  border-radius: 10px;
+
+  padding: 14px 22px;
+
+  border-radius: 9px;
+
   background: var(--green);
   color: #ffffff;
+
   text-decoration: none;
-  font-size: 16px;
+
+  font-size: 15px;
   font-weight: 800;
-  transition: background .2s ease, transform .2s ease;
+
+  transition:
+    background .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
 }
 
 .hero-cta:hover {
-  background: var(--darkgreen);
-  color: #ffffff;
+  background: var(--green-dark);
   transform: translateY(-1px);
-}
-
-.hero-cta span {
-  font-size: 20px;
-  line-height: 1;
+  box-shadow: 0 6px 16px rgba(36, 117, 44, .18);
 }
 
 .hero-proof {
-  margin-top: 14px;
-  color: #687268;
-  font-size: 14px;
+  margin-top: 12px;
+
+  color: #657067;
+
+  font-size: 12px;
 }
 
 .hero-proof strong {
-  color: var(--darkgreen);
+  color: var(--green-dark);
 }
 
 .hero-visual {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 0;
-    min-height: 100%;
-    height: 100%;
+  min-height: 410px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 70% 30%,
+      rgba(255,255,255,.95),
+      rgba(236,245,236,.45) 40%,
+      rgba(221,237,222,.75) 100%
+    );
 }
 
 .hero-logo {
-    display: block;
-    width: 100%;
-    max-width: 620px;
-    max-height: 470px;
-    height: auto;
-    object-fit: contain;
-    object-position: center;
-    mix-blend-mode: multiply;
+  width: 100%;
+  max-width: 570px;
+  max-height: 370px;
+
+  object-fit: contain;
+
+  mix-blend-mode: multiply;
 }
 
-/* PASOS */
+/* =========================================================
+   PASOS
+   ========================================================= */
+
+.steps-title {
+  margin: 18px 0 12px;
+
+  text-align: center;
+
+  font-size: 19px;
+  font-weight: 850;
+}
 
 .steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin: 20px 0;
+  gap: 18px;
+
+  padding: 8px 0 22px;
 }
 
-.steps .step {
-  margin: 0;
-  padding: 20px;
+.step {
+  min-width: 0;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 12px 18px;
+
   background: #ffffff;
-  border: 1px solid #dce6dc;
-  border-radius: 16px;
-  box-shadow: 0 3px 14px rgba(23, 32, 24, .05);
+  border-radius: 15px;
+
+  border: 1px solid var(--line);
 }
 
-.steps .step p {
-  margin: 0;
-  color: #687268;
+.step-icon {
+  width: 48px;
+  height: 48px;
+  min-width: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #f4faf4;
+  border: 1px solid #d7e8d7;
+
+  color: var(--green);
+
+  font-size: 21px;
+}
+
+.step-number {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+
+  margin-left: -21px;
+  margin-top: -35px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: var(--green);
+  color: #ffffff;
+
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.step h3 {
+  margin: 0 0 3px;
+
   font-size: 14px;
-  line-height: 1.45;
 }
 
-/* TABLET */
+.step p {
+  margin: 0;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+/* =========================================================
+   CALCULADORA PRINCIPAL
+   ========================================================= */
+
+.calculator-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+  gap: 18px;
+
+  margin-top: 10px;
+}
+
+.calculator-card,
+.recommendation-card {
+  background: #ffffff;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.calculator-card {
+  padding: 22px;
+}
+
+.recommendation-card {
+  padding: 22px;
+
+  position: relative;
+}
+
+.card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+
+  margin-bottom: 18px;
+}
+
+.card-header h2 {
+  margin: 0;
+
+  font-size: 22px;
+  letter-spacing: -.4px;
+}
+
+.card-header p {
+  margin: 5px 0 0;
+
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 6px 10px;
+
+  border-radius: 8px;
+
+  background: var(--green-soft);
+  color: var(--green-dark);
+
+  font-size: 11px;
+  font-weight: 800;
+
+  white-space: nowrap;
+}
+
+/* =========================================================
+   FORMULARIO
+   ========================================================= */
+
+.form-section-title {
+  margin: 18px 0 11px;
+
+  color: #172119;
+
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 13px;
+}
+
+.field {
+  min-width: 0;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  display: block;
+
+  margin: 0 0 6px;
+
+  color: #263128;
+
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  min-height: 43px;
+
+  padding: 10px 12px;
+
+  border: 1px solid #d1dbd2;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: #1a231c;
+
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease;
+}
+
+.field input:focus,
+.field select:focus {
+  border-color: #77aa7b;
+  box-shadow: 0 0 0 3px rgba(36,117,44,.08);
+}
+
+.field small {
+  display: block;
+
+  margin-top: 5px;
+
+  color: #7a847c;
+
+  font-size: 10px;
+}
+
+.form-help {
+  margin: 14px 0 0;
+
+  padding: 10px 12px;
+
+  border-radius: 9px;
+
+  background: #f7faf7;
+
+  color: var(--muted);
+
+  font-size: 11px;
+}
+
+.calculate-button {
+  width: 100%;
+
+  min-height: 48px;
+
+  margin-top: 18px;
+
+  border: 0;
+  border-radius: 10px;
+
+  background: var(--green);
+  color: #ffffff;
+
+  font-size: 15px;
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease,
+    box-shadow .2s ease;
+}
+
+.calculate-button:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+
+  box-shadow: 0 6px 15px rgba(36,117,44,.16);
+}
+
+.security-note {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  margin: 11px 0 0;
+
+  color: #6e786f;
+
+  font-size: 10px;
+}
+
+/* =========================================================
+   RECOMENDACIÓN
+   ========================================================= */
+
+.recommendation-title {
+  margin: 0 0 3px;
+
+  font-size: 20px;
+  font-weight: 850;
+}
+
+.recommendation-subtitle {
+  margin: 0 0 17px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+.recommendation-box {
+  padding: 16px;
+
+  border: 1px solid #e0e8e1;
+  border-radius: 13px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #f7faf7 100%
+    );
+}
+
+.system-name {
+  margin-bottom: 14px;
+
+  font-size: 17px;
+  font-weight: 850;
+}
+
+.metrics {
+  display: grid;
+  gap: 10px;
+
+  margin-bottom: 16px;
+}
+
+.metric {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+
+  align-items: center;
+
+  gap: 8px;
+
+  padding-bottom: 9px;
+
+  border-bottom: 1px solid #e7ece8;
+}
+
+.metric:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.metric-icon {
+  width: 27px;
+  height: 27px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #eff7ef;
+  color: var(--green);
+
+  font-size: 14px;
+}
+
+.metric-label {
+  color: #5d685f;
+  font-size: 11px;
+}
+
+.metric-value {
+  color: #172018;
+  font-size: 12px;
+  font-weight: 800;
+  text-align: right;
+}
+
+.recommendation-price {
+  margin-top: 15px;
+  padding-top: 13px;
+
+  border-top: 1px solid #e2e9e3;
+}
+
+.recommendation-price span {
+  display: block;
+
+  color: #626d65;
+  font-size: 11px;
+}
+
+.recommendation-price strong {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--green);
+
+  font-size: 28px;
+  line-height: 1.1;
+}
+
+.recommendation-price small {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #737d75;
+
+  font-size: 10px;
+}
+
+.purchase-button {
+  width: 100%;
+
+  min-height: 46px;
+
+  margin-top: 13px;
+
+  border: 0;
+  border-radius: 9px;
+
+  background: var(--green);
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 850;
+
+  cursor: pointer;
+
+  transition:
+    background .2s ease,
+    transform .2s ease;
+}
+
+.purchase-button:hover {
+  background: var(--green-dark);
+  transform: translateY(-1px);
+}
+
+.secondary-button {
+  width: 100%;
+
+  min-height: 43px;
+
+  margin-top: 8px;
+
+  border: 1px solid #cbd9cc;
+  border-radius: 9px;
+
+  background: #ffffff;
+  color: var(--green-dark);
+
+  font-size: 12px;
+  font-weight: 800;
+
+  cursor: pointer;
+}
+
+.secondary-button:hover {
+  background: #f4f9f4;
+}
+
+.installation-drawing {
+  margin-top: 16px;
+  padding: 9px;
+
+  border-radius: 12px;
+
+  background: #f7faf7;
+  border: 1px solid #e3eae4;
+}
+
+.installation-drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* =========================================================
+   RESULTADOS TÉCNICOS
+   ========================================================= */
+
+#resultado {
+  margin-top: 18px;
+}
+
+#resultado .card {
+  margin: 0 0 18px;
+}
+
+.result {
+  padding: 13px 14px;
+  margin: 9px 0;
+
+  border: 1px solid var(--line);
+  border-radius: 11px;
+
+  background: #fbfdfb;
+}
+
+.result .name {
+  color: #667168;
+  font-size: 11px;
+}
+
+.result .value {
+  margin-top: 3px;
+
+  color: var(--green);
+
+  font-size: 21px;
+  font-weight: 850;
+}
+
+.good {
+  background: #f0f8f0;
+  border-color: #c7dec8;
+}
+
+.warn {
+  background: #fff8e9;
+  border-color: #ead39b;
+}
+
+.danger {
+  background: #fff1ef;
+  border-color: #e8b9b2;
+}
+
+.result table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.result th,
+.result td {
+  padding: 9px 7px;
+
+  border-bottom: 1px solid #e2e8e3;
+
+  text-align: left;
+
+  font-size: 12px;
+}
+
+.shop {
+  padding: 13px;
+
+  margin: 9px 0;
+
+  border: 1px solid var(--line);
+  border-radius: 11px;
+
+  background: #fbfdfb;
+}
+
+.shop strong {
+  font-size: 13px;
+}
+
+.shop p {
+  margin: 4px 0 0;
+}
+
+/* =========================================================
+   PROYECTO PREMIUM
+   ========================================================= */
+
+#proyecto {
+  margin-top: 20px;
+}
+
+.premium-card {
+  padding: 24px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.premium-card h2 {
+  margin: 0 0 7px;
+  font-size: 22px;
+}
+
+.price {
+  margin: 5px 0 10px;
+
+  color: var(--green);
+
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.premium-list {
+  margin: 14px 0;
+  padding-left: 20px;
+
+  color: #4e5951;
+
+  font-size: 13px;
+}
+
+.premium-list li {
+  margin: 5px 0;
+}
+
+.material {
+  padding: 12px 0;
+
+  border-bottom: 1px solid #e5ebe6;
+}
+
+.material:last-child {
+  border-bottom: 0;
+}
+
+.material-name {
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.material-qty {
+  margin-top: 3px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   GUARDAR / AVISO
+   ========================================================= */
+
+.utility-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  gap: 18px;
+
+  margin-top: 20px;
+}
+
+.utility-card {
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+
+  box-shadow: var(--shadow);
+}
+
+.utility-card h2 {
+  margin: 0 0 8px;
+
+  font-size: 18px;
+}
+
+.utility-card p {
+  margin: 0 0 12px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.footer {
+  padding: 30px 20px;
+
+  text-align: center;
+
+  color: #7a837b;
+
+  font-size: 12px;
+}
+
+/* =========================================================
+   OCULTAR
+   ========================================================= */
+
+.hidden {
+  display: none !important;
+}
+
+/* =========================================================
+   IMPRESIÓN
+   ========================================================= */
+
+@media print {
+  .site-header,
+  .steps,
+  .hero,
+  .no-print,
+  button {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  main {
+    width: 100%;
+    padding: 0;
+  }
+
+  .calculator-layout {
+    display: block;
+  }
+
+  .calculator-card,
+  .recommendation-card {
+    box-shadow: none;
+    border: 1px solid #ddd;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
 
 @media (max-width: 850px) {
+  .header-inner {
+    width: min(100% - 28px, 1200px);
+    gap: 16px;
+  }
 
-  .hero {
+  .main-nav {
+    gap: 16px;
+  }
+
+  .main-nav a {
+    font-size: 12px;
+  }
+
+  .calculator-layout {
     grid-template-columns: 1fr;
-    gap: 20px;
-    padding: 34px 28px;
-  }
-
-  .hero-visual {
-    order: -1;
-  }
-
-  .hero-logo {
-    max-width: 480px;
-    max-height: 360px;
   }
 
   .steps {
     grid-template-columns: 1fr;
   }
-}
 
-/* MÓVIL */
-
-@media (max-width: 600px) {
+  .utility-grid {
+    grid-template-columns: 1fr;
+  }
 
   .hero {
-    padding: 28px 20px;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-copy {
+    padding: 38px 25px 25px;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+}
+
+/* =========================================================
+   MÓVIL
+   ========================================================= */
+
+@media (max-width: 600px) {
+  .header-inner {
+    width: calc(100% - 22px);
+    min-height: auto;
+
+    padding: 10px 0;
+
+    flex-wrap: wrap;
+  }
+
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+  }
+
+  .brand-text strong {
+    font-size: 18px;
+  }
+
+  .brand-text span {
+    display: none;
+  }
+
+  .header-button {
+    margin-left: auto;
+
+    min-height: 37px;
+    padding: 0 12px;
+
+    font-size: 11px;
+  }
+
+  .main-nav {
+    order: 3;
+
+    width: 100%;
+
+    justify-content: flex-start;
+
+    overflow-x: auto;
+
+    padding-bottom: 3px;
+  }
+
+  main {
+    width: calc(100% - 20px);
   }
 
   .hero-copy h1 {
-    font-size: 38px;
-    letter-spacing: -1px;
+    font-size: 39px;
+    letter-spacing: -1.3px;
   }
 
   .hero-copy p {
-    font-size: 16px;
+    font-size: 15px;
   }
 
-  .hero-logo {
-    max-width: 100%;
-    max-height: 300px;
+  .hero-features {
+    gap: 10px;
   }
 
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .calculator-card,
+  .recommendation-card {
+    padding: 17px;
+  }
+
+  .card-header {
+    flex-direction: column;
+  }
+
+  .recommendation-price strong {
+    font-size: 25px;
+  }
 }
 </style>
-<link rel="stylesheet" href="/style.css">
+
 </head>
 
 <body>
@@ -228,342 +1283,977 @@
 
 <main>
 
-<!-- PRESENTACIÓN -->
+  <!-- =====================================================
+       HERO
+       ===================================================== -->
 
-<section class="hero" aria-labelledby="hero-title">
+  <section class="hero" aria-labelledby="hero-title">
 
     <div class="hero-copy">
 
-        <span class="hero-kicker">FINCAS SIN RED · AUTONOMÍA · SOLUCIONES</span>
+      <span class="hero-kicker">
+        FINCAS SIN RED · AUTONOMÍA · SOLUCIONES
+      </span>
 
-        <h1 id="hero-title">
-            Equipa tu finca sin agua ni electricidad de red
-        </h1>
+      <h1 id="hero-title">
+        Equipa tu finca sin agua ni electricidad de red
+        <span class="highlight">nunca fue tan fácil</span>
+      </h1>
 
-        <p>
-            Calcula, compara y encuentra todo lo que necesitas para llevar
-            agua, energía y autonomía a tu finca aislada.
-        </p>
+      <p>
+        Calcula, compara y encuentra lo que necesitas para llevar
+        agua, energía y autonomía a tu finca aislada.
+        Ahorra tiempo, dinero y errores antes de comprar.
+      </p>
 
-        <a class="hero-cta" href="#calculadora">
-            Calcular mi solución <span>→</span>
-        </a>
+      <div class="hero-features">
 
-        <div class="hero-proof">
-            <strong>✓ Calculadora gratuita</strong>
-            <span>Resultados claros y orientativos antes de comprar.</span>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">▦</span>
+          <span>Calculadora<br>inteligente</span>
         </div>
+
+        <div class="hero-feature">
+          <span class="hero-feature-icon">★</span>
+          <span>Recomendaciones<br>personalizadas</span>
+        </div>
+
+        <div class="hero-feature">
+          <span class="hero-feature-icon">🛒</span>
+          <span>Productos y<br>materiales</span>
+        </div>
+
+      </div>
+
+      <a class="hero-cta" href="#calculadora">
+        Calcular mi solución gratuita
+        <span>→</span>
+      </a>
+
+      <div class="hero-proof">
+        <strong>✓ Calculadora gratuita</strong>
+        <span>Resultados orientativos antes de comprar.</span>
+      </div>
 
     </div>
 
     <div class="hero-visual">
 
-        <img
-            src="/logo-fincasinred-completo.webp"
-            alt="FincaSinRed — autonomía, energía, agua y vida"
-            class="hero-logo"
+      <img
+        src="/logo-fincasinred-completo.webp"
+        alt="FincaSinRed — autonomía, energía, agua y vida"
+        class="hero-logo"
+      >
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       PASOS
+       ===================================================== -->
+
+  <h2 class="steps-title">
+    Así funciona en 3 pasos
+  </h2>
+
+  <section class="steps" aria-label="Cómo funciona FincaSinRed">
+
+    <div class="step">
+
+      <div class="step-icon">
+        💧
+      </div>
+
+      <div class="step-number">
+        1
+      </div>
+
+      <div>
+        <h3>Cuéntanos tu finca</h3>
+
+        <p>
+          Introduce distancias, desnivel, tuberías
+          y necesidades de riego.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-icon">
+        ▦
+      </div>
+
+      <div class="step-number">
+        2
+      </div>
+
+      <div>
+        <h3>Calculamos tu solución</h3>
+
+        <p>
+          Estimamos caudal, altura, bomba
+          y energía necesaria.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="step">
+
+      <div class="step-icon">
+        🛒
+      </div>
+
+      <div class="step-number">
+        3
+      </div>
+
+      <div>
+        <h3>Compra con más seguridad</h3>
+
+        <p>
+          Obtén una orientación clara antes
+          de gastar dinero.
+        </p>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- =====================================================
+       CALCULADORA
+       ===================================================== -->
+
+  <section
+    id="calculadora"
+    class="calculator-layout"
+    aria-label="Calculadora FincaSinRed"
+  >
+
+    <!-- ===================================================
+         COLUMNA IZQUIERDA
+         =================================================== -->
+
+    <div class="calculator-card">
+
+      <div class="card-header">
+
+        <div>
+          <h2>Cuéntanos sobre tu finca</h2>
+
+          <p>
+            Introduce los datos de tu instalación
+            para calcular una solución orientativa.
+          </p>
+        </div>
+
+        <span class="badge">
+          Cálculo gratuito
+        </span>
+
+      </div>
+
+
+      <!-- DATOS HIDRÁULICOS -->
+
+      <div class="form-section-title">
+        📍 Datos de la finca
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label for="distancia">
+            Longitud de tubería principal (m)
+          </label>
+
+          <input
+            id="distancia"
+            type="number"
+            value="60"
+            min="1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="desnivel">
+            Desnivel vertical (m)
+          </label>
+
+          <input
+            id="desnivel"
+            type="number"
+            value="5"
+            min="0"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="diametro">
+            Diámetro interior de tubería
+          </label>
+
+          <select id="diametro">
+
+            <option value="20">
+              20 mm
+            </option>
+
+            <option value="25" selected>
+              25 mm
+            </option>
+
+            <option value="32">
+              32 mm
+            </option>
+
+            <option value="40">
+              40 mm
+            </option>
+
+            <option value="50">
+              50 mm
+            </option>
+
+            <option value="63">
+              63 mm
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="ramales">
+            Longitud total de ramales (m)
+          </label>
+
+          <input
+            id="ramales"
+            type="number"
+            value="30"
+            min="0"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="nramales">
+            Número de ramales
+          </label>
+
+          <input
+            id="nramales"
+            type="number"
+            value="5"
+            min="1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="puntos">
+            Número de puntos de riego
+          </label>
+
+          <input
+            id="puntos"
+            type="number"
+            value="30"
+            min="1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="gotero">
+            Caudal de cada punto (L/h)
+          </label>
+
+          <input
+            id="gotero"
+            type="number"
+            value="4"
+            min="0.1"
+          >
+
+          <small>
+            Introduce el caudal real del gotero o emisor.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- NECESIDAD DE AGUA -->
+
+      <div class="form-section-title">
+        💧 Necesidad de agua
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label for="agua">
+            Agua necesaria al día (L)
+          </label>
+
+          <input
+            id="agua"
+            type="number"
+            value="3000"
+            min="1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="horas">
+            Horas de funcionamiento al día
+          </label>
+
+          <input
+            id="horas"
+            type="number"
+            value="2"
+            min="0.1"
+            step="0.1"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="presion">
+            Presión necesaria en el punto de riego (bar)
+          </label>
+
+          <input
+            id="presion"
+            type="number"
+            value="1"
+            min="0"
+            step="0.1"
+          >
+
+          <small>
+            1 bar ≈ 10,2 m.c.a.
+          </small>
+
+        </div>
+
+      </div>
+
+
+      <!-- ENERGÍA -->
+
+      <div class="form-section-title">
+        ☀️ Energía
+      </div>
+
+      <div class="form-grid">
+
+        <div class="field">
+
+          <label for="sol">
+            Horas solares útiles al día
+          </label>
+
+          <input
+            id="sol"
+            type="number"
+            value="5"
+            min="1"
+            step="0.1"
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="rendimiento">
+            Rendimiento global (%)
+          </label>
+
+          <input
+            id="rendimiento"
+            type="number"
+            value="55"
+            min="10"
+            max="95"
+          >
+
+        </div>
+
+
+        <div class="field full">
+
+          <label for="bateria">
+            ¿Quieres batería?
+          </label>
+
+          <select id="bateria">
+
+            <option value="no">
+              No, bombeo directamente con solar
+            </option>
+
+            <option value="si">
+              Sí, quiero acumulación
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-help">
+        💡 La calculadora mantiene los cálculos hidráulicos
+        y energéticos que ya utilizábamos en las versiones anteriores.
+      </div>
+
+
+      <button
+        type="button"
+        class="calculate-button"
+        onclick="calcular(); pintarResumen();"
+      >
+        Calcular mi solución →
+      </button>
+
+
+      <div class="security-note">
+        🔒 Tus datos se utilizan únicamente para realizar el cálculo
+        en esta instalación.
+      </div>
+
+    </div>
+
+
+    <!-- ===================================================
+         COLUMNA DERECHA
+         =================================================== -->
+
+    <div class="recommendation-card">
+
+      <div class="card-header">
+
+        <div>
+
+          <h2 class="recommendation-title">
+            Tu solución recomendada
+          </h2>
+
+          <p class="recommendation-subtitle">
+            Calculamos una orientación a partir de los datos
+            que introduces.
+          </p>
+
+        </div>
+
+        <span class="badge">
+          Opción recomendada
+        </span>
+
+      </div>
+
+
+      <div class="recommendation-box">
+
+        <div
+          id="rec-system-name"
+          class="system-name"
         >
+          Sistema de bombeo solar directo
+        </div>
+
+
+        <div class="metrics">
+
+          <div class="metric">
+
+            <div class="metric-icon">
+              💧
+            </div>
+
+            <div class="metric-label">
+              Caudal recomendado
+            </div>
+
+            <div
+              id="rec-caudal"
+              class="metric-value"
+            >
+              — L/h
+            </div>
+
+          </div>
+
+
+          <div class="metric">
+
+            <div class="metric-icon">
+              ↕
+            </div>
+
+            <div class="metric-label">
+              Altura recomendada
+            </div>
+
+            <div
+              id="rec-altura"
+              class="metric-value"
+            >
+              — m.c.a.
+            </div>
+
+          </div>
+
+
+          <div class="metric">
+
+            <div class="metric-icon">
+              ⚡
+            </div>
+
+            <div class="metric-label">
+              Potencia bomba
+            </div>
+
+            <div
+              id="rec-bomba"
+              class="metric-value"
+            >
+              — W
+            </div>
+
+          </div>
+
+
+          <div class="metric">
+
+            <div class="metric-icon">
+              ☀
+            </div>
+
+            <div class="metric-label">
+              Energía diaria
+            </div>
+
+            <div
+              id="rec-energia"
+              class="metric-value"
+            >
+              — kWh/día
+            </div>
+
+          </div>
+
+
+          <div
+            id="rec-bateria-row"
+            class="metric"
+            style="display:none;"
+          >
+
+            <div class="metric-icon">
+              🔋
+            </div>
+
+            <div class="metric-label">
+              Batería orientativa
+            </div>
+
+            <div
+              id="rec-bateria"
+              class="metric-value"
+            >
+              —
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="recommendation-price">
+
+          <span>
+            Proyecto completo FincaSinRed
+          </span>
+
+          <strong>
+            19,99 €
+          </strong>
+
+          <small>
+            Incluye cálculos, recomendaciones,
+            materiales, cantidades y resumen del proyecto.
+          </small>
+
+        </div>
+
+
+        <!-- ESTE ES EL BOTÓN QUE QUERÍAS MOVER -->
+
+        <button
+          type="button"
+          class="purchase-button"
+          onclick="comprarProyecto()"
+        >
+          Comprar proyecto completo — 19,99 € →
+        </button>
+
+
+        <button
+          type="button"
+          class="secondary-button"
+          onclick="prepararProyecto()"
+        >
+          Generar proyecto completo
+        </button>
+
+
+        <!-- DIBUJO SIMPLE DE LA INSTALACIÓN -->
+
+        <div class="installation-drawing">
+
+          <svg
+            viewBox="0 0 500 180"
+            role="img"
+            aria-label="Esquema de instalación solar y bombeo"
+          >
+
+            <!-- terreno -->
+
+            <rect
+              x="10"
+              y="125"
+              width="480"
+              height="35"
+              rx="6"
+              fill="#edf2ed"
+            />
+
+            <!-- depósito -->
+
+            <rect
+              x="370"
+              y="72"
+              width="72"
+              height="55"
+              rx="8"
+              fill="#dcebe0"
+              stroke="#5b7861"
+              stroke-width="2"
+            />
+
+            <text
+              x="406"
+              y="103"
+              text-anchor="middle"
+              font-size="12"
+              fill="#405247"
+            >
+              DEPÓSITO
+            </text>
+
+
+            <!-- panel -->
+
+            <polygon
+              points="90,35 180,55 166,98 76,78"
+              fill="#dbe9ef"
+              stroke="#456a78"
+              stroke-width="2"
+            />
+
+            <line
+              x1="100"
+              y1="45"
+              x2="171"
+              y2="61"
+              stroke="#6a8994"
+              stroke-width="1"
+            />
+
+            <line
+              x1="93"
+              y1="62"
+              x2="164"
+              y2="78"
+              stroke="#6a8994"
+              stroke-width="1"
+            />
+
+            <line
+              x1="86"
+              y1="78"
+              x2="157"
+              y2="94"
+              stroke="#6a8994"
+              stroke-width="1"
+            />
+
+
+            <!-- bomba -->
+
+            <circle
+              cx="205"
+              cy="116"
+              r="17"
+              fill="#eef7ef"
+              stroke="#24752c"
+              stroke-width="2"
+            />
+
+            <text
+              x="205"
+              y="121"
+              text-anchor="middle"
+              font-size="13"
+              font-weight="700"
+              fill="#24752c"
+            >
+              B
+            </text>
+
+
+            <!-- tubería -->
+
+            <path
+              d="M222 116 H370"
+              fill="none"
+              stroke="#24752c"
+              stroke-width="5"
+            />
+
+            <!-- agua -->
+
+            <path
+              d="M222 116 H270 V145"
+              fill="none"
+              stroke="#6c9b72"
+              stroke-width="3"
+            />
+
+            <circle
+              cx="270"
+              cy="145"
+              r="4"
+              fill="#24752c"
+            />
+
+            <circle
+              cx="310"
+              cy="145"
+              r="4"
+              fill="#24752c"
+            />
+
+            <circle
+              cx="350"
+              cy="145"
+              r="4"
+              fill="#24752c"
+            />
+
+          </svg>
+
+        </div>
+
+      </div>
 
     </div>
 
-</section>
-<section class="steps" aria-label="Cómo funciona">
+  </section>
 
-  <div class="step">
 
-    <div class="step-number">1</div>
+  <!-- =====================================================
+       RESULTADOS DETALLADOS
+       ===================================================== -->
 
-    <div>
-      <h3>Cuéntanos tu finca</h3>
+  <section
+    id="resultado"
+    aria-label="Resultados del cálculo"
+  ></section>
+
+
+  <!-- =====================================================
+       PROYECTO PREMIUM
+       ===================================================== -->
+
+  <section
+    id="proyecto"
+    class="premium-card no-print"
+  >
+
+    <span class="badge">
+      SERVICIO PREMIUM
+    </span>
+
+    <h2>
+      Proyecto completo de instalación
+    </h2>
+
+    <div class="price">
+      19,99 €
+    </div>
+
+    <p class="note">
+      Con tus datos, FincaSinRed prepara una ficha de proyecto
+      con los cálculos, recomendaciones, materiales, cantidades,
+      presupuesto orientativo y criterios de compra.
+    </p>
+
+    <ul class="premium-list">
+
+      <li>
+        Dimensionamiento hidráulico.
+      </li>
+
+      <li>
+        Caudal y altura de trabajo.
+      </li>
+
+      <li>
+        Recomendación orientativa de bomba.
+      </li>
+
+      <li>
+        Solar y batería.
+      </li>
+
+      <li>
+        Lista de materiales y cantidades.
+      </li>
+
+      <li>
+        Presupuesto orientativo.
+      </li>
+
+      <li>
+        Resumen listo para imprimir o guardar como PDF.
+      </li>
+
+    </ul>
+
+    <button
+      type="button"
+      class="purchase-button"
+      onclick="comprarProyecto()"
+    >
+      Comprar proyecto — 19,99 €
+    </button>
+
+    <button
+      type="button"
+      class="secondary-button"
+      onclick="descargarPDF()"
+    >
+      🖨️ Imprimir / guardar como PDF
+    </button>
+
+  </section>
+
+
+  <!-- =====================================================
+       PROYECTO GENERADO
+       ===================================================== -->
+
+  <div
+    id="proyecto-generado"
+    class="hidden"
+  ></div>
+
+
+  <!-- =====================================================
+       GUARDAR DATOS
+       ===================================================== -->
+
+  <section class="utility-grid no-print">
+
+    <div class="utility-card">
+
+      <h2>
+        💾 Guardar instalación
+      </h2>
+
       <p>
-        Distancias, desnivel, tuberías y puntos de riego.
+        Guarda los datos en este dispositivo
+        y recupéralos cuando quieras.
       </p>
+
+      <button
+        type="button"
+        class="secondary-button"
+        onclick="guardarDatos()"
+      >
+        Guardar datos
+      </button>
+
+      <button
+        type="button"
+        class="secondary-button"
+        onclick="recuperarDatos()"
+      >
+        Recuperar datos
+      </button>
+
     </div>
 
-  </div>
 
-  <div class="step">
+    <div
+      id="importante"
+      class="utility-card"
+    >
 
-    <div class="step-number">2</div>
+      <h2>
+        ⚠️ Importante
+      </h2>
 
-    <div>
-      <h3>Calculamos tu solución</h3>
       <p>
-        Estimamos caudal, altura, bomba y energía.
+        Los resultados son orientativos. La selección definitiva
+        de una bomba debe comprobarse con su curva real de caudal
+        y altura manométrica, además de las pérdidas de filtros,
+        válvulas, codos, accesorios y características reales
+        de la instalación.
       </p>
+
     </div>
 
-  </div>
-
-  <div class="step">
-
-    <div class="step-number">3</div>
-
-    <div>
-      <h3>Compra con más seguridad</h3>
-      <p>
-        Obtén una orientación clara antes de gastar dinero.
-      </p>
-    </div>
-
-  </div>
-
-</section>
-
-<!-- DATOS DE LA FINCA -->
-
-<div id="calculadora" class="card">
-<h2>📍 Datos de la finca</h2>>
-
-<label>Longitud de tubería principal (m)</label>
-
-<input id="distancia" type="number" value="60" min="1">
-
-<label>Desnivel vertical (m)</label>
-
-<input id="desnivel" type="number" value="5" min="0">
-
-<label>Diámetro interior de la tubería (mm)</label>
-
-<select id="diametro">
-
-  <option value="20">20 mm</option>
-
-  <option value="25" selected>25 mm</option>
-
-  <option value="32">32 mm</option>
-
-  <option value="40">40 mm</option>
-
-  <option value="50">50 mm</option>
-
-  <option value="63">63 mm</option>
-
-</select>
-
-<label>Longitud total de ramales (m)</label>
-
-<input id="ramales" type="number" value="30" min="0">
-
-<label>Número de ramales</label>
-
-<input id="nramales" type="number" value="5" min="1">
-
-<label>Número de puntos de riego</label>
-
-<input id="puntos" type="number" value="30" min="1">
-
-<label>Caudal de cada punto (L/h)</label>
-
-<input id="gotero" type="number" value="4" min="0.1">
-
-<small>
-
-Introduce el caudal real del gotero o emisor.
-
-</small>
-
-</div>
-
-<!-- AGUA -->
-
-<div class="card">
-
-<h2>💧 Necesidad de agua</h2>
-
-<label>Agua necesaria al día (L)</label>
-
-<input id="agua" type="number" value="3000" min="1">
-
-<label>Horas de funcionamiento de la bomba al día</label>
-
-<input id="horas" type="number" value="2" min="0.1" step="0.1">
-
-<label>Presión necesaria en el punto de riego (bar)</label>
-
-<input id="presion" type="number" value="1" min="0" step="0.1">
-
-<small>
-
-1 bar ≈ 10,2 m.c.a.
-
-</small>
-
-</div>
-
-<!-- ENERGÍA -->
-
-<div class="card">
-
-<h2>☀️ Energía</h2>
-
-<label>Horas solares útiles al día</label>
-
-<input id="sol" type="number" value="5" min="1" step="0.1">
-
-<label>Rendimiento global bomba + sistema (%)</label>
-
-<input id="rendimiento" type="number" value="55" min="10" max="95">
-
-<label>¿Quieres batería?</label>
-
-<select id="bateria">
-
-  <option value="no">
-
-    No, bombeo directamente con solar
-
-  </option>
-
-  <option value="si">
-
-    Sí, quiero acumulación
-
-  </option>
-
-</select>
-
-<button onclick="calcular()">
-
-  CALCULAR INSTALACIÓN
-
-</button>
-
-</div>
-
-<!-- RESULTADO -->
-
-<div id="resultado"></div>
-
-<!-- PROYECTO -->
-
-<div id="proyecto" class="card no-print">
-<h2>📐 Proyecto completo</h2>
-
-<span class="badge">
-
-  SERVICIO PREMIUM
-
-</span>
-
-<div class="price">
-
-  19,99 €
-
-</div>
-
-<p class="note">
-
-Con tus datos, FincaSinRed prepara una ficha de proyecto
-
-con los cálculos, recomendaciones, materiales, cantidades,
-
-presupuesto orientativo y criterios de compra.
-
-</p>
-
-<ul>
-
-  <li>Dimensionamiento hidráulico.</li>
-
-  <li>Caudal y altura de trabajo.</li>
-
-  <li>Recomendación orientativa de bomba.</li>
-
-  <li>Solar y batería.</li>
-
-  <li>Lista de materiales y cantidades.</li>
-
-  <li>Presupuesto orientativo.</li>
-
-  <li>Resumen listo para imprimir o guardar como PDF.</li>
-
-</ul>
-
-<button onclick="prepararProyecto()">
-
-  PREPARAR MI PROYECTO
-
-</button>
-
-<button
-  type="button"
-  onclick="comprarProyecto()">
-
-  COMPRAR PROYECTO — 19,99 €
-
-</button>
-
-<button
-
-  class="secondary"
-
-  onclick="descargarPDF()">
-
-  🖨️ IMPRIMIR / GUARDAR COMO PDF
-
-</button>
-
-</div>
-
-<!-- PROYECTO GENERADO -->
-
-<div id="proyecto-generado" class="hidden"></div>
-
-<!-- GUARDAR -->
-
-<div class="card no-print">
-
-<h2>💾 Guardar instalación</h2>
-
-<p class="note">
-
-Guarda los datos en este dispositivo y recupéralos después.
-
-</p>
-
-<button
-
-  class="secondary"
-
-  onclick="guardarDatos()">
-
-  GUARDAR DATOS
-
-</button>
-
-<button
-
-  class="secondary"
-
-  onclick="recuperarDatos()">
-
-  RECUPERAR DATOS
-
-</button>
-
-</div>
-
-<!-- AVISO -->
-
-<div id="importante" class="card">
-<h2>⚠️ Importante</h2>
-
-<p class="note">
-
-Los resultados son orientativos. La selección definitiva de
-
-una bomba debe comprobarse con su curva real de caudal y
-
-altura manométrica, además de las pérdidas de filtros,
-
-válvulas, codos, accesorios y características reales de
-
-la instalación.
-
-</p>
-
-</div>
+  </section>
 
 </main>
 
@@ -1229,7 +2919,73 @@ function calcular(){
   `;
 
 }
+function pintarResumen() {
 
+  if (!ultimo) {
+    return;
+  }
+
+  const caudal = document.getElementById("rec-caudal");
+  const altura = document.getElementById("rec-altura");
+  const bomba = document.getElementById("rec-bomba");
+  const energia = document.getElementById("rec-energia");
+
+  if (caudal) {
+    caudal.textContent =
+      fmt(ultimo.caudalRecomendado, 0) + " L/h";
+  }
+
+  if (altura) {
+    altura.textContent =
+      fmt(ultimo.alturaRecomendada, 1) + " m.c.a.";
+  }
+
+  if (bomba) {
+    bomba.textContent =
+      fmt(ultimo.bombaW, 0) + " W";
+  }
+
+  if (energia) {
+    energia.textContent =
+      fmt(ultimo.energiaDiaria, 2) + " kWh/día";
+  }
+
+  const sistema =
+    document.getElementById("rec-system-name");
+
+  if (sistema) {
+
+    sistema.textContent =
+      ultimo.usarBateria
+        ? "Sistema de bombeo solar con batería"
+        : "Sistema de bombeo solar directo";
+  }
+
+  const bateriaRow =
+    document.getElementById("rec-bateria-row");
+
+  const bateria =
+    document.getElementById("rec-bateria");
+
+  if (ultimo.usarBateria) {
+
+    if (bateriaRow) {
+      bateriaRow.style.display = "grid";
+    }
+
+    if (bateria) {
+      bateria.textContent =
+        fmt(ultimo.bateriaWh, 0) + " Wh";
+    }
+
+  } else {
+
+    if (bateriaRow) {
+      bateriaRow.style.display = "none";
+    }
+
+  }
+}
 function prepararProyecto(){
     if(!pagoConfirmado){
     alert(
