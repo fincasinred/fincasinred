@@ -3353,11 +3353,39 @@ async function comprarProyecto(){
   );
 
   const pago = params.get("pago");
-  const sessionId =
-    params.get("session_id") ||
+  const sessionId = params.get("session_id");
+  const sessionGuardada =
     localStorage.getItem("fincaSinRedSessionId");
 
-  if(!sessionId){
+  // Stripe llega aquí con pago=cancelado cuando el cliente
+  // abandona el Checkout. No debemos intentar verificar una
+  // sesión antigua almacenada en localStorage.
+  if(pago === "cancelado"){
+
+    localStorage.removeItem("fincaSinRedSessionId");
+    pagoConfirmado = false;
+
+    alert(
+      "Pago cancelado. No se ha realizado ningún cargo."
+    );
+
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname
+    );
+
+    return;
+  }
+
+  // Solo confirmamos expresamente una vuelta correcta de Stripe
+  // o una sesión previamente validada que se haya guardado.
+  const sessionAComprobar =
+    pago === "ok"
+      ? sessionId
+      : sessionGuardada;
+
+  if(!sessionAComprobar){
     return;
   }
 
@@ -3365,25 +3393,35 @@ async function comprarProyecto(){
 
     const respuesta = await fetch(
       "/verificar-pago?session_id=" +
-      encodeURIComponent(sessionId)
+      encodeURIComponent(sessionAComprobar)
     );
 
     const resultado = await respuesta.json();
 
     if(!respuesta.ok || !resultado.ok){
 
+      localStorage.removeItem("fincaSinRedSessionId");
+      pagoConfirmado = false;
+
       alert(
-        "No se ha podido confirmar el pago."
+        pago === "ok"
+          ? "El pago todavía no aparece como confirmado en Stripe. No se ha desbloqueado el proyecto."
+          : "La sesión de pago guardada ya no está confirmada."
       );
 
       return;
     }
 
-       ultimo = resultado.proyecto;
+    ultimo = resultado.proyecto;
     pagoConfirmado = true;
 
+    localStorage.setItem(
+      "fincaSinRedSessionId",
+      sessionAComprobar
+    );
+
     prepararProyecto();
-localStorage.setItem("fincaSinRedSessionId", sessionId);
+
     window.history.replaceState(
       {},
       document.title,
@@ -3392,14 +3430,14 @@ localStorage.setItem("fincaSinRedSessionId", sessionId);
 
   }catch(error){
 
+    console.error("Error al verificar el pago:", error);
+
     alert(
-      "No se ha podido verificar el pago."
+      "No se ha podido verificar el pago. Inténtalo de nuevo."
     );
 
   }
-
 }
-
 window.addEventListener(
   "DOMContentLoaded",
   comprobarPago
