@@ -1231,6 +1231,408 @@ main {
     font-size: 25px;
   }
 }
+/* =========================================================
+   FINCASINRED — NUEVA PORTADA / MAQUETA DEFINITIVA
+   Solo diseño. No modifica la lógica de la calculadora.
+   ========================================================= */
+
+.site-header{
+  background:rgba(255,255,255,.97);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid #e6ebe7;
+}
+
+.header-inner{
+  width:min(1480px,calc(100% - 38px));
+  min-height:72px;
+}
+
+.brand-logo{
+  width:43px;
+  height:43px;
+}
+
+.brand-text strong{
+  font-size:22px;
+  letter-spacing:-.7px;
+}
+
+.brand-text span{
+  font-size:11px;
+}
+
+.main-nav{
+  gap:34px;
+}
+
+.main-nav a{
+  font-size:14px;
+}
+
+.header-button{
+  min-height:44px;
+  padding:0 21px;
+  border-radius:10px;
+  font-size:14px;
+}
+
+/* =========================
+   HERO
+   ========================= */
+
+.hero{
+  position:relative;
+  width:calc(100% + 0px);
+  min-height:650px;
+  margin:0;
+  display:block;
+  overflow:hidden;
+  border-bottom:0;
+
+  background:#dce9dc;
+}
+
+/* Imagen principal */
+
+.hero-visual{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  min-height:650px;
+  padding:0;
+
+  display:block;
+
+  background:#dce9dc;
+  z-index:0;
+}
+
+.hero-logo{
+  width:100%;
+  height:100%;
+  max-width:none;
+  max-height:none;
+
+  object-fit:cover;
+  object-position:center center;
+
+  mix-blend-mode:normal;
+}
+
+/* Degradado para que el texto se lea sobre la imagen */
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,255,255,.98) 0%,
+      rgba(255,255,255,.94) 22%,
+      rgba(255,255,255,.76) 38%,
+      rgba(255,255,255,.25) 57%,
+      rgba(255,255,255,0) 78%
+    );
+}
+
+/* Contenido izquierdo */
+
+.hero-copy{
+  position:relative;
+  z-index:2;
+
+  width:min(1480px,calc(100% - 38px));
+  min-height:650px;
+
+  margin:0 auto;
+  padding:62px 0 70px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+}
+
+.hero-kicker{
+  display:none;
+}
+
+.hero-copy h1{
+  width:520px;
+  max-width:48%;
+
+  margin:0 0 15px;
+
+  font-size:clamp(48px,5.2vw,72px);
+  line-height:.99;
+  letter-spacing:-3px;
+
+  color:#111;
+}
+
+.hero-copy h1 .highlight{
+  display:block;
+  color:#111;
+}
+
+.hero-copy h1::first-line{
+  color:var(--green);
+}
+
+/* Como no podemos colorear automáticamente el texto anterior,
+   usamos el degradado para mantener el efecto visual de la maqueta. */
+
+.hero-copy p{
+  width:470px;
+  max-width:45%;
+
+  margin:0 0 20px;
+
+  color:#263129;
+  font-size:18px;
+  line-height:1.45;
+}
+
+.hero-features{
+  width:470px;
+  max-width:45%;
+
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+
+  margin:0 0 22px;
+}
+
+.hero-feature{
+  gap:9px;
+  font-size:14px;
+}
+
+.hero-feature-icon{
+  width:24px;
+  height:24px;
+  min-width:24px;
+
+  border:0;
+  background:transparent;
+
+  font-size:17px;
+}
+
+.hero-cta{
+  width:370px;
+  max-width:42%;
+
+  min-height:52px;
+
+  border-radius:10px;
+
+  font-size:16px;
+  font-weight:850;
+
+  box-shadow:0 5px 15px rgba(20,70,25,.15);
+}
+
+.hero-proof{
+  width:370px;
+  max-width:42%;
+
+  margin-top:9px;
+
+  font-size:11px;
+}
+
+/* =========================
+   CUATRO PASOS
+   ========================= */
+
+.steps-title{
+  margin:24px 0 14px;
+
+  font-size:23px;
+  font-weight:850;
+  text-align:left;
+}
+
+.steps{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:16px;
+
+  padding:0 0 25px;
+}
+
+.step{
+  min-height:130px;
+
+  padding:18px;
+
+  align-items:flex-start;
+
+  border-radius:15px;
+  background:#fff;
+
+  box-shadow:0 4px 15px rgba(20,40,24,.06);
+}
+
+.step-icon{
+  width:48px;
+  height:48px;
+  min-width:48px;
+}
+
+.step-number{
+  margin-left:-25px;
+  margin-top:-5px;
+}
+
+.step h3{
+  margin-top:2px;
+  font-size:15px;
+}
+
+.step p{
+  font-size:11px;
+}
+
+/* =========================
+   CALCULADORA
+   ========================= */
+
+#calculadora{
+  margin-top:8px;
+}
+
+.calculator-card,
+.recommendation-card{
+  border-radius:16px;
+  box-shadow:0 5px 20px rgba(20,40,24,.06);
+}
+
+.badge{
+  background:#edf7ee;
+  color:var(--green-dark);
+}
+
+/* =========================
+   PROYECTO GRATIS
+   ========================= */
+
+#proyecto{
+  margin-top:22px;
+}
+
+#proyecto .premium-card{
+  border-radius:16px;
+}
+
+/* Nunca mostrar precios */
+
+.recommendation-price,
+.price{
+  display:none !important;
+}
+
+/* Nunca mostrar elementos Premium */
+
+#proyecto .badge{
+  background:#edf7ee;
+  color:var(--green-dark);
+}
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media(max-width:1000px){
+
+  .hero-copy h1{
+    font-size:52px;
+  }
+
+  .hero-copy p,
+  .hero-features{
+    max-width:50%;
+  }
+
+  .steps{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+/* =========================
+   MÓVIL
+   ========================= */
+
+@media(max-width:700px){
+
+  .hero{
+    min-height:720px;
+  }
+
+  .hero-visual{
+    min-height:720px;
+  }
+
+  .hero::after{
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255,255,255,.98) 0%,
+        rgba(255,255,255,.94) 48%,
+        rgba(255,255,255,.55) 72%,
+        rgba(255,255,255,.08) 100%
+      );
+  }
+
+  .hero-copy{
+    width:calc(100% - 24px);
+    min-height:720px;
+
+    padding:38px 12px;
+  }
+
+  .hero-copy h1{
+    width:100%;
+    max-width:100%;
+
+    font-size:43px;
+    letter-spacing:-2px;
+  }
+
+  .hero-copy p{
+    width:100%;
+    max-width:100%;
+
+    font-size:15px;
+  }
+
+  .hero-features{
+    width:100%;
+    max-width:100%;
+  }
+
+  .hero-cta,
+  .hero-proof{
+    width:100%;
+    max-width:100%;
+  }
+
+  .steps{
+    grid-template-columns:1fr;
+  }
+
+  .main-nav{
+    gap:16px;
+  }
+
+}
 </style>
 
 </head>
@@ -1355,77 +1757,199 @@ main {
        ===================================================== -->
 
   <h2 class="steps-title">
-    Así funciona en 3 pasos
-  </h2>
+  Crea tu proyecto en 4 pasos
+</h2>
 
-  <section class="steps" aria-label="Cómo funciona FincaSinRed">
+<section class="steps" aria-label="Cómo funciona FincaSinRed">
 
-    <div class="step">
+  <div class="step">
 
-      <div class="step-icon">
-        💧
-      </div>
-
-      <div class="step-number">
-        1
-      </div>
-
-      <div>
-        <h3>Cuéntanos tu finca</h3>
-
-        <p>
-          Introduce distancias, desnivel, tuberías
-          y necesidades de riego.
-        </p>
-      </div>
-
+    <div class="step-icon">
+      💧
     </div>
 
-
-    <div class="step">
-
-      <div class="step-icon">
-        ▦
-      </div>
-
-      <div class="step-number">
-        2
-      </div>
-
-      <div>
-        <h3>Calculamos tu solución</h3>
-
-        <p>
-          Estimamos caudal, altura, bomba
-          y energía necesaria.
-        </p>
-      </div>
-
+    <div class="step-number">
+      1
     </div>
 
+    <div>
+      <h3>Cuéntanos tu finca</h3>
 
-    <div class="step">
-
-      <div class="step-icon">
-        🛒
-      </div>
-
-      <div class="step-number">
-        3
-      </div>
-
-      <div>
-        <h3>Compra con más seguridad</h3>
-
-        <p>
-          Obtén una orientación clara antes
-          de gastar dinero.
-        </p>
-      </div>
-
+      <p>
+        Introduce las características
+        y necesidades de tu instalación.
+      </p>
     </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      ▦
+    </div>
+
+    <div class="step-number">
+      2
+    </div>
+
+    <div>
+      <h3>Cálculo inteligente</h3>
+
+      <p>
+        Nuestro sistema calcula
+        los parámetros necesarios.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      ✓
+    </div>
+
+    <div class="step-number">
+      3
+    </div>
+
+    <div>
+      <h3>Revisa tu solución</h3>
+
+      <p>
+        Consulta los resultados
+        hidráulicos y energéticos.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      📄
+    </div>
+
+    <div class="step-number">
+      4
+    </div>
+
+    <div>
+      <h3>Proyecto gratuito</h3>
+
+      <p>
+        Obtén el resumen de tu instalación
+        y úsalo para continuar.
+      </p>
+    </div>
+
+  </div>
+
+</section>
 
   </section>
+
+<section class="steps" aria-label="Cómo funciona FincaSinRed">
+
+  <div class="step">
+
+    <div class="step-icon">
+      💧
+    </div>
+
+    <div class="step-number">
+      1
+    </div>
+
+    <div>
+      <h3>Cuéntanos tu finca</h3>
+
+      <p>
+        Introduce las características
+        y necesidades de tu instalación.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      ▦
+    </div>
+
+    <div class="step-number">
+      2
+    </div>
+
+    <div>
+      <h3>Cálculo inteligente</h3>
+
+      <p>
+        Nuestro sistema calcula
+        los parámetros necesarios.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      ✓
+    </div>
+
+    <div class="step-number">
+      3
+    </div>
+
+    <div>
+      <h3>Revisa tu solución</h3>
+
+      <p>
+        Consulta los resultados
+        hidráulicos y energéticos.
+      </p>
+    </div>
+
+  </div>
+
+
+  <div class="step">
+
+    <div class="step-icon">
+      📄
+    </div>
+
+    <div class="step-number">
+      4
+    </div>
+
+    <div>
+      <h3>Proyecto gratuito</h3>
+
+      <p>
+        Obtén el resumen de tu instalación
+        y úsalo para continuar.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =====================================================
+     CALCULADORA
+     ===================================================== -->
+
+<section
+    id="calculadora"
 
 
   <!-- =====================================================
