@@ -157,11 +157,13 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 6px;
     en tu proyecto de FincaSinRed.
   </p>
 
-  <a
-    id="generarProyectoBtn"
-    class="btn btn-primary project-button"
-    href="./proyecto.html"
-  >
+<a
+  id="generarProyectoBtn"
+  class="btn btn-primary project-button"
+  href="./proyecto.html"
+  data-goatcounter-click="generar-proyecto"
+  data-goatcounter-title="Generar proyecto gratis"
+>
     GENERAR PROYECTO GRATIS →
   </a>
 
@@ -511,23 +513,6 @@ batteryToggle();
   renderPhotos();
   renderComments();
 })();
-  // Registrar cuándo se genera un proyecto
-const generarProyectoBtn = document.getElementById("generarProyectoBtn");
-
-if (generarProyectoBtn) {
-  generarProyectoBtn.addEventListener("click", function () {
-    if (
-      window.goatcounter &&
-      typeof window.goatcounter.count === "function"
-    ) {
-      window.goatcounter.count({
-        path: "generar-proyecto",
-        title: "Generar proyecto gratis",
-        event: true,
-      });
-    }
-  });
-}
 </script>
 </body>
 </html>
