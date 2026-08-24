@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Proyecto de finca generado por FincaSinRed.">
+<title>Proyecto de finca · FincaSinRed</title>
+
+<style>
+:root{
+  --green:#24752c;
+  --dark:#172018;
+  --muted:#667067;
+  --soft:#eef7ee;
+  --line:#dce6dd;
+  --bg:#f5f8f4;
+  --white:#fff;
+  --shadow:0 8px 28px rgba(22,45,27,.08);
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--dark);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+button,
+a{
+  font:inherit;
+}
+
+.container{
+  width:min(1080px,calc(100% - 32px));
+  margin:auto;
+}
+
+.header{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+}
+
+.header-inner{
+  min-height:70px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--dark);
+  text-decoration:none;
+}
+
+.brand img{
+  width:42px;
+  height:42px;
+  object-fit:contain;
+}
+
+.brand strong{
+  font-size:21px;
+}
+
+.badge{
+  background:#dff1df;
+  color:var(--green);
+  border:1px solid #bcdcbc;
+  border-radius:999px;
+  padding:8px 13px;
+  font-size:13px;
+  font-weight:900;
+}
+
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:12px 17px;
+  font-weight:850;
+  text-decoration:none;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.btn-primary{
+  background:var(--green);
+  color:#fff;
+}
+
+.btn-secondary{
+  background:#fff;
+  color:var(--green);
+  border:1px solid #bdd4bf;
+}
+
+.hero{
+  padding:42px 0 25px;
+}
+
+.hero-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:30px;
+  box-shadow:var(--shadow);
+}
+
+.kicker{
+  color:var(--green);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:.8px;
+  margin-bottom:10px;
+}
+
+h1{
+  font-size:clamp(34px,5vw,52px);
+  line-height:1.05;
+  letter-spacing:-1.5px;
+  margin:0 0 14px;
+}
+
+.hero p{
+  color:var(--muted);
+  line-height:1.6;
+  margin:0;
+  max-width:760px;
+}
+
+.section{
+  margin:18px 0;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:24px;
+  box-shadow:var(--shadow);
+}
+
+.card h2{
+  margin:0 0 18px;
+  font-size:24px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:13px;
+}
+
+.data{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:15px;
+  background:#fbfdfb;
+}
+
+.data span{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:5px;
+}
+
+.data strong{
+  display:block;
+  color:var(--green);
+  font-size:22px;
+}
+
+.result-main{
+  background:var(--soft);
+  border:1px solid #c4dec5;
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:12px;
+}
+
+.result-main span{
+  color:var(--muted);
+  display:block;
+  margin-bottom:5px;
+}
+
+.result-main strong{
+  color:var(--green);
+  font-size:30px;
+}
+
+.photos{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.photos img{
+  width:100%;
+  height:210px;
+  object-fit:cover;
+  border-radius:12px;
+  border:1px solid var(--line);
+}
+
+.empty{
+  padding:25px;
+  border:1px dashed #b9cbbb;
+  border-radius:12px;
+  color:var(--muted);
+  background:#fbfdfb;
+}
+
+.comment{
+  border:1px solid var(--line);
+  background:#f7faf7;
+  border-radius:12px;
+  padding:15px;
+  margin-bottom:10px;
+}
+
+.comment strong{
+  display:block;
+  margin-bottom:6px;
+}
+
+.comment time{
+  display:block;
+  color:#7b847d;
+  font-size:11px;
+  margin-top:8px;
+}
+
+.notice{
+  border-left:4px solid var(--green);
+  background:var(--soft);
+  padding:15px;
+  border-radius:8px;
+  color:#435047;
+  line-height:1.5;
+  font-size:13px;
+}
+
+.actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:22px;
+}
+
+.footer{
+  text-align:center;
+  color:#7a837b;
+  font-size:12px;
+  padding:35px 0;
+}
+
+@media(max-width:700px){
+  .grid,
+  .photos{
+    grid-template-columns:1fr;
+  }
+
+  .header-inner{
+    min-height:62px;
+  }
+
+  .brand strong{
+    font-size:18px;
+  }
+
+  .hero-card,
+  .card{
+    padding:20px;
+  }
+
+  .photos img{
+    height:230px;
+  }
+
+  .badge{
+    font-size:11px;
+    padding:7px 9px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container header-inner">
+
+    <a class="brand" href="/">
+      <img src="./logo-fincasinred.webp" alt="FincaSinRed">
+      <strong>FincaSinRed</strong>
+    </a>
+
+    <span class="badge">✓ PROYECTO GRATIS</span>
+
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="hero">
+
+    <div class="hero-card">
+
+      <div class="kicker">
+        FINCAS SIN RED · PROYECTO DE INSTALACIÓN
+      </div>
+
+      <h1>
+        Tu proyecto de finca
+      </h1>
+
+      <p>
+        Aquí tienes reunidos los datos introducidos, los resultados de la
+        calculadora, las fotografías y las observaciones de tu finca.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-secondary" href="/">
+          ← Volver a FincaSinRed
+        </a>
+
+        <button class="btn btn-primary" type="button" onclick="window.print()">
+          Imprimir
+        </button>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="card">
+
+      <h2>📍 Datos de la finca</h2>
+
+      <div id="datosFinca" class="grid"></div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="card">
+
+      <h2>📊 Resultados de la calculadora</h2>
+
+      <div id="resultados"></div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="card">
+
+      <h2>📸 Fotografías de la finca</h2>
+
+      <div id="fotos" class="photos"></div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="card">
+
+      <h2>💬 Observaciones de la finca</h2>
+
+      <div id="comentarios"></div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="card">
+
+      <h2>✅ Resumen del proyecto</h2>
+
+      <div id="resumen"></div>
+
+    </div>
+
+  </section>
+
+
+  <section class="section">
+
+    <div class="notice">
+
+      <strong>Importante:</strong>
+      Los cálculos técnicos de FincaSinRed son orientativos.
+      Antes de comprar una bomba, tubería, panel solar, batería o cualquier
+      otro equipo, comprueba siempre las características reales del terreno
+      y las especificaciones del fabricante.
+
+    </div>
+
+  </section>
+
+</main>
+
+<footer class="footer">
+  FincaSinRed · Proyecto gratuito · Soluciones para fincas sin red
+</footer>
+
+
+<script>
+
+const STORAGE_KEYS = {
+  calculator: "fincasinred_calculadora",
+  photos: "fincasinred_fotos",
+  comments: "fincasinred_comentarios"
+};
+
+
+function getStorage(key, fallback){
+
+  try{
+
+    const value = localStorage.getItem(key);
+
+    if(!value){
+      return fallback;
+    }
+
+    return JSON.parse(value);
+
+  }catch(error){
+
+    console.error("Error leyendo almacenamiento:", error);
+
+    return fallback;
+
+  }
+
+}
+
+
+function escapeHtml(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+function mostrarDatosFinca(datos){
+
+  const contenedor = document.getElementById("datosFinca");
+
+  const campos = [
+    ["Longitud de tubería principal", datos.L, "m"],
+    ["Desnivel vertical", datos.H, "m"],
+    ["Longitud total de ramales", datos.LR, "m"],
+    ["Número de ramales", datos.NR, ""],
+    ["Diámetro principal", datos.D, "mm"],
+    ["Número de puntos de riego", datos.P, ""],
+    ["Caudal por punto", datos.G, "L/h"],
+    ["Puntos simultáneos", datos.PS, ""],
+    ["Agua necesaria al día", datos.W, "L"],
+    ["Horas de funcionamiento", datos.T, "h/día"],
+    ["Presión mínima deseada", datos.BAR, "bar"],
+    ["Diámetro de ramales", datos.DR, "mm"]
+  ];
+
+  const validos = campos.filter(item =>
+    item[1] !== undefined &&
+    item[1] !== null &&
+    item[1] !== ""
+  );
+
+  if(!validos.length){
+
+    contenedor.innerHTML = `
+      <div class="empty">
+        Todavía no hay datos de la calculadora.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  contenedor.innerHTML = validos.map(item => `
+    <div class="data">
+      <span>${escapeHtml(item[0])}</span>
+      <strong>${escapeHtml(item[1])} ${escapeHtml(item[2])}</strong>
+    </div>
+  `).join("");
+
+}
+
+
+function mostrarResultados(datos){
+
+  const contenedor = document.getElementById("resultados");
+
+  const resultados = [
+    ["Caudal de diseño", datos.design, "L/h"],
+    ["Caudal recomendado para buscar bomba", datos.target, "L/h"],
+    ["Altura manométrica de diseño", datos.hmt, "m.c.a."],
+    ["Altura objetivo para buscar bomba", datos.hmtSearch, "m.c.a."],
+    ["Potencia hidráulica", datos.hyd, "W"],
+    ["Potencia eléctrica estimada", datos.electric, "W"],
+    ["Energía eléctrica diaria", datos.energy, "kWh/día"],
+    ["Potencia solar calculada", datos.pv, "Wp"],
+    ["Paneles solares", datos.panels, "unidades"],
+    ["Velocidad en tubería principal", datos.vel, "m/s"]
+  ];
+
+  const validos = resultados.filter(item =>
+    item[1] !== undefined &&
+    item[1] !== null &&
+    item[1] !== ""
+  );
+
+  if(!validos.length){
+
+    contenedor.innerHTML = `
+      <div class="empty">
+        La calculadora todavía no ha enviado resultados.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  contenedor.innerHTML = validos.map((item,index) => {
+
+    if(index === 0){
+
+      return `
+        <div class="result-main">
+          <span>${escapeHtml(item[0])}</span>
+          <strong>${escapeHtml(item[1])} ${escapeHtml(item[2])}</strong>
+        </div>
+      `;
+
+    }
+
+    return `
+      <div class="data" style="margin-bottom:10px">
+        <span>${escapeHtml(item[0])}</span>
+        <strong>${escapeHtml(item[1])} ${escapeHtml(item[2])}</strong>
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+function mostrarFotos(){
+
+  const contenedor = document.getElementById("fotos");
+
+  const fotos = getStorage(STORAGE_KEYS.photos, []);
+
+  if(!Array.isArray(fotos) || !fotos.length){
+
+    contenedor.innerHTML = `
+      <div class="empty">
+        Todavía no se han añadido fotografías a este proyecto.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  contenedor.innerHTML = fotos.map((foto,index) => {
+
+    const src =
+      typeof foto === "string"
+        ? foto
+        : foto.data || foto.url || "";
+
+    if(!src){
+      return "";
+    }
+
+    return `
+      <img
+        src="${escapeHtml(src)}"
+        alt="Fotografía ${index + 1} de la finca"
+      >
+    `;
+
+  }).join("");
+
+}
+
+
+function mostrarComentarios(){
+
+  const contenedor = document.getElementById("comentarios");
+
+  const comentarios = getStorage(STORAGE_KEYS.comments, []);
+
+  if(!Array.isArray(comentarios) || !comentarios.length){
+
+    contenedor.innerHTML = `
+      <div class="empty">
+        Todavía no hay observaciones guardadas.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  contenedor.innerHTML = comentarios.map(comentario => {
+
+    if(typeof comentario === "string"){
+
+      return `
+        <div class="comment">
+          <strong>Observación</strong>
+          ${escapeHtml(comentario)}
+        </div>
+      `;
+
+    }
+
+    return `
+      <div class="comment">
+
+        <strong>Observación</strong>
+
+        ${escapeHtml(
+          comentario.text ||
+          comentario.comentario ||
+          comentario.content ||
+          ""
+        )}
+
+        ${
+          comentario.date
+            ? `<time>${escapeHtml(comentario.date)}</time>`
+            : ""
+        }
+
+      </div>
+    `;
+
+  }).join("");
+
+}
+
+
+function mostrarResumen(datos){
+
+  const contenedor = document.getElementById("resumen");
+
+  const bombaCaudal = datos.target || datos.design;
+  const bombaAltura = datos.hmtSearch || datos.hmt;
+
+  if(
+    bombaCaudal === undefined &&
+    bombaAltura === undefined
+  ){
+
+    contenedor.innerHTML = `
+      <div class="empty">
+        El resumen aparecerá automáticamente cuando la calculadora
+        haya generado el proyecto.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  contenedor.innerHTML = `
+
+    <div class="result-main">
+
+      <span>Punto de trabajo orientativo de la bomba</span>
+
+      <strong>
+        ${escapeHtml(bombaCaudal ?? "—")} L/h
+        ·
+        ${escapeHtml(bombaAltura ?? "—")} m.c.a.
+      </strong>
+
+    </div>
+
+    ${
+      datos.electric !== undefined
+        ? `
+          <div class="data">
+            <span>Potencia eléctrica estimada</span>
+            <strong>${escapeHtml(datos.electric)} W</strong>
+          </div>
+        `
+        : ""
+    }
+
+    ${
+      datos.panels !== undefined
+        ? `
+          <div class="data">
+            <span>Paneles solares recomendados</span>
+            <strong>${escapeHtml(datos.panels)} unidades</strong>
+          </div>
+        `
+        : ""
+    }
+
+    <div class="notice" style="margin-top:15px">
+
+      <strong>Proyecto gratuito.</strong>
+
+      Todos los datos mostrados en esta página proceden de la información
+      introducida en FincaSinRed. La selección definitiva de los equipos
+      debe comprobarse antes de realizar la compra.
+
+    </div>
+
+  `;
+
+}
+
+
+function cargarProyecto(){
+
+  const datos = getStorage(STORAGE_KEYS.calculator, {});
+
+  mostrarDatosFinca(datos);
+  mostrarResultados(datos);
+  mostrarFotos();
+  mostrarComentarios();
+  mostrarResumen(datos);
+
+}
+
+
+cargarProyecto();
+
+</script>
+
+</body>
+</html>
