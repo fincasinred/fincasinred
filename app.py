@@ -13,10 +13,12 @@ app = FastAPI(title="FincaSinRed", version="7.0")
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
 @app.get("/")
-
 def home():
-
     return FileResponse("index.html")
+
+@app.get("/calculadora")
+def calculadora():
+    return FileResponse("FincaSinRed_V10_DEFINITIVA_index.html")
 
 @app.get("/health")
 
