@@ -511,6 +511,23 @@ batteryToggle();
   renderPhotos();
   renderComments();
 })();
+  // Registrar cuándo se genera un proyecto
+const generarProyectoBtn = document.getElementById("generarProyectoBtn");
+
+if (generarProyectoBtn) {
+  generarProyectoBtn.addEventListener("click", function () {
+    if (
+      window.goatcounter &&
+      typeof window.goatcounter.count === "function"
+    ) {
+      window.goatcounter.count({
+        path: "generar-proyecto",
+        title: "Generar proyecto gratis",
+        event: true,
+      });
+    }
+  });
+}
 </script>
 </body>
 </html>
