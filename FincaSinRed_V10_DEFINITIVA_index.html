@@ -100,7 +100,75 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 6px;
 
 <section class="card"><button onclick="calc()">CALCULAR INSTALACIÓN</button></section>
 <div id="out"></div>
+<section class="card">
+  <h2>📸 Fotos de tu finca</h2>
 
+  <p class="muted">
+    Sube fotografías de tu finca para tenerlas asociadas al proyecto.
+    Puedes seleccionar varias imágenes a la vez.
+  </p>
+
+  <label for="photos">Fotografías</label>
+
+  <input
+    id="photos"
+    type="file"
+    accept="image/*"
+    multiple
+  >
+
+  <div id="photoPreview" class="preview-grid"></div>
+</section>
+
+
+<section class="card">
+  <h2>💬 Comentarios de la finca</h2>
+
+  <p class="muted">
+    Añade cualquier observación que quieras conservar junto con los
+    datos y resultados de tu proyecto.
+  </p>
+
+  <textarea
+    id="commentText"
+    placeholder="Ej.: El depósito está 6 m por encima de la parcela..."
+    style="width:100%;min-height:120px;padding:14px;border:1px solid #cbd6cb;border-radius:12px;resize:vertical;"
+  ></textarea>
+
+  <button
+    type="button"
+    onclick="saveComment()"
+    style="margin-top:12px;"
+  >
+    GUARDAR COMENTARIO
+  </button>
+
+  <div id="commentsList" class="comments"></div>
+</section>
+
+
+<section class="card project-action">
+  <div class="project-action-icon">✅</div>
+
+  <h2>¿Ya tienes los cálculos?</h2>
+
+  <p class="muted">
+    Tus datos, resultados, fotografías y comentarios quedarán reunidos
+    en tu proyecto de FincaSinRed.
+  </p>
+
+  <a
+    id="generarProyectoBtn"
+    class="btn btn-primary project-button"
+    href="./proyecto.html"
+  >
+    GENERAR PROYECTO GRATIS →
+  </a>
+
+  <p class="project-note">
+    Proyecto gratuito · Sin compromiso
+  </p>
+</section>
 <section class="card"><h2>⚠️ Importante</h2>
 <p class="muted">Los resultados son orientativos. Para comprar una bomba, el dato clave es su punto de funcionamiento: <strong>caudal a una determinada altura</strong>. No basta con mirar los L/h máximos ni los vatios anunciados. Comprueba siempre la curva del fabricante.</p>
 </section>
@@ -236,6 +304,81 @@ localStorage.setItem("fincasinred_calculadora", JSON.stringify({
   savedAt: new Date().toISOString()
 }));}
 batteryToggle();
+  // Guardar fotografías y comentarios del proyecto
+(function () {
+  const PHOTOS_KEY = "fincasinred_project_photos";
+  const COMMENT_KEY = "fincasinred_project_comment";
+
+  const photoInput = document.getElementById("photos");
+  const commentInput = document.getElementById("commentText");
+  const generateButton = document.getElementById("generarProyectoBtn");
+
+  if (commentInput) {
+    const savedComment = localStorage.getItem(COMMENT_KEY);
+
+    if (savedComment) {
+      commentInput.value = savedComment;
+    }
+
+    commentInput.addEventListener("input", function () {
+      localStorage.setItem(COMMENT_KEY, commentInput.value);
+    });
+  }
+
+  if (photoInput) {
+    photoInput.addEventListener("change", async function () {
+      const files = Array.from(photoInput.files || []);
+
+      if (!files.length) {
+        localStorage.removeItem(PHOTOS_KEY);
+        return;
+      }
+
+      const photos = [];
+
+      for (const file of files) {
+        if (!file.type.startsWith("image/")) {
+          continue;
+        }
+
+        const dataUrl = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+
+          reader.onload = function () {
+            resolve(reader.result);
+          };
+
+          reader.onerror = reject;
+          reader.readAsDataURL(file);
+        });
+
+        photos.push({
+          name: file.name,
+          type: file.type,
+          dataUrl: dataUrl
+        });
+      }
+
+      try {
+        localStorage.setItem(PHOTOS_KEY, JSON.stringify(photos));
+      } catch (error) {
+        console.error("No se pudieron guardar las fotografías:", error);
+        alert(
+          "Las fotografías son demasiado grandes para guardarlas en el navegador. " +
+          "Prueba con menos imágenes o con fotografías de menor tamaño."
+        );
+      }
+    });
+  }
+
+  if (generateButton) {
+    generateButton.addEventListener("click", function () {
+      if (commentInput) {
+        localStorage.setItem(COMMENT_KEY, commentInput.value);
+      }
+    });
+  }
+})();
 </script>
 </body>
 </html>
