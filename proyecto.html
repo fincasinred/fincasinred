@@ -450,7 +450,7 @@ function getStorage(key, fallback){
 
   try{
 
-    const value = localStorage.getItem(key);
+    const value = sessionStorage.getItem(key);
 
     if(!value){
       return fallback;
@@ -479,99 +479,34 @@ function escapeHtml(value){
     .replace(/'/g,"&#039;");
 
 }
-function limpiarDatosDeProyectoAnteriorSiCorresponde(datos){
+function limpiarDatosDeProyectoAnteriorSiCorresponde(){
 
-  const currentMarker = datos && datos.savedAt
-    ? String(datos.savedAt)
-    : "";
+  const navigationEntries = performance.getEntriesByType("navigation");
+  const navigationEntry = navigationEntries.length
+    ? navigationEntries[0]
+    : null;
 
-  const previousMarker = localStorage.getItem(
-    STORAGE_KEYS.projectMarker
-  );
+  const esRecarga =
+    navigationEntry &&
+    navigationEntry.type === "reload";
 
-  if(!currentMarker){
-    return;
-  }
+  if(esRecarga){
 
-  if(previousMarker && previousMarker !== currentMarker){
-
-    const fotos = getStorage(
-      STORAGE_KEYS.photos,
-      []
+    sessionStorage.removeItem(
+      STORAGE_KEYS.calculator
     );
 
-    const comentarios = getStorage(
-      STORAGE_KEYS.comments,
-      []
+    sessionStorage.removeItem(
+      STORAGE_KEYS.photos
     );
 
-    const limite = Date.parse(currentMarker);
+    sessionStorage.removeItem(
+      STORAGE_KEYS.comments
+    );
 
-    const hayDatosRecientes =
-      fotos.some(foto => {
-
-        if(
-          !foto ||
-          typeof foto !== "object" ||
-          !foto.createdAt
-        ){
-          return false;
-        }
-
-        const fecha = Date.parse(foto.createdAt);
-
-        return (
-          Number.isFinite(fecha) &&
-          Number.isFinite(limite) &&
-          fecha > limite
-        );
-      }) ||
-
-      comentarios.some(comentario => {
-
-        if(
-          !comentario ||
-          typeof comentario !== "object"
-        ){
-          return false;
-        }
-
-        const fecha =
-          comentario.createdAt ||
-          comentario.date;
-
-        if(!fecha){
-          return false;
-        }
-
-        const timestamp = Date.parse(fecha);
-
-        return (
-          Number.isFinite(timestamp) &&
-          Number.isFinite(limite) &&
-          timestamp > limite
-        );
-      });
-
-    if(!hayDatosRecientes){
-
-      localStorage.removeItem(
-        STORAGE_KEYS.photos
-      );
-
-      localStorage.removeItem(
-        STORAGE_KEYS.comments
-      );
-    }
   }
 
-  localStorage.setItem(
-    STORAGE_KEYS.projectMarker,
-    currentMarker
-  );
 }
-
-function mostrarDatosFinca(datos){
 
   const contenedor = document.getElementById("datosFinca");
 
@@ -857,7 +792,7 @@ function cargarProyecto(){
     {}
   );
 
-  limpiarDatosDeProyectoAnteriorSiCorresponde(datos);
+  limpiarDatosDeProyectoAnteriorSiCorresponde();
 
   mostrarDatosFinca(datos);
   mostrarResultados(datos);
