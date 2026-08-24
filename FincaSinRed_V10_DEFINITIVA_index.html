@@ -184,7 +184,57 @@ ${batt}</section>
 <p class="muted">Antes de comprar, comprueba la curva real de la bomba y los datos reales de filtro, válvulas, codos, goteros y tuberías.</p>
 </section>`;
 window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
-}
+localStorage.setItem("fincasinred_calculadora", JSON.stringify({
+  L,
+  H,
+  LR,
+  NR,
+  D,
+  C,
+  LA,
+  P,
+  G,
+  PS,
+  W,
+  T,
+  BAR,
+  F,
+  O,
+  DR,
+  CR,
+  EFF: q("EFF"),
+  MARGIN: q("MARGIN"),
+  V: q("V"),
+  SUN: q("SUN"),
+  SP: q("SP"),
+  PANEL: q("PANEL"),
+  MODE: document.getElementById("MODE").value,
+  AUTO: q("AUTO"),
+  AH: q("AH"),
+  DOD: q("DOD"),
+  BEFF: q("BEFF"),
+  VB: q("VB"),
+  dailyFlow,
+  emitterFlow,
+  design,
+  target,
+  mainLoss,
+  accLoss,
+  ramalLoss,
+  totalLoss,
+  hmt,
+  hmtSearch,
+  hyd,
+  electric,
+  energy,
+  pv,
+  panels,
+  pvReal,
+  vel,
+  diag,
+  cls,
+  savedAt: new Date().toISOString()
+}));}
 batteryToggle();
 </script>
 </body>
