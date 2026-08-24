@@ -34,6 +34,9 @@ stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 def home():
     return FileResponse("index.html")
 
+@app.get("/proyecto.html")
+def proyecto():
+    return FileResponse("proyecto.html")
 
 @app.get("/calculadora")
 def calculadora():
