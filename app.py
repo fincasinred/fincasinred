@@ -30,22 +30,14 @@ import stripe
 app = FastAPI(title="FincaSinRed", version="8.0")
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
-
 @app.get("/")
 def home():
     return FileResponse("index.html")
-    @app.get("/calculadora")
+
+@app.get("/calculadora")
 def calculadora():
     return FileResponse("FincaSinRed_V10_DEFINITIVA_index.html")
-@app.get("/logo-fincasinred.svg")
-def logo():
-    return FileResponse("logo-fincasinred.svg", media_type="image/svg+xml")
-@app.get("/logo-fincasinred-completo.webp")
-def logo_completo():
-    return FileResponse(
-        "logo-fincasinred-completo.webp",
-        media_type="image/webp"
-    )
+
 @app.get("/health")
 def health():
     return {"status": "ok", "version": app.version}
