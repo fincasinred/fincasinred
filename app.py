@@ -34,9 +34,35 @@ stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 def home():
     return FileResponse("index.html")
 
+
 @app.get("/calculadora")
 def calculadora():
     return FileResponse("FincaSinRed_V10_DEFINITIVA_index.html")
+
+
+@app.get("/logo-fincasinred.webp")
+def logo_fincasinred():
+    return FileResponse(
+        "logo-fincasinred.webp",
+        media_type="image/webp",
+    )
+
+
+@app.get("/portada-riego-30-cerezos.jpeg")
+def portada_riego():
+    return FileResponse(
+        "portada-riego-30-cerezos.jpeg",
+        media_type="image/jpeg",
+    )
+
+
+@app.get("/satellite-el-colmenar.jpeg")
+def satellite_el_colmenar():
+    return FileResponse(
+        "satellite-el-colmenar.jpeg",
+        media_type="image/jpeg",
+    )
+
 
 @app.get("/health")
 def health():
