@@ -304,80 +304,212 @@ localStorage.setItem("fincasinred_calculadora", JSON.stringify({
   savedAt: new Date().toISOString()
 }));}
 batteryToggle();
-  // Guardar fotografías y comentarios del proyecto
+// Guardar fotografías y comentarios del proyecto
 (function () {
-  const PHOTOS_KEY = "fincasinred_project_photos";
-  const COMMENT_KEY = "fincasinred_project_comment";
+  const PHOTOS_KEY = "fincasinred_fotos";
+  const COMMENT_KEY = "fincasinred_comentarios";
 
   const photoInput = document.getElementById("photos");
+  const photoPreview = document.getElementById("photoPreview");
   const commentInput = document.getElementById("commentText");
-  const generateButton = document.getElementById("generarProyectoBtn");
+  const commentsList = document.getElementById("commentsList");
 
-  if (commentInput) {
-    const savedComment = localStorage.getItem(COMMENT_KEY);
-
-    if (savedComment) {
-      commentInput.value = savedComment;
+  function readStorage(key, fallback) {
+    try {
+      const value = localStorage.getItem(key);
+      return value ? JSON.parse(value) : fallback;
+    } catch (error) {
+      console.error("Error leyendo localStorage:", error);
+      return fallback;
     }
-
-    commentInput.addEventListener("input", function () {
-      localStorage.setItem(COMMENT_KEY, commentInput.value);
-    });
   }
 
+  function saveStorage(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+      return true;
+    } catch (error) {
+      console.error("Error guardando en localStorage:", error);
+      return false;
+    }
+  }
+
+  function renderPhotos() {
+    if (!photoPreview) return;
+
+    const photos = readStorage(PHOTOS_KEY, []);
+
+    if (!Array.isArray(photos) || photos.length === 0) {
+      photoPreview.innerHTML = "";
+      return;
+    }
+
+    photoPreview.innerHTML = photos.map((photo, index) => {
+      const src =
+        typeof photo === "string"
+          ? photo
+          : photo.data || photo.url || "";
+
+      if (!src) return "";
+
+      return `
+        <div style="
+          position:relative;
+          border:1px solid #d9e3d9;
+          border-radius:12px;
+          overflow:hidden;
+          background:#fff;
+        ">
+          <img
+            src="${src}"
+            alt="Fotografía ${index + 1} de la finca"
+            style="
+              display:block;
+              width:100%;
+              height:180px;
+              object-fit:cover;
+            "
+          >
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderComments() {
+    if (!commentsList) return;
+
+    const comments = readStorage(COMMENT_KEY, []);
+
+    if (!Array.isArray(comments) || comments.length === 0) {
+      commentsList.innerHTML = "";
+      return;
+    }
+
+    commentsList.innerHTML = comments.map(comment => {
+      const text =
+        typeof comment === "string"
+          ? comment
+          : comment.text || comment.comment || comment.contenido || "";
+
+      const date =
+        typeof comment === "object" && comment
+          ? comment.createdAt || comment.date || ""
+          : "";
+
+      return `
+        <div style="
+          margin-top:12px;
+          padding:14px;
+          border:1px solid #d9e3d9;
+          border-radius:12px;
+          background:#f7faf7;
+        ">
+          <div style="line-height:1.5;">
+            ${String(text)
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;")
+              .replace(/"/g, "&quot;")
+              .replace(/'/g, "&#039;")
+              .replace(/\n/g, "<br>")}
+          </div>
+          ${
+            date
+              ? `<small style="display:block;margin-top:8px;color:#788078;">
+                  ${new Date(date).toLocaleString("es-ES")}
+                 </small>`
+              : ""
+          }
+        </div>
+      `;
+    }).join("");
+  }
+
+  window.saveComment = function () {
+    if (!commentInput) {
+      console.error("No se encontró el campo #commentText.");
+      return;
+    }
+
+    const text = commentInput.value.trim();
+
+    if (!text) {
+      alert("Escribe un comentario antes de guardarlo.");
+      commentInput.focus();
+      return;
+    }
+
+    const comments = readStorage(COMMENT_KEY, []);
+
+    comments.push({
+      text: text,
+      createdAt: new Date().toISOString()
+    });
+
+    if (!saveStorage(COMMENT_KEY, comments)) {
+      alert(
+        "No se ha podido guardar el comentario en este navegador."
+      );
+      return;
+    }
+
+    commentInput.value = "";
+    renderComments();
+
+    alert("Comentario guardado correctamente.");
+  };
+
   if (photoInput) {
-    photoInput.addEventListener("change", async function () {
+    photoInput.addEventListener("change", function () {
       const files = Array.from(photoInput.files || []);
 
       if (!files.length) {
-        localStorage.removeItem(PHOTOS_KEY);
         return;
       }
 
-      const photos = [];
-
-      for (const file of files) {
-        if (!file.type.startsWith("image/")) {
-          continue;
-        }
-
-        const dataUrl = await new Promise((resolve, reject) => {
+      const existingPhotos = readStorage(PHOTOS_KEY, []);
+      const readers = files.map(file => {
+        return new Promise((resolve, reject) => {
           const reader = new FileReader();
 
-          reader.onload = function () {
-            resolve(reader.result);
+          reader.onload = event => {
+            resolve({
+              data: event.target.result,
+              name: file.name,
+              type: file.type,
+              createdAt: new Date().toISOString()
+            });
           };
 
           reader.onerror = reject;
           reader.readAsDataURL(file);
         });
+      });
 
-        photos.push({
-          name: file.name,
-          type: file.type,
-          dataUrl: dataUrl
+      Promise.all(readers)
+        .then(newPhotos => {
+          const photos = existingPhotos.concat(newPhotos);
+
+          if (!saveStorage(PHOTOS_KEY, photos)) {
+            alert(
+              "Las fotografías son demasiado grandes para guardarlas " +
+              "en el navegador. Prueba con menos imágenes o imágenes " +
+              "de menor tamaño."
+            );
+            return;
+          }
+
+          renderPhotos();
+        })
+        .catch(error => {
+          console.error("Error leyendo fotografías:", error);
+          alert("No se pudieron cargar una o más fotografías.");
         });
-      }
-
-      try {
-        localStorage.setItem(PHOTOS_KEY, JSON.stringify(photos));
-      } catch (error) {
-        console.error("No se pudieron guardar las fotografías:", error);
-        alert(
-          "Las fotografías son demasiado grandes para guardarlas en el navegador. " +
-          "Prueba con menos imágenes o con fotografías de menor tamaño."
-        );
-      }
     });
   }
 
-  if (generateButton) {
-    generateButton.addEventListener("click", function () {
-      if (commentInput) {
-        localStorage.setItem(COMMENT_KEY, commentInput.value);
-      }
-    });
-  }
+  renderPhotos();
+  renderComments();
 })();
 </script>
 </body>
