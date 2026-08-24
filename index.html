@@ -15,6 +15,76 @@
 @media(max-width:850px){.hero{grid-template-columns:1fr}.hero-copy{padding:42px 0}.hero-image{min-height:330px}.grid-3,.demo-layout,.upload-grid,.modal-grid{grid-template-columns:1fr}.nav{display:none}}
 @media(max-width:600px){.container{width:calc(100% - 20px)}.header-inner{min-height:62px}.brand img{width:36px;height:36px}.brand-name{font-size:18px}.header-cta{padding:9px 11px;font-size:11px}.hero h1{font-size:40px;letter-spacing:-1.2px}.hero p{font-size:15px}.hero-image{min-height:270px}.actions{flex-direction:column}.actions .btn{width:100%}.satellite-quick{width:100%}.satellite-quick img{width:90px;height:64px}.section{padding:34px 0}.section-title{font-size:25px}.preview-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
+  .calculator-wrapper{
+  padding:0;
+  overflow:hidden;
+  border-radius:18px;
+}
+
+.calculator-frame{
+  display:block;
+  width:100%;
+  height:1100px;
+  border:0;
+  background:#fff;
+}
+
+.project-action{
+  margin-top:18px;
+  text-align:center;
+  padding:32px 24px;
+  background:linear-gradient(135deg,#f4faf4,#ffffff);
+}
+
+.project-action-icon{
+  font-size:34px;
+  margin-bottom:8px;
+}
+
+.project-action h2{
+  margin:0 0 8px;
+  font-size:24px;
+}
+
+.project-action p{
+  max-width:650px;
+  margin:0 auto 18px;
+  color:var(--muted);
+  line-height:1.55;
+  font-size:14px;
+}
+
+.project-button{
+  min-width:260px;
+}
+
+.project-note{
+  margin-top:10px !important;
+  margin-bottom:0 !important;
+  font-size:12px !important;
+  color:#7a837c !important;
+}
+
+@media(max-width:850px){
+  .calculator-frame{
+    height:1200px;
+  }
+}
+
+@media(max-width:600px){
+  .calculator-frame{
+    height:1250px;
+  }
+
+  .project-action{
+    padding:26px 16px;
+  }
+
+  .project-button{
+    width:100%;
+    min-width:0;
+  }
+}
 </head>
 <body>
 <header class="site-header"><div class="container header-inner">
@@ -57,7 +127,49 @@
 <div class="card upload-box"><label for="photos">📸 Fotografías</label><input id="photos" type="file" accept="image/*" multiple><div id="photoPreview" class="preview-grid"></div></div>
 <div id="comentarios" class="card upload-box"><label for="commentText">💬 Comentario sobre la finca</label><textarea id="commentText" placeholder="Ej.: El depósito está 6 m por encima de la parcela..."></textarea><button class="btn btn-primary" type="button" onclick="saveComment()">Guardar comentario</button><div id="commentsList" class="comments"></div></div>
 </div></div></section>
-<section class="section"><div class="container"><div class="notice">Los cálculos técnicos son orientativos. La selección definitiva de una bomba, tubería, instalación eléctrica o sistema solar debe comprobarse con las características reales del terreno y de los equipos.</div></div></section>
+<section id="calculadora-integrada" class="section">
+  <div class="container">
+
+    <h2 class="section-title">📐 Prepara tu proyecto</h2>
+
+    <p class="section-lead">
+      Introduce los datos de tu finca y calcula de forma orientativa
+      la bomba, tuberías y energía solar que puedes necesitar.
+    </p>
+
+    <div class="card calculator-wrapper">
+      <iframe
+        src="./calculadora"
+        title="Calculadora FincaSinRed V10"
+        class="calculator-frame"
+        loading="lazy">
+      </iframe>
+    </div>
+
+    <div class="project-action card">
+      <div class="project-action-icon">✅</div>
+
+      <h2>¿Ya tienes los cálculos?</h2>
+
+      <p>
+        Tus datos, resultados, fotografías y comentarios quedarán reunidos
+        en tu proyecto de FincaSinRed.
+      </p>
+
+      <a
+  id="generarProyectoBtn"
+  class="btn btn-primary project-button"
+  href="./proyecto.html">
+  GENERAR PROYECTO GRATIS →
+</a>
+
+      <p class="project-note">
+        Proyecto gratuito · Sin compromiso
+      </p>
+    </div>
+
+  </div>
+</section>
 </main>
 <footer class="footer">FincaSinRed · Soluciones para fincas sin red</footer>
 
