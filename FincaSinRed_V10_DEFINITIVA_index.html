@@ -326,10 +326,10 @@ batteryToggle();
 
   function saveStorage(key, value) {
     try {
-      localStorage.setItem(key, JSON.stringify(value));
+      sessionStorage.setItem(key, JSON.stringify(value));
       return true;
     } catch (error) {
-      console.error("Error guardando en localStorage:", error);
+      console.error("Error guardando en sessionStorage:", error);
       return false;
     }
   }
