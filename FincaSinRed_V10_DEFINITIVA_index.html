@@ -176,6 +176,50 @@ table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:9px 6px;
 <div class="footer">FincaSinRed · V10 definitiva · Resultados orientativos</div>
 
 <script>
+  (function limpiarSesionAlEntrar(){
+
+  const navigationEntries = performance.getEntriesByType("navigation");
+  const navigationEntry = navigationEntries.length
+    ? navigationEntries[0]
+    : null;
+
+  const navigationType = navigationEntry
+    ? navigationEntry.type
+    : "";
+
+  const referrer = document.referrer || "";
+
+  const vieneDeProyecto =
+    referrer.includes("/proyecto.html");
+
+  const esRecarga =
+    navigationType === "reload";
+
+  const esEntradaNueva =
+    !vieneDeProyecto &&
+    !esRecarga;
+
+  if(esEntradaNueva || esRecarga){
+
+    sessionStorage.removeItem(
+      "fincasinred_calculadora"
+    );
+
+    sessionStorage.removeItem(
+      "fincasinred_fotos"
+    );
+
+    sessionStorage.removeItem(
+      "fincasinred_comentarios"
+    );
+
+    sessionStorage.removeItem(
+      "fincasinred_ultimo_proyecto_marker"
+    );
+
+  }
+
+})();
 const q=id=>parseFloat(document.getElementById(id).value)||0;
 const f=(x,d=1)=>Number(x).toLocaleString("es-ES",{minimumFractionDigits:d,maximumFractionDigits:d});
 const f0=x=>Number(x).toLocaleString("es-ES",{maximumFractionDigits:0});
