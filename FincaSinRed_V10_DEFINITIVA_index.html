@@ -252,7 +252,7 @@ ${batt}</section>
 <p class="muted">Antes de comprar, comprueba la curva real de la bomba y los datos reales de filtro, válvulas, codos, goteros y tuberías.</p>
 </section>`;
 window.scrollTo({top:document.getElementById("out").offsetTop-10,behavior:"smooth"});
-localStorage.setItem("fincasinred_calculadora", JSON.stringify({
+sessionStorage.setItem("fincasinred_calculadora", JSON.stringify({
   L,
   H,
   LR,
@@ -316,7 +316,7 @@ batteryToggle();
 
   function readStorage(key, fallback) {
     try {
-      const value = localStorage.getItem(key);
+      const value = sessionStorage.getItem(key);
       return value ? JSON.parse(value) : fallback;
     } catch (error) {
       console.error("Error leyendo localStorage:", error);
