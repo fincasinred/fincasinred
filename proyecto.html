@@ -441,7 +441,8 @@ h1{
 const STORAGE_KEYS = {
   calculator: "fincasinred_calculadora",
   photos: "fincasinred_fotos",
-  comments: "fincasinred_comentarios"
+  comments: "fincasinred_comentarios",
+  projectMarker: "fincasinred_ultimo_proyecto_marker"
 };
 
 
@@ -478,7 +479,97 @@ function escapeHtml(value){
     .replace(/'/g,"&#039;");
 
 }
+function limpiarDatosDeProyectoAnteriorSiCorresponde(datos){
 
+  const currentMarker = datos && datos.savedAt
+    ? String(datos.savedAt)
+    : "";
+
+  const previousMarker = localStorage.getItem(
+    STORAGE_KEYS.projectMarker
+  );
+
+  if(!currentMarker){
+    return;
+  }
+
+  if(previousMarker && previousMarker !== currentMarker){
+
+    const fotos = getStorage(
+      STORAGE_KEYS.photos,
+      []
+    );
+
+    const comentarios = getStorage(
+      STORAGE_KEYS.comments,
+      []
+    );
+
+    const limite = Date.parse(previousMarker);
+
+    const hayDatosRecientes =
+      fotos.some(foto => {
+
+        if(
+          !foto ||
+          typeof foto !== "object" ||
+          !foto.createdAt
+        ){
+          return false;
+        }
+
+        const fecha = Date.parse(foto.createdAt);
+
+        return (
+          Number.isFinite(fecha) &&
+          Number.isFinite(limite) &&
+          fecha > limite
+        );
+      }) ||
+
+      comentarios.some(comentario => {
+
+        if(
+          !comentario ||
+          typeof comentario !== "object"
+        ){
+          return false;
+        }
+
+        const fecha =
+          comentario.createdAt ||
+          comentario.date;
+
+        if(!fecha){
+          return false;
+        }
+
+        const timestamp = Date.parse(fecha);
+
+        return (
+          Number.isFinite(timestamp) &&
+          Number.isFinite(limite) &&
+          timestamp > limite
+        );
+      });
+
+    if(!hayDatosRecientes){
+
+      localStorage.removeItem(
+        STORAGE_KEYS.photos
+      );
+
+      localStorage.removeItem(
+        STORAGE_KEYS.comments
+      );
+    }
+  }
+
+  localStorage.setItem(
+    STORAGE_KEYS.projectMarker,
+    currentMarker
+  );
+}
 
 function mostrarDatosFinca(datos){
 
@@ -761,7 +852,12 @@ function mostrarResumen(datos){
 
 function cargarProyecto(){
 
-  const datos = getStorage(STORAGE_KEYS.calculator, {});
+  const datos = getStorage(
+    STORAGE_KEYS.calculator,
+    {}
+  );
+
+  limpiarDatosDeProyectoAnteriorSiCorresponde(datos);
 
   mostrarDatosFinca(datos);
   mostrarResultados(datos);
