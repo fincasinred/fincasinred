@@ -156,53 +156,7 @@
 <button class="btn btn-primary" type="button" onclick="openDemo()">Abrir demo completa</button>
 </aside></div></div></section>
 
-<section id="fotos" class="section"><div class="container"><h2 class="section-title">Sube las fotos de tu finca</h2><p class="section-lead">La selección se muestra inmediatamente en pantalla.</p><div class="upload-grid">
-<div class="card upload-box"><label for="photos">📸 Fotografías</label><input id="photos" type="file" accept="image/*" multiple><div id="photoPreview" class="preview-grid"></div></div>
-<div id="comentarios" class="card upload-box"><label for="commentText">💬 Comentario sobre la finca</label><textarea id="commentText" placeholder="Ej.: El depósito está 6 m por encima de la parcela..."></textarea><button class="btn btn-primary" type="button" onclick="saveComment()">Guardar comentario</button><div id="commentsList" class="comments"></div></div>
-</div></div></section>
-<section id="calculadora-integrada" class="section">
-  <div class="container">
 
-    <h2 class="section-title">📐 Prepara tu proyecto</h2>
-
-    <p class="section-lead">
-      Introduce los datos de tu finca y calcula de forma orientativa
-      la bomba, tuberías y energía solar que puedes necesitar.
-    </p>
-
-    <div class="card calculator-wrapper">
-      <iframe
-        src="./calculadora"
-        title="Calculadora FincaSinRed V10"
-        class="calculator-frame"
-        loading="lazy">
-      </iframe>
-    </div>
-
-    <div class="project-action card">
-      <div class="project-action-icon">✅</div>
-
-      <h2>¿Ya tienes los cálculos?</h2>
-
-      <p>
-        Tus datos, resultados, fotografías y comentarios quedarán reunidos
-        en tu proyecto de FincaSinRed.
-      </p>
-
-      <a
-  id="generarProyectoBtn"
-  class="btn btn-primary project-button"
-  href="./proyecto.html">
-  GENERAR PROYECTO GRATIS →
-</a>
-
-      <p class="project-note">
-        Proyecto gratuito · Sin compromiso
-      </p>
-    </div>
-
-  </div>
-</section>
 </main>
 <footer class="footer">FincaSinRed · Soluciones para fincas sin red</footer>
 
@@ -219,11 +173,7 @@ function openDemo(){ $('demoModal').classList.add('open'); document.body.style.o
 function closeDemo(){ $('demoModal').classList.remove('open'); document.body.style.overflow=''; }
 $('demoModal').addEventListener('click',e=>{if(e.target===$('demoModal'))closeDemo()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDemo()});
-$('photos').addEventListener('change',e=>{const box=$('photoPreview');box.innerHTML='';[...e.target.files].forEach(file=>{if(!file.type.startsWith('image/'))return;const img=document.createElement('img');img.alt=file.name;img.src=URL.createObjectURL(file);box.appendChild(img);});});
-function escapeHtml(value){const d=document.createElement('div');d.textContent=value;return d.innerHTML;}
-function renderComments(){const list=JSON.parse(localStorage.getItem('fincaSinRedComentarios')||'[]');$('commentsList').innerHTML=list.map(c=>`<div class="comment">${escapeHtml(c.text)}<time>${escapeHtml(c.date)}</time></div>`).join('');}
-function saveComment(){const text=$('commentText').value.trim();if(!text){alert('Escribe primero el comentario.');return;}const list=JSON.parse(localStorage.getItem('fincaSinRedComentarios')||'[]');list.unshift({text,date:new Date().toLocaleString('es-ES')});localStorage.setItem('fincaSinRedComentarios',JSON.stringify(list.slice(0,20)));$('commentText').value='';renderComments();}
-renderComments();
+
 </script>
 </body>
 </html>
