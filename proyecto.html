@@ -795,7 +795,323 @@ function mostrarResumen(datos){
 }
 
 
-function cargarProyecto(){
+function mostrarDisenoInstalacion(datos){
+  const contenedor = document.getElementById("disenoInstalacion");
+
+  if(!contenedor){
+    return;
+  }
+
+  const longitudPrincipal = Number(datos.L);
+  const longitudRamales = Number(datos.LR);
+  const numeroRamales = Number(datos.NR);
+  const numeroPuntos = Number(datos.P);
+  const diametroPrincipal = Number(datos.D);
+  const diametroRamales = Number(datos.DR);
+  const caudalPorPunto = Number(datos.G);
+  const puntosSimultaneos = Number(datos.PS);
+
+  const valoresValidos =
+    Number.isFinite(longitudPrincipal) &&
+    longitudPrincipal > 0 &&
+    Number.isFinite(longitudRamales) &&
+    longitudRamales > 0 &&
+    Number.isFinite(numeroRamales) &&
+    numeroRamales > 0;
+
+  if(!valoresValidos){
+    contenedor.innerHTML = `
+      <div class="empty">
+        Todavía no hay suficientes datos para mostrar el diseño de la instalación.
+      </div>
+    `;
+    return;
+  }
+
+  const ramales = Math.max(1, Math.round(numeroRamales));
+  const puntos = Number.isFinite(numeroPuntos) && numeroPuntos > 0
+    ? Math.round(numeroPuntos)
+    : 0;
+
+  const simultaneos = Number.isFinite(puntosSimultaneos) && puntosSimultaneos > 0
+    ? Math.round(puntosSimultaneos)
+    : 0;
+
+  const caudalPunto = Number.isFinite(caudalPorPunto) && caudalPorPunto > 0
+    ? caudalPorPunto
+    : 0;
+
+  const diametroTuberiaPrincipal =
+    Number.isFinite(diametroPrincipal) && diametroPrincipal > 0
+      ? diametroPrincipal
+      : null;
+
+  const diametroTuberiaRamales =
+    Number.isFinite(diametroRamales) && diametroRamales > 0
+      ? diametroRamales
+      : null;
+
+  const longitudPrincipalTexto =
+    longitudPrincipal.toLocaleString("es-ES", {
+      maximumFractionDigits: 2
+    });
+
+  const longitudRamalesTexto =
+    longitudRamales.toLocaleString("es-ES", {
+      maximumFractionDigits: 2
+    });
+
+  const caudalPuntoTexto =
+    caudalPunto.toLocaleString("es-ES", {
+      maximumFractionDigits: 2
+    });
+
+  const diametroPrincipalTexto =
+    diametroTuberiaPrincipal !== null
+      ? `${diametroTuberiaPrincipal.toLocaleString("es-ES", {
+          maximumFractionDigits: 1
+        })} mm`
+      : "No indicado";
+
+  const diametroRamalesTexto =
+    diametroTuberiaRamales !== null
+      ? `${diametroTuberiaRamales.toLocaleString("es-ES", {
+          maximumFractionDigits: 1
+        })} mm`
+      : "No indicado";
+
+  const puntosPorRamal =
+    puntos > 0 && ramales > 0
+      ? Math.ceil(puntos / ramales)
+      : null;
+
+  const puntosPorRamalTexto =
+    puntosPorRamal !== null
+      ? puntosPorRamal.toLocaleString("es-ES")
+      : "No indicado";
+
+  const simultaneosTexto =
+    simultaneos > 0
+      ? simultaneos.toLocaleString("es-ES")
+      : "No indicado";
+
+  contenedor.innerHTML = `
+    <div class="notice" style="margin-bottom:15px;">
+      <strong>Esquema orientativo de la instalación</strong>
+      <div style="margin-top:6px;">
+        La distribución mostrada representa de forma visual la tubería
+        principal y los ramales de riego calculados para este proyecto.
+      </div>
+    </div>
+
+    <div style="
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:10px;
+      margin-bottom:15px;
+    ">
+      <div class="data">
+        <span>Longitud tubería principal</span>
+        <strong>${escapeHtml(longitudPrincipalTexto)} m</strong>
+      </div>
+
+      <div class="data">
+        <span>Longitud de cada ramal</span>
+        <strong>${escapeHtml(longitudRamalesTexto)} m</strong>
+      </div>
+
+      <div class="data">
+        <span>Número de ramales</span>
+        <strong>${escapeHtml(ramales)} unidades</strong>
+      </div>
+
+      <div class="data">
+        <span>Puntos de riego por ramal</span>
+        <strong>${escapeHtml(puntosPorRamalTexto)}</strong>
+      </div>
+
+      <div class="data">
+        <span>Diámetro principal</span>
+        <strong>${escapeHtml(diametroPrincipalTexto)}</strong>
+      </div>
+
+      <div class="data">
+        <span>Diámetro de ramales</span>
+        <strong>${escapeHtml(diametroRamalesTexto)}</strong>
+      </div>
+
+      <div class="data">
+        <span>Caudal por punto</span>
+        <strong>${escapeHtml(caudalPuntoTexto)} L/h</strong>
+      </div>
+
+      <div class="data">
+        <span>Puntos simultáneos</span>
+        <strong>${escapeHtml(simultaneosTexto)}</strong>
+      </div>
+    </div>
+
+    <div
+      style="
+        overflow-x:auto;
+        padding:10px 0;
+      "
+      aria-label="Esquema de tuberías de la instalación"
+    >
+      <svg
+        viewBox="0 0 760 420"
+        width="100%"
+        role="img"
+        aria-labelledby="tituloDisenoInstalacion descripcionDisenoInstalacion"
+        style="
+          display:block;
+          min-width:620px;
+          max-width:760px;
+          margin:0 auto;
+        "
+      >
+        <title id="tituloDisenoInstalacion">
+          Diseño orientativo de la instalación de riego
+        </title>
+
+        <desc id="descripcionDisenoInstalacion">
+          Tubería principal horizontal con ${ramales} ramales de riego
+          distribuidos a lo largo de la instalación.
+        </desc>
+
+        <rect
+          x="10"
+          y="10"
+          width="740"
+          height="400"
+          rx="14"
+          fill="transparent"
+          stroke="currentColor"
+          stroke-opacity="0.12"
+        />
+
+        <text
+          x="30"
+          y="42"
+          font-size="16"
+          font-weight="700"
+          fill="currentColor"
+        >
+          Tubería principal
+        </text>
+
+        <text
+          x="30"
+          y="64"
+          font-size="12"
+          fill="currentColor"
+          opacity="0.7"
+        >
+          ${escapeHtml(longitudPrincipalTexto)} m
+        </text>
+
+        <line
+          x1="80"
+          y1="105"
+          x2="680"
+          y2="105"
+          stroke="currentColor"
+          stroke-width="8"
+          stroke-linecap="round"
+        />
+
+        <circle
+          cx="80"
+          cy="105"
+          r="14"
+          fill="currentColor"
+        />
+
+        <text
+          x="80"
+          y="138"
+          text-anchor="middle"
+          font-size="11"
+          fill="currentColor"
+        >
+          Entrada
+        </text>
+
+        ${
+          Array.from({length: ramales}, (_, index) => {
+            const maxRamalesVisibles = Math.min(ramales, 8);
+
+            if(index >= maxRamalesVisibles){
+              return "";
+            }
+
+            const x =
+              maxRamalesVisibles === 1
+                ? 380
+                : 120 + (
+                    index *
+                    (520 / (maxRamalesVisibles - 1))
+                  );
+
+            return `
+              <line
+                x1="${x}"
+                y1="105"
+                x2="${x}"
+                y2="330"
+                stroke="currentColor"
+                stroke-width="5"
+                stroke-linecap="round"
+                stroke-opacity="0.75"
+              />
+
+              <circle
+                cx="${x}"
+                cy="105"
+                r="8"
+                fill="currentColor"
+              />
+
+              <text
+                x="${x}"
+                y="350"
+                text-anchor="middle"
+                font-size="11"
+                fill="currentColor"
+              >
+                Ramal ${index + 1}
+              </text>
+
+              <text
+                x="${x}"
+                y="367"
+                text-anchor="middle"
+                font-size="10"
+                fill="currentColor"
+                opacity="0.7"
+              >
+                ${escapeHtml(longitudRamalesTexto)} m
+              </text>
+            `;
+          }).join("")}
+      </svg>
+    </div>
+
+    ${
+      ramales > 8
+        ? `
+          <div class="notice" style="margin-top:10px;">
+            <strong>Nota:</strong>
+            El esquema visual muestra hasta 8 ramales para mantener
+            la representación legible. El cálculo conserva los
+            ${escapeHtml(ramales)} ramales completos.
+          </div>
+        `
+        : ""
+    }
+  `;
+}
+  function cargarProyecto(){
 
   const datos = getStorage(
     STORAGE_KEYS.calculator,
