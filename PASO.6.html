@@ -1,0 +1,265 @@
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FincaSinRed | Paso 6 de 7</title>
+<style>
+:root{--g:#19a033;--gd:#176c31;--gs:#eef8ef;--t:#101827;--m:#59636e;--b:#dfe5e2;--p:#f6f9f7;--blue:#2d9be8;--bs:#eef7ff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--p);color:var(--t);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}button{font:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible{outline:3px solid rgba(25,160,51,.22);outline-offset:2px}
+.page-shell{width:min(100%,940px);min-height:100vh;margin:auto;background:#fff;border-left:1px solid #e0e6e2;border-right:1px solid #e0e6e2;box-shadow:0 8px 35px rgba(20,50,32,.06)}.app{padding:0 22px}.top{min-height:82px;display:flex;align-items:center;justify-content:space-between;gap:18px;border-bottom:1px solid #e8ecea}.logo{width:205px;max-width:58vw;display:block}.head-note{display:flex;align-items:center;gap:8px;color:#68736e;font-size:14px;font-weight:750;white-space:nowrap}.head-note svg{width:27px;height:27px;color:var(--g)}
+.progress{padding:16px 0 4px}.steps{position:relative;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.steps:before{content:"";position:absolute;z-index:0;top:15px;left:7.14%;right:7.14%;height:2px;background:#dfe6e2}.step{position:relative;z-index:1;text-align:center;min-width:0}.circle{width:30px;height:30px;margin:auto;display:flex;align-items:center;justify-content:center;border:2px solid #cbd4cf;border-radius:50%;background:#fff;color:#68736e;font-size:13px;font-weight:850}.step.done .circle,.step.current .circle{border-color:var(--g);background:var(--g);color:#fff}.step.done:after{content:"";position:absolute;z-index:-1;top:14px;left:50%;width:100%;height:2px;background:var(--g)}.step:last-child:after{display:none}.label{display:block;margin-top:5px;color:#68736e;font-size:12px;font-weight:750;white-space:nowrap}.current .label{color:var(--gd)}
+.hero{display:flex;align-items:center;gap:17px;padding:22px 4px 17px}.hero-icon{width:54px;height:54px;flex:0 0 54px;color:var(--g)}.hero-icon svg{width:100%;height:100%}.hero h1{margin:0;font-size:clamp(26px,4vw,34px);line-height:1.08;letter-spacing:-.8px;font-weight:900}.hero p{margin:5px 0 0;color:#3f4853;font-size:16px;line-height:1.42;font-weight:500}
+.card{margin-top:13px;padding:17px;border:1px solid var(--b);border-radius:18px;background:#fff;box-shadow:0 1px 5px rgba(25,53,35,.025)}.heading{display:flex;align-items:flex-start;gap:13px;margin-bottom:14px}.num{width:42px;height:42px;flex:0 0 42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--g);color:#fff;font-size:21px;font-weight:900}.heading h2{margin:0;font-size:21px;line-height:1.16;font-weight:900}.heading p{margin:4px 0 0;color:var(--m);font-size:14px;line-height:1.38}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.option{position:relative;min-height:205px;padding:13px 10px 14px;border:2px solid #e0e5e2;border-radius:14px;background:#fff;color:var(--t);text-align:center;transition:.18s}.option:hover{border-color:#63b36d;transform:translateY(-1px)}.option.selected{border-color:#55a95d;box-shadow:0 0 0 1px #55a95d;background:#fbfefb}.dot{position:absolute;top:11px;left:11px;width:22px;height:22px;border:2px solid #bdc8c2;border-radius:50%;background:#fff}.selected .dot{border-color:#55a95d}.selected .dot:after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--g)}.illus{width:145px;height:104px;margin:4px auto 5px;display:block}.option strong{display:block;font-size:16px;line-height:1.18;font-weight:900}.desc{display:block;max-width:205px;margin:5px auto 0;color:#5b6570;font-size:12.5px;line-height:1.32}
+.energy{display:none}.energy.visible{display:block}.energy-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.energy .option{min-height:186px}.energy .illus{width:115px;height:92px}.energy .option strong{font-size:14px}.energy .desc{font-size:11.5px}.automation-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.automation{min-height:112px}.automation .illus{width:75px;height:64px;margin:0 auto 2px}
+.battery-inputs{display:none}.battery-inputs.visible{display:block}.battery-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.battery-field{display:flex;flex-direction:column;gap:6px}.battery-field label{color:var(--t);font-size:14px;font-weight:800}.battery-field select{width:100%;min-height:48px;padding:0 12px;border:1px solid #cfd9d3;border-radius:10px;background:#fff;color:var(--t)}.battery-field select:focus{outline:3px solid rgba(25,160,51,.18);border-color:var(--g)}.battery-unit{color:var(--m);font-size:13px}
+.info{margin-top:13px;display:flex;gap:13px;align-items:flex-start;padding:14px 16px;border:1px solid #d7eafa;border-radius:14px;background:var(--bs);color:#164b83}.info-icon{width:38px;height:38px;flex:0 0 38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--blue);color:#fff;font-size:21px;font-weight:900}.info strong{display:block;margin-bottom:3px;color:#0d4d91;font-size:15px}.info p{margin:0;font-size:13px;line-height:1.42}.note{display:none;margin-top:11px;padding:11px 13px;border-radius:11px;background:#f0f8f1;color:#2d6637;font-size:13px;line-height:1.4;font-weight:650}.note.show{display:block}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:25px 0 28px}.back,.continue{min-height:52px;border-radius:11px;font-size:16px;font-weight:850}.back{padding:0 22px;border:1px solid #d5ddd8;background:#fff;color:#26312b}.continue{min-width:185px;padding:0 23px;border:0;background:var(--g);color:#fff}.back:hover{background:#f7fbf8;border-color:#70b77a}.continue:hover{background:#168d2d}.privacy{padding:0 0 24px;text-align:center;color:#68736e;font-size:13px;font-weight:600}.privacy svg{width:18px;height:18px;vertical-align:-4px;margin-right:5px}
+@media(max-width:800px){.grid4{grid-template-columns:repeat(2,minmax(0,1fr))}.energy-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}@media(max-width:600px){.app{padding:0 14px}.top{min-height:72px}.logo{width:174px}.head-note{display:none}.progress{padding-top:18px}.label{font-size:10px}.circle{width:25px;height:25px;font-size:11px}.steps:before{top:12px}.step.done:after{top:11.5px}.hero{gap:12px;padding-top:21px}.hero-icon{width:46px;height:46px;flex-basis:46px}.hero h1{font-size:25px}.hero p{font-size:14px}.card{padding:15px;border-radius:16px}.heading h2{font-size:18px}.heading p{font-size:13px}.num{width:38px;height:38px;flex-basis:38px;font-size:19px}.grid4{gap:9px}.option{min-height:188px;padding:11px 7px 10px}.illus{width:122px;height:88px}.option strong{font-size:14px}.desc{font-size:11px}.energy-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.energy .option{min-height:172px}.energy .illus{width:100px;height:80px}.energy .option strong{font-size:13px}.energy .desc{font-size:10.5px}.automation-grid{grid-template-columns:1fr;gap:9px}.automation{min-height:78px;display:flex;align-items:center;text-align:left;gap:12px;padding:10px 12px}.automation .illus{width:64px;height:55px;margin:0;flex:0 0 64px}.nav{padding-top:22px;padding-bottom:22px}.back,.continue{min-height:52px;font-size:15px}.continue{min-width:0;flex:1}}@media(max-width:380px){.label{font-size:9px}.desc{display:none}.back{padding:0 16px}}
+</style>
+
+<style id="fincasinred-typography-v1">
+
+/* =========================================================
+   FINCASINRED — SISTEMA TIPOGRÁFICO GLOBAL V1
+   Unifica la lectura en móvil y ordenador sin alterar
+   la estructura ni la funcionalidad de la página.
+   ========================================================= */
+:root {
+  --fs-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 14px;
+  --fs-button: 16px;
+  --fs-card-title: 18px;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h1: clamp(30px, 4vw, 44px);
+  --fs-line-body: 1.55;
+  --fs-line-heading: 1.15;
+}
+
+/* Fuente común */
+html,
+body {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Texto de lectura */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Escala base */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--fs-line-body);
+}
+
+/* Jerarquía de títulos */
+h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h3 {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Texto normal */
+p {
+  font-size: var(--fs-body) !important;
+}
+
+/* Etiquetas y textos secundarios */
+label {
+  font-size: var(--fs-label) !important;
+}
+
+small,
+.helper,
+.hint,
+.description,
+.subtext {
+  font-size: var(--fs-small) !important;
+}
+
+/* Controles */
+button,
+input,
+select,
+textarea {
+  font-size: var(--fs-button) !important;
+}
+
+/* Progreso: deliberadamente algo más compacto, pero nunca microscópico */
+.progress-label,
+.progress-step,
+.step-title,
+.header-note {
+  font-size: var(--fs-caption) !important;
+}
+
+/* Cabeceras y textos de ayuda */
+.help-button,
+.help-button *,
+.help-icon {
+  font-size: var(--fs-small) !important;
+}
+
+/* Tarjetas y bloques informativos */
+.card-heading,
+.form-card-header,
+.option-title,
+.option-name,
+.choice-title,
+.feature-title,
+.element-title {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Datos importantes */
+.value,
+.summary-value,
+.data-value,
+.price,
+.total,
+.amount {
+  line-height: 1.2 !important;
+}
+
+/* Nunca permitir textos extremadamente pequeños en contenido */
+.page,
+.app,
+.page-shell,
+.page-container,
+.app-container,
+.content,
+.content-section,
+main,
+section {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Móvil: mantener legibilidad y reducir solo títulos si hace falta */
+@media (max-width: 640px) {
+  :root {
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 13px;
+    --fs-label: 14px;
+    --fs-button: 16px;
+    --fs-card-title: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* PASO 6 */
+.hero h1, .page-title { font-size: clamp(30px, 4vw, 42px) !important; }
+.hero p, .page-subtitle { font-size: 16px !important; }
+section h2, .section-title { font-size: 24px !important; }
+.option-title, .choice-title { font-size: 18px !important; }
+.option-description, .choice-description { font-size: 14px !important; }
+input, select { font-size: 16px !important; }
+
+</style>
+</head>
+<body>
+<main class="page-shell"><div class="app">
+<header class="top"><a href="portada-v12-responsive-ajustada.html" aria-label="Volver a FincaSinRed"><img class="logo" src="./assets/logo-fincasinred-header.png" alt="FincaSinRed - Riego inteligente para tu finca"></a><div class="head-note"><svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M16 27V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M16 17C11.2 17 8 13.9 8 9.3C12.9 9.2 16 11.9 16 17Z" fill="currentColor" opacity=".85"/><path d="M16 19C20.8 19 24 15.9 24 11.3C19.1 11.2 16 13.9 16 19Z" fill="currentColor" opacity=".62"/><path d="M9 27H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>Tu proyecto de riego paso a paso</div></header>
+<section class="progress"><div class="steps"><div class="step done"><div class="circle">1</div><span class="label">Cultivo</span></div><div class="step done"><div class="circle">2</div><span class="label">Ubicación</span></div><div class="step done"><div class="circle">3</div><span class="label">Agua</span></div><div class="step done"><div class="circle">4</div><span class="label">Terreno</span></div><div class="step done"><div class="circle">5</div><span class="label">Riego</span></div><div class="step current" aria-current="step"><div class="circle">6</div><span class="label">Energía</span></div><div class="step"><div class="circle">7</div><span class="label">Resultado</span></div></div></section>
+<section class="hero"><div class="hero-icon"><svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M36.4 4L13 35.2H29.4L25.8 60L51 26.8H34.8L36.4 4Z" fill="currentColor"/></svg></div><div><h1>Opciones de energía y funcionamiento</h1><p>Con las respuestas que nos has dado en los pasos anteriores, analizaremos tu finca, el desnivel, la distancia y el sistema de riego para calcular la solución más adecuada.</p><p>También podrás indicarnos si quieres que preparemos una alternativa con bomba y cómo te gustaría alimentarla.</p></div></section>
+
+<section class="card"><div class="heading"><div class="num">1</div><div><h2>¿Qué opción quieres que preparemos para llevar el agua hasta tu sistema de riego?</h2><p>Selecciona la opción que prefieres.</p></div></div><div class="grid4" id="solutionOptions" role="radiogroup" aria-label="Opción para llevar el agua al sistema de riego">
+<button type="button" class="option" data-value="gravedad" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 180 125" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="21" y="78" width="30" height="28" rx="5" fill="#68A9D8"/><path d="M21 86H51" stroke="#4D7FA7" stroke-width="2"/><path d="M51 91H65C68 91 70 93 70 96V99" stroke="#347BB0" stroke-width="7" stroke-linecap="round"/><path d="M65 99H151" stroke="#347BB0" stroke-width="7" stroke-linecap="round"/><path d="M70 99C91 104 113 105 151 99" stroke="#2D9BE8" stroke-width="2" stroke-dasharray="2 5"/><path d="M21 106H157" stroke="#8B5A34" stroke-width="5" stroke-linecap="round"/><path d="M113 88V71" stroke="#5B3925" stroke-width="4" stroke-linecap="round"/><path d="M113 73C102 70 96 62 96 52C107 52 113 60 113 73Z" fill="#35A947"/><path d="M113 73C124 70 130 62 130 52C119 52 113 60 113 73Z" fill="#6DBF59"/><path d="M66 99C66 99 62 105 62 108C62 110.7 64.2 112.5 66 112.5C68.4 112.5 70 110.7 70 108C70 105 66 99 66 99Z" fill="#2D9BE8"/><path d="M150 99C150 99 146 105 146 108C146 110.7 148.2 112.5 150 112.5C152.4 112.5 154 110.7 154 108C154 105 150 99 150 99Z" fill="#2D9BE8"/></svg><strong>Riego por gravedad</strong><span class="desc">Si el desnivel y las condiciones de la instalación lo permiten.</span></button>
+<button type="button" class="option" data-value="bomba" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 180 125" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M28 91H151" stroke="#8B5A34" stroke-width="6" stroke-linecap="round"/><rect x="68" y="64" width="50" height="29" rx="7" fill="#3B82B8"/><rect x="78" y="70" width="30" height="18" rx="4" fill="#4E9BCE"/><circle cx="73" cy="78.5" r="16" fill="#2E6F9F"/><circle cx="73" cy="78.5" r="7" fill="#79B8DD"/><path d="M118 78H139C143 78 146 75 146 71V63" stroke="#2E6F9F" stroke-width="8" stroke-linecap="round"/><path d="M146 63V48C146 44 143 41 139 41H121" stroke="#2E6F9F" stroke-width="8" stroke-linecap="round"/><path d="M57 79H39C35 79 32 82 32 86V93" stroke="#2E6F9F" stroke-width="8" stroke-linecap="round"/><path d="M30 93C30 93 25 100 25 103.5C25 106.4 27.2 108.5 30 108.5C32.8 108.5 35 106.4 35 103.5C35 100 30 93 30 93Z" fill="#2D9BE8"/><path d="M139 41C139 41 134 48 134 51.5C134 54.4 136.2 56.5 139 56.5C141.8 56.5 144 54.4 144 51.5C144 48 139 41 139 41Z" fill="#2D9BE8"/></svg><strong>Instalación con bomba</strong><span class="desc">Calcularemos la bomba que necesita tu instalación.</span></button>
+<button type="button" class="option" data-value="red" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 180 125" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M39 74H75" stroke="#4B8C5A" stroke-width="8" stroke-linecap="round"/><path d="M105 74H141" stroke="#4B8C5A" stroke-width="8" stroke-linecap="round"/><path d="M75 74H105" stroke="#6B8E72" stroke-width="8" stroke-linecap="round"/><path d="M82 57H98C101 57 103 60 103 63V85C103 88 101 91 98 91H82C79 91 77 88 77 85V63C77 60 79 57 82 57Z" fill="#E9F2EC" stroke="#4B8C5A" stroke-width="2"/><path d="M88 57V49M88 49H95" stroke="#4B8C5A" stroke-width="4" stroke-linecap="round"/><path d="M55 74C55 74 50 81 50 84.5C50 87.4 52.2 89.5 55 89.5C57.8 89.5 60 87.4 60 84.5C60 81 55 74 55 74Z" fill="#2D9BE8"/><path d="M125 74C125 74 120 81 120 84.5C120 87.4 122.2 89.5 125 89.5C127.8 89.5 130 87.4 130 84.5C130 81 125 74 125 74Z" fill="#2D9BE8"/><path d="M27 102H153" stroke="#D0D9D3" stroke-width="4" stroke-linecap="round"/></svg><strong>Agua de red</strong><span class="desc">Utilizar la presión disponible de la red para alimentar el riego.</span></button>
+</div><div id="solutionNote" class="note" aria-live="polite"></div></section>
+
+<section id="energyCard" class="card energy" aria-hidden="true"><div class="heading"><div class="num">2</div><div><h2>¿Cómo quieres alimentar la bomba?</h2><p>Selecciona la fuente de energía que prefieras. Esta sección solo es necesaria si quieres que calculemos una opción con bomba.</p></div></div><div class="info" style="margin-top:0;margin-bottom:12px"><div class="info-icon">i</div><div><strong>Nosotros calculamos la potencia necesaria</strong><p>No necesitas conocer los vatios de la bomba, de los paneles ni de la batería. FincaSinRed determinará las necesidades del proyecto.</p></div></div><div class="energy-grid" role="radiogroup" aria-label="Fuente de energía para la bomba">
+<button type="button" class="option" data-value="red" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M60 83V28M34 35H86M39 35L18 50M48 35L29 52M72 35L91 52M81 35L102 50M24 50H42M78 50H96M43 83H77" stroke="#5B3925" stroke-width="5" stroke-linecap="round"/><path d="M60 28V83" stroke="#5B3925" stroke-width="6" stroke-linecap="round"/></svg><strong>Electricidad de red</strong><span class="desc">Si tienes conexión eléctrica disponible en la finca.</span></button>
+<button type="button" class="option" data-value="solar" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="91" cy="21" r="10" fill="#F6C63D"/><path d="M91 5V1M91 41V37M75 21H71M111 21H107M80 10L77 7M105 35L102 32M102 10L105 7M77 35L80 32" stroke="#F0B62E" stroke-width="2.4" stroke-linecap="round"/><path d="M20 72L38 35H101L83 72H20Z" fill="#3B8AC1" stroke="#286B9D" stroke-width="2"/><path d="M39 36L29 70M55 36L49 70M71 36L66 70M87 36L82 70M30 57H90" stroke="#D9EFFC" stroke-width="2"/><path d="M16 75H86" stroke="#5B3925" stroke-width="5" stroke-linecap="round"/><path d="M10 81C28 75 42 80 58 78C73 76 85 81 105 76" stroke="#59A84F" stroke-width="5" stroke-linecap="round"/></svg><strong>Placa solar</strong><span class="desc">Energía solar mediante paneles solares.</span></button>
+<button type="button" class="option" data-value="bateria" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="20" y="30" width="78" height="51" rx="9" fill="#607C89" stroke="#435A65" stroke-width="3"/><rect x="46" y="24" width="27" height="7" rx="3.5" fill="#435A65"/><rect x="30" y="42" width="20" height="27" rx="4" fill="#9ED18A"/><rect x="57" y="42" width="30" height="27" rx="4" fill="#D9E6EB"/><path d="M68 47L62 58H68L64 65L76 53H70L74 47H68Z" fill="#2D9BE8"/><circle cx="40" cy="49" r="3" fill="#2B9A46"/><circle cx="40" cy="61" r="3" fill="#2B9A46"/><rect x="98" y="47" width="6" height="17" rx="2" fill="#435A65"/></svg><strong>Batería / estación de energía</strong><span class="desc">Para almacenar energía y alimentar la bomba.</span></button>
+<button type="button" class="option" data-value="generador" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 120 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="19" y="35" width="82" height="45" rx="8" fill="#C94B42" stroke="#963832" stroke-width="3"/><rect x="31" y="44" width="31" height="21" rx="3" fill="#2F3940"/><circle cx="46.5" cy="54.5" r="7" fill="#BFD2D7"/><path d="M75 47H91V62H75V47ZM29 35V27H91V35M28 80L21 88M92 80L99 88M55 27V19H69V27" stroke="#963832" stroke-width="4" stroke-linecap="round"/></svg><strong>Generador</strong><span class="desc">Generador eléctrico disponible en la finca.</span></button>
+</div></section>
+
+<section id="batteryInputs" class="card battery-inputs" aria-hidden="true"><div class="heading"><div class="num">3</div><div><h2>¿Qué necesitas de la batería?</h2><p>Indica el periodo de autonomía, el horizonte de diseño y la reserva energética adicional que quieres considerar.</p></div></div><div class="battery-fields"><div class="battery-field"><label for="autonomy">Periodo de autonomía</label><select id="autonomy" name="autonomy"><option value="">Selecciona una opción</option><option value="6 horas">6 horas</option><option value="12 horas">12 horas</option><option value="24 horas">24 horas</option><option value="48 horas">48 horas</option><option value="72 horas">72 horas</option></select><span class="battery-unit">Opciones de autonomía.</span></div><div class="battery-field"><label for="designHorizon">Horizonte de diseño</label><select id="designHorizon" name="designHorizon"><option value="">Selecciona una opción</option><option value="1 día">1 día</option><option value="7 días">7 días</option><option value="30 días">30 días</option></select><span class="battery-unit">Opciones de horizonte de diseño.</span></div><div class="battery-field"><label for="reserve">Reserva energética adicional</label><select id="reserve" name="reserve"><option value="">Selecciona una opción</option><option value="0 kWh">0 kWh</option><option value="0,5 kWh">0,5 kWh</option><option value="1 kWh">1 kWh</option><option value="2 kWh">2 kWh</option><option value="5 kWh">5 kWh</option></select><span class="battery-unit">Opciones de reserva.</span></div></div></section>
+
+<section class="card"><div class="heading"><div class="num">4</div><div><h2>¿Quieres que el sistema de riego sea automático?</h2><p>La automatización permite programar el riego y controlar el funcionamiento del sistema.</p></div></div><div class="automation-grid" role="radiogroup" aria-label="Automatización del sistema de riego">
+<button type="button" class="option automation" data-value="si" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 90 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="9" y="13" width="51" height="42" rx="7" fill="#607C89" stroke="#435A65" stroke-width="2"/><rect x="17" y="21" width="35" height="12" rx="3" fill="#D8F0DE"/><path d="M21 26H40" stroke="#2B9A46" stroke-width="2" stroke-linecap="round"/><circle cx="21" cy="43" r="3" fill="#2B9A46"/><circle cx="31" cy="43" r="3" fill="#2D9BE8"/><circle cx="41" cy="43" r="3" fill="#F0B62E"/><path d="M68 24C61 24 57 29 57 35C57 42 62 47 69 47M69 16C75 16 80 21 80 27C80 34 75 39 69 39" stroke="#2B9A46" stroke-width="4" stroke-linecap="round"/></svg><span><strong>Sí, quiero automatizarlo</strong><span class="desc">Programación del riego y control automático.</span></span></button>
+<button type="button" class="option automation" data-value="no" role="radio" aria-checked="false"><span class="dot"></span><svg class="illus" viewBox="0 0 90 75" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M18 42H72" stroke="#4B8C5A" stroke-width="7" stroke-linecap="round"/><rect x="39" y="29" width="12" height="25" rx="4" fill="#6A8A77"/><path d="M45 29V20M45 20L51 14M45 20L39 14" stroke="#4B8C5A" stroke-width="4" stroke-linecap="round"/><circle cx="45" cy="42" r="5" fill="#DCEBE0"/></svg><span><strong>No, prefiero controlarlo manualmente</strong><span class="desc">Abrir y cerrar el riego de forma manual.</span></span></button>
+</div></section>
+
+<div class="info"><div class="info-icon">i</div><div><strong>No tienes que preocuparte por los cálculos.</strong><p>FincaSinRed utilizará los datos de tu finca para determinar la solución hidráulica y energética y proponerte los componentes adecuados.</p></div></div>
+<nav class="nav"><button type="button" class="back" id="back">←&nbsp; Atrás</button><button type="button" class="continue" id="continue">Continuar&nbsp; →</button></nav>
+<div class="privacy"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="1.5" fill="currentColor"/></svg>Tus datos son temporales y se eliminan tras generar tu PDF.</div>
+</div></main>
+<script>
+(() => {
+"use strict";
+const KEY="fincasinred_paso6";
+function read(){try{const r=sessionStorage.getItem(KEY);if(!r)return{};const d=JSON.parse(r);return d&&typeof d==="object"&&!Array.isArray(d)?d:{}}catch(e){console.warn("No se pudieron recuperar los datos del Paso 6.",e);return{}}}
+const old=read();
+function storedChoice(primary,fallback,validValues){const value=primary??fallback;return typeof value==="string"&&validValues.includes(value)?value:null}
+const state={...old,solucionAgua:storedChoice(old.solucionAgua,old.opcionAgua,["gravedad","bomba","red"]),energia:storedChoice(old.energiaBomba,old.energia,["red","solar","bateria","generador"]),automatizacion:storedChoice(old.automatizacion,old.automation,["si","no"]),autonomy:old.autonomy??"",designHorizon:old.designHorizon??"",reserve:old.reserve??""};
+const solutions=document.querySelectorAll("[data-value].option");
+const solutionOptions=document.querySelectorAll("#solutionOptions .option");
+const energyOptions=document.querySelectorAll("#energyCard .option");
+const automationOptions=document.querySelectorAll(".automation");
+const energyCard=document.getElementById("energyCard");
+const batteryInputs=document.getElementById("batteryInputs");
+const batteryFields=["autonomy","designHorizon","reserve"].map(id=>document.getElementById(id));
+const note=document.getElementById("solutionNote");
+function choose(buttons,button,key){buttons.forEach(b=>{const on=b===button;b.classList.toggle("selected",on);b.setAttribute("aria-checked",String(on))});state[key]=button.dataset.value;}
+function energyVisibility(){const show=state.solucionAgua==="bomba";energyCard.classList.toggle("visible",show);energyCard.setAttribute("aria-hidden",String(!show));if(!show){state.energia=null;energyOptions.forEach(b=>{b.classList.remove("selected");b.setAttribute("aria-checked","false")})}const showBattery=show&&state.energia==="bateria";batteryInputs.classList.toggle("visible",showBattery);batteryInputs.setAttribute("aria-hidden",String(!showBattery))}
+function updateNote(){const messages={gravedad:"Analizaremos el desnivel, la distancia y el sistema de riego para comprobar si la instalación puede funcionar correctamente por gravedad.",bomba:"Calcularemos la bomba que necesita la instalación. No necesitas conocer su potencia, caudal ni presión.",red:"Tomaremos la presión disponible de la red como fuente hidráulica. No se plantea una bomba de impulsión en esta opción."};note.textContent=messages[state.solucionAgua]||"";note.classList.toggle("show",Boolean(messages[state.solucionAgua]))}
+function save(){try{const data={...read(),solucionAgua:state.solucionAgua,opcionAgua:state.solucionAgua,automatizacion:state.automatizacion,automation:state.automatizacion,autonomy:state.autonomy,designHorizon:state.designHorizon,reserve:state.reserve};data.energia=state.solucionAgua==="bomba"?state.energia:null;data.energiaBomba=state.solucionAgua==="bomba"?state.energia:null;sessionStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){console.error("No se pudieron guardar los datos del Paso 6.",e);return false}}
+function restore(){solutionOptions.forEach(b=>{const on=b.dataset.value===state.solucionAgua;b.classList.toggle("selected",on);b.setAttribute("aria-checked",String(on))});energyOptions.forEach(b=>{const on=b.dataset.value===state.energia;b.classList.toggle("selected",on);b.setAttribute("aria-checked",String(on))});automationOptions.forEach(b=>{const on=b.dataset.value===state.automatizacion;b.classList.toggle("selected",on);b.setAttribute("aria-checked",String(on))});batteryFields.forEach(field=>{field.value=[...field.options].some(option=>option.value===state[field.id])?state[field.id]:""});energyVisibility();updateNote()}
+solutionOptions.forEach(b=>b.addEventListener("click",()=>{choose(solutionOptions,b,"solucionAgua");energyVisibility();updateNote();save()}));
+energyOptions.forEach(b=>b.addEventListener("click",()=>{choose(energyOptions,b,"energia");energyVisibility();save()}));
+batteryFields.forEach(field=>field.addEventListener("input",()=>{state[field.id]=field.value;save()}));
+automationOptions.forEach(b=>b.addEventListener("click",()=>{choose(automationOptions,b,"automatizacion");save()}));
+document.getElementById("back").addEventListener("click",()=>{save();location.href="PASO.5.html"});
+document.getElementById("continue").addEventListener("click",()=>{if(!state.solucionAgua){alert("Selecciona qué opción quieres que preparemos para llevar el agua hasta tu sistema de riego.");solutionOptions[0]?.focus();return}if(state.solucionAgua==="bomba"&&!state.energia){alert("Si quieres una instalación con bomba, selecciona cómo quieres alimentarla.");energyOptions[0]?.focus();return}if(!state.automatizacion){alert("Indica si quieres que el sistema de riego sea automático.");automationOptions[0]?.focus();return}if(!save()){alert("No hemos podido guardar temporalmente tus respuestas. Inténtalo de nuevo.");return}location.href="PASO.7.html"});
+restore();
+})();
+</script>
+</body>
+</html>

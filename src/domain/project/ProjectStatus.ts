@@ -1,0 +1,7 @@
+export enum ProjectStatus {
+  VALIDATED = "VALIDATED",
+  PROVISIONAL = "PROVISIONAL",
+  PENDING = "PENDING",
+  BLOCKED = "BLOCKED",
+  INVALID = "INVALID",
+}

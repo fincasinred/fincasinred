@@ -1,0 +1,2691 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FincaSinRed | Resumen de tu proyecto</title>
+
+<meta name="description" content="Resumen de tu finca y acceso al proyecto completo de riego personalizado de FincaSinRed.">
+<style>
+
+:root{
+
+  --green:#159447;--green-dark:#087b35;--green-soft:#f2fbf4;--green-border:#b9e2c4;
+
+  --blue:#247dcc;--blue-soft:#eef7ff;--text:#171717;--muted:#626262;
+
+  --border:#e1e1e1;--white:#fff;--shadow:0 2px 10px rgba(0,0,0,.045);--radius:14px;
+
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;background:#fff;color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+
+button{font:inherit;cursor:pointer}
+
+.page{min-height:100vh;padding:12px}
+
+.app{width:min(900px,100%);margin:auto;border:1px solid #e3e3e3;border-radius:16px;background:#fff;overflow:hidden;box-shadow:var(--shadow)}
+
+.header{min-height:68px;padding:11px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ededed}
+
+.brand{display:flex;align-items:center}
+
+.brand-logo{width:205px;height:auto;display:block}
+
+.privacy-top{display:flex;align-items:center;gap:7px;font-size:11px;font-weight:650;color:#454545}
+
+.privacy-top svg{width:23px;height:23px;color:var(--green)}
+
+.progress-area{padding:13px 20px 11px;text-align:center;border-bottom:1px solid #f0f0f0}
+
+.step-title{margin:0 0 9px;font-size:13px;font-weight:800}
+
+.progress{width:min(690px,90%);margin:auto;display:flex;align-items:center}
+
+.progress-item{flex:1;display:flex;align-items:center}
+
+.progress-item:last-child{flex:0}
+
+.progress-line{height:2px;flex:1;background:#d5d5d5}
+
+.progress-line.done{background:var(--green)}
+
+.progress-step{width:24px;height:24px;border:1px solid #cfcfcf;border-radius:50%;display:grid;place-items:center;background:#fff;font-size:11px;font-weight:800;flex:0 0 24px}
+
+.progress-step.done,.progress-step.current{border-color:var(--green);background:var(--green);color:#fff}
+
+.content{padding:0 30px 22px}
+
+.back-link{margin:14px 0 7px;display:inline-flex;border:1px solid #dfe8e1;background:#fff;color:#357b4b;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:750}
+
+.hero{text-align:center;padding:0 10px 16px}
+
+.hero h1{font-size:30px;line-height:1.1;margin:0 0 8px;font-weight:850;letter-spacing:-.025em}
+
+.hero p{margin:0;color:#555;font-size:13px}
+
+.hero strong{color:#222}
+
+.grid-top{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+
+.card{border:1px solid #e2e2e2;border-radius:14px;background:#fff;box-shadow:var(--shadow);padding:16px}
+
+.card h2{font-size:15px;margin:0 0 12px;font-weight:850}
+
+.farm-summary{background:var(--green-soft);border-color:var(--green-border)}
+
+.summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+
+.data-item{min-height:65px;padding:10px;border-bottom:1px solid #dcecdf}
+
+.data-item:nth-child(3n+1),.data-item:nth-child(3n+2){border-right:1px solid #dcecdf}
+
+.data-item:nth-last-child(-n+3){border-bottom:0}
+
+.data-label{font-size:10px;color:#58705e;font-weight:650;margin-bottom:5px}
+
+.data-value{font-size:12px;font-weight:800;line-height:1.2}
+
+.photos-box{display:flex;flex-direction:column;justify-content:center}
+
+.photo-placeholder{min-height:180px;border:1px dashed #c9d7cd;border-radius:11px;background:#fafcfb;display:grid;place-items:center;text-align:center;padding:20px;color:#647067;font-size:12px}
+
+.photo-placeholder svg{width:42px;height:42px;color:var(--green);margin-bottom:8px}
+
+.tech{margin-top:16px}
+
+.tech-sub{font-size:11px;color:#666;margin:-6px 0 12px}
+
+.tech-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+
+.metric{border:1px solid #e4e8e5;border-radius:10px;padding:11px;background:#fbfdfb;min-height:92px}
+
+.metric-label{font-size:9px;line-height:1.25;color:#5f665f;font-weight:650}
+
+.metric-value{font-size:19px;color:#168b42;font-weight:850;margin-top:9px;line-height:1}
+
+.metric-note{font-size:8px;color:#777;margin-top:5px;line-height:1.2}
+
+.notice{margin-top:12px;padding:11px 13px;border:1px solid #f0d99a;border-radius:10px;background:#fff8e5;display:flex;gap:9px;font-size:10px;line-height:1.35}
+
+.notice svg{width:20px;flex:0 0 20px;color:#ad7b00}
+
+.workflow{margin-top:16px;text-align:center}
+
+.workflow h2{margin-bottom:4px}
+
+.workflow-intro{font-size:11px;color:#666;margin:0 0 16px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;position:relative}
+
+.workflow-step{position:relative}
+
+.circle{width:48px;height:48px;margin:0 auto 8px;border:1px solid #bfe1c8;border-radius:50%;background:#f3fbf5;color:var(--green);display:grid;place-items:center}
+
+.circle svg{width:25px;height:25px}
+
+.workflow-step h3{font-size:11px;margin:0 0 5px}
+
+.workflow-step p{font-size:9px;line-height:1.35;color:#666;margin:0 auto;max-width:260px}
+
+.includes{margin-top:16px}
+
+.includes-heading{text-align:center;margin-bottom:14px}
+
+.includes-heading h2{margin:0 0 4px;font-size:17px;font-weight:850}
+
+.includes-heading p{margin:0;color:#666;font-size:10px}
+
+.includes-layout{display:grid;grid-template-columns:minmax(0,3.25fr) minmax(235px,1.25fr);gap:8px}
+
+.includes-main-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+
+.include{border:1px solid #e5e5e5;border-radius:10px;padding:12px;min-height:104px;background:#fff}
+
+.include-icon{width:27px;height:27px;color:var(--green);margin-bottom:7px}
+
+.include-icon svg{width:100%;height:100%;display:block}
+
+.include strong{display:block;font-size:10px;margin-bottom:4px;line-height:1.2}
+
+.include span{display:block;font-size:8.5px;color:#666;line-height:1.3}
+
+.include-featured{position:relative;background:#f2fbf3;border-color:#d1ead6;min-height:100%;padding:14px 14px 12px}
+
+.featured-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+
+.cart-icon{width:31px;height:31px;margin:0;color:#159447}
+
+.featured-badge{display:inline-flex;align-items:center;gap:4px;padding:5px 8px;border-radius:7px;background:#fff4d7;color:#ad7700;font-size:7px;font-weight:850;white-space:nowrap}
+
+.featured-badge span{font-size:7px}
+
+.include-featured>strong{font-size:11px;margin-bottom:5px}
+
+.featured-description{font-size:8.5px!important;margin-bottom:9px}
+
+.featured-list{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+
+.featured-list li{font-size:8.5px;color:#42614a;line-height:1.2}
+
+.featured-list li::before{content:"✓";display:inline-grid;place-items:center;width:13px;height:13px;margin-right:5px;border-radius:50%;background:#d9f1dd;color:#159447;font-size:8px;font-weight:900}
+
+.include-featured small{display:block;margin-top:9px;color:#777;font-size:7px;line-height:1.25}
+
+.purchase{margin-top:16px;border:1px solid #b9dfc2;border-radius:14px;background:linear-gradient(90deg,#f3fbf4,#fbfffb);padding:20px 22px;display:grid;grid-template-columns:1fr auto;gap:25px;align-items:center}
+
+.price-title{font-size:12px;color:#327344;font-weight:800}
+
+.price{font-size:42px;line-height:1;margin:5px 0 8px;color:#12863d;font-weight:900}
+
+.price-note{font-size:9px;color:#666}
+
+.benefits{display:grid;gap:6px;margin-top:8px}
+
+.benefit{font-size:9px;color:#3e6247}
+
+.benefit::before{content:"✓";display:inline-grid;place-items:center;width:14px;height:14px;margin-right:6px;border-radius:50%;background:#dff2e3;color:#168b42;font-weight:900}
+
+.buy-button{min-width:280px;height:50px;padding:0 22px;border:1px solid #0d8138;border-radius:9px;background:var(--green);color:#fff;font-size:12px;font-weight:850;box-shadow:0 2px 4px rgba(0,0,0,.08)}
+
+.buy-button:hover{background:var(--green-dark)}
+
+.buy-note{text-align:center;font-size:8px;color:#666;margin-top:8px}
+
+.footer{padding:13px 24px;border-top:1px solid #eee;display:flex;justify-content:space-between;gap:15px;font-size:9px;color:#555}
+
+@media(max-width:900px){
+
+ .content{padding:0 18px 20px}.grid-top{grid-template-columns:1fr}.tech-grid{grid-template-columns:repeat(3,1fr)}
+
+ .includes-layout{grid-template-columns:1fr}.includes-main-grid{grid-template-columns:repeat(4,1fr)}.include-featured{min-height:120px}.purchase{grid-template-columns:1fr}.buy-button{width:100%}
+
+}
+
+@media(max-width:640px){
+
+ .page{padding:0}.app{border:0;border-radius:0;box-shadow:none}.header{padding:10px 13px}.brand-logo{width:174px}.privacy-top{font-size:9px}.privacy-top svg{width:19px}
+
+ .progress-area{padding:11px 10px}.progress{width:100%}.progress-step{width:21px;height:21px;flex-basis:21px;font-size:9px}
+
+ .content{padding:0 12px 16px}.hero h1{font-size:24px}.hero p{font-size:11px}.card{padding:12px}.summary-grid{grid-template-columns:repeat(2,1fr)}
+
+ .data-item:nth-child(3n+1),.data-item:nth-child(3n+2){border-right:0}.data-item:nth-child(odd){border-right:1px solid #dcecdf}.data-item:nth-last-child(-n+3){border-bottom:1px solid #dcecdf}.data-item:nth-last-child(-n+2){border-bottom:0}
+
+ .tech-grid{grid-template-columns:repeat(2,1fr)}.steps{grid-template-columns:1fr;gap:18px}.includes-main-grid{grid-template-columns:1fr 1fr}.include{min-height:105px}.include-featured{min-height:250px}
+
+ .purchase{padding:17px}.price{font-size:36px}.footer{padding:12px;flex-direction:column;text-align:center}
+
+}
+
+.brand-logo {
+
+    display: flex;
+
+    align-items: center;
+
+}
+
+.brand-logo-image {
+
+    width: 220px;
+
+    height: auto;
+
+    max-width: 100%;
+
+    display: block;
+
+}
+
+@media (max-width: 640px) {
+
+    .brand-logo-image {
+
+        width: 180px;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   RESUMEN V2 — PRESENTACIÓN COMERCIAL
+   ========================================================= */
+.summary-kicker{margin-bottom:7px;font-size:10px;letter-spacing:.11em;font-weight:850;color:var(--green)}
+.summary-header h2{margin:0 0 8px;font-size:25px;line-height:1.15;letter-spacing:-.02em}
+.summary-header p{max-width:680px;margin:0 auto;color:#5b5b5b;font-size:13px;line-height:1.65}
+.summary-list{display:grid;gap:12px}
+.summary-step{border:1px solid #e3e9e4;border-radius:15px;background:#fff;overflow:hidden;box-shadow:0 2px 9px rgba(0,0,0,.035)}
+.summary-step-header{display:flex;gap:12px;align-items:center;padding:14px 17px;background:linear-gradient(180deg,#fbfdfb,#f7faf8);border-bottom:1px solid #e8ece9}
+.summary-step-number{width:29px;height:29px;flex:0 0 29px;border-radius:50%;display:grid;place-items:center;background:#eaf7ed;color:var(--green-dark);font-size:12px;font-weight:850;border:1px solid #cbe7d2}
+.summary-step-title{margin:0;font-size:15px;font-weight:850}
+.summary-step-subtitle{margin:3px 0 0;color:#707070;font-size:11px;line-height:1.4}
+.summary-step-body{padding:14px 17px 16px}
+.summary-data-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.summary-data{min-width:0;padding:11px 12px;border:1px solid #e8ece9;border-radius:11px;background:#fff}
+.summary-label{display:block;margin-bottom:4px;color:#727772;font-size:10px;font-weight:700}
+.summary-value{display:block;color:#1d211e;font-size:12px;font-weight:800;line-height:1.45;overflow-wrap:anywhere}
+.summary-data.full{grid-column:1/-1}
+.summary-map-wrap{margin-top:12px;display:none}
+.summary-map-wrap.visible{display:block}
+.summary-map{height:230px;border:1px solid #dfe6e1;border-radius:12px;overflow:hidden;background:#f4f7f4}
+.map-caption{margin:7px 2px 0;color:#657066;font-size:10px;font-weight:700}
+.plan-card{margin-top:12px;border:1px solid #e4e9e5;border-radius:12px;background:#fbfcfb;overflow:hidden}
+.plan-card-heading{padding:10px 12px;border-bottom:1px solid #e8ece9;display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.plan-card-heading strong{font-size:11px}
+.plan-card-heading span{font-size:9px;color:#7b817d}
+.plan-visual{padding:12px;min-height:145px;display:grid;place-items:center}
+.plan-visual svg{display:block;width:100%;max-width:700px;height:auto}
+.plan-note{margin:8px 0 0;color:#6b716c;font-size:10px;text-align:center}
+.summary-complete{margin-top:13px;padding:16px;border:1px solid var(--green-border);border-radius:14px;background:var(--green-soft);text-align:center}
+.summary-complete-title{margin:0 0 5px;font-size:13px;font-weight:850}
+.summary-complete-text{margin:0;color:#55705d;font-size:11px;line-height:1.55}
+.engine-status{margin-top:16px}
+.engine-status h2{margin-bottom:5px}
+.engine-status-summary{margin:0;color:#666;font-size:11px;line-height:1.45}
+.engine-status-details{margin-top:10px;display:grid;gap:7px}
+.engine-status-item{padding:9px 11px;border:1px solid #e4e8e5;border-radius:9px;background:#fbfdfb;font-size:11px;line-height:1.4}
+.engine-status-item strong{display:block;margin-bottom:3px;font-size:10px;color:#5f665f}
+.engine-status-pending{border-color:#f0d99a;background:#fff8e5}
+.engine-status-blocked{border-color:#e9c3c3;background:#fff5f5}
+.engine-status-failed{border-color:#e9c3c3;background:#fff5f5}
+.engine-status-completed{border-color:var(--green-border);background:var(--green-soft)}
+.engine-status-list{margin:8px 0 0;padding-left:18px}
+.siar-period-form{margin-top:16px}
+.siar-period-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.siar-period-field{display:grid;gap:5px}
+.siar-period-field label{font-size:11px;font-weight:800;color:#5f665f}
+.siar-period-field input{width:100%;box-sizing:border-box;padding:10px 11px;border:1px solid #d8e1da;border-radius:9px;background:#fff;color:#1d211e;font:inherit}
+.siar-period-field input:focus{outline:2px solid #b9dfc1;outline-offset:1px}
+.siar-period-submit{margin-top:12px;padding:10px 14px;border:0;border-radius:9px;background:var(--green);color:#fff;font:inherit;font-size:11px;font-weight:850;cursor:pointer}
+.siar-period-submit:hover{background:var(--green-dark)}
+.siar-period-error{margin:9px 0 0;color:#9b4d35;font-size:11px;line-height:1.4}
+@media(max-width:650px){.content{padding:0 15px 20px}.summary-data-grid{grid-template-columns:1fr}.summary-data.full{grid-column:auto}.summary-step-header{padding:13px 13px}.summary-step-body{padding:12px 13px 14px}.summary-map{height:205px}.plan-card-heading{display:block}.plan-card-heading span{display:block;margin-top:3px}}
+
+</style>
+
+<style>
+
+    .app { width: min(900px, 100%); }
+
+    .header { min-height: 78px; padding: 13px 24px 12px; }
+
+    .brand-logo-image { width: 205px; }
+
+    .progress-area { padding: 16px 20px 14px; }
+
+    .step-title { font-size: 14px; }
+
+    .progress { width: min(330px, 100%); justify-content: space-between; gap: 0; }
+
+    .progress-item { display: flex; flex: 0 0 20px; visibility: visible; }
+
+    .progress-step { width: 20px; height: 20px; flex-basis: 20px; font-size: 10px; }
+
+    .progress-line { display: none; }
+
+    .hero h1 { font-size: 30px; }
+
+    .hero p { font-size: 14px; }
+
+    .data-label, .metric-label, .price-note, .benefit { font-size: 11px; }
+
+    .data-value { font-size: 13px; }
+
+    .metric-note, .include span, .workflow-step p { font-size: 10px; }
+
+    .buy-button { height: 52px; font-size: 13px; }
+
+    @media (max-width: 640px) {
+
+        .header { padding: 10px 13px; }
+
+        .brand-logo-image { width: 174px; }
+
+        .progress-area { padding: 12px 10px 10px; }
+
+        .step-title { font-size: 13px; }
+
+        .progress { width: min(300px, 100%); }
+
+        .progress-item { flex-basis: 18px; }
+
+        .progress-step { width: 18px; height: 18px; flex-basis: 18px; font-size: 9px; }
+
+        .hero h1 { font-size: 25px; }
+
+        .hero p { font-size: 13px; }
+
+        .data-label, .metric-label, .price-note, .benefit { font-size: 11px; }
+
+        .metric-note, .include span, .workflow-step p { font-size: 10px; }
+
+        .buy-button { height: 50px; font-size: 12px; }
+
+    }
+    
+/* =========================================================
+   RESUMEN DE LOS PASOS 1–6
+   Solo respuestas introducidas por el cliente
+   ========================================================= */
+
+.project-summary {
+    margin-top: 10px;
+}
+
+.summary-header {
+    text-align: center;
+    padding: 8px 10px 24px;
+}
+
+.summary-header h2 {
+    margin: 0;
+    font-size: 25px;
+    line-height: 1.15;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+}
+
+.summary-header p {
+    margin: 8px auto 0;
+    max-width: 650px;
+    color: #626262;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+/* Tarjetas de cada paso */
+
+.summary-step {
+    margin-top: 14px;
+    border: 1px solid #e1e1e1;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,.035);
+    overflow: hidden;
+}
+
+.summary-step-header {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 14px 16px;
+    border-bottom: 1px solid #edf0ed;
+    background: #fbfdfb;
+}
+
+.summary-step-number {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: #159447;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 850;
+}
+
+.summary-step-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 850;
+}
+
+.summary-step-subtitle {
+    margin: 2px 0 0;
+    color: #777;
+    font-size: 10px;
+}
+
+.summary-step-body {
+    padding: 0;
+}
+
+/* Datos */
+
+.summary-data-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.summary-data {
+    min-height: 70px;
+    padding: 12px 14px;
+    border-bottom: 1px solid #edf0ed;
+}
+
+.summary-data:nth-child(odd) {
+    border-right: 1px solid #edf0ed;
+}
+
+.summary-data:last-child,
+.summary-data:nth-last-child(2):nth-child(odd) {
+    border-bottom: 0;
+}
+
+.summary-label {
+    display: block;
+    margin-bottom: 5px;
+    color: #647067;
+    font-size: 10px;
+    font-weight: 650;
+}
+
+.summary-value {
+    display: block;
+    color: #171717;
+    font-size: 13px;
+    line-height: 1.3;
+    font-weight: 800;
+    word-break: break-word;
+}
+
+.summary-value.pending {
+    color: #8a8a8a;
+    font-weight: 650;
+}
+
+/* Bloque de ubicación */
+
+.location-summary {
+    padding: 14px;
+}
+
+.location-method {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding: 6px 9px;
+    border-radius: 7px;
+    background: #f2fbf4;
+    border: 1px solid #d1ead6;
+    color: #287344;
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.location-details {
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 12px;
+    line-height: 1.45;
+}
+
+.location-coordinates {
+    margin-top: 8px;
+    color: #666;
+    font-size: 10px;
+}
+
+/* Mapa */
+
+.summary-map {
+    width: 100%;
+    height: 280px;
+    border-radius: 11px;
+    overflow: hidden;
+    border: 1px solid #dfe6e1;
+}
+
+.map-caption {
+    margin-top: 8px;
+    color: #777;
+    font-size: 9px;
+    text-align: center;
+}
+
+/* Estado cuando no hay mapa */
+
+.no-location {
+    padding: 18px 14px;
+    color: #777;
+    font-size: 11px;
+    line-height: 1.45;
+    text-align: center;
+}
+
+/* Resumen final visual */
+
+.summary-complete {
+    margin-top: 16px;
+    padding: 17px;
+    border: 1px solid #b9e2c4;
+    border-radius: 14px;
+    background: linear-gradient(
+        135deg,
+        #f2fbf4,
+        #ffffff
+    );
+    text-align: center;
+}
+
+.summary-complete-title {
+    margin: 0;
+    color: #12863d;
+    font-size: 15px;
+    font-weight: 850;
+}
+
+.summary-complete-text {
+    margin: 6px auto 0;
+    max-width: 600px;
+    color: #555;
+    font-size: 11px;
+    line-height: 1.45;
+}
+
+/* Responsive */
+
+@media (max-width: 640px) {
+
+    .summary-header {
+        padding-bottom: 18px;
+    }
+
+    .summary-header h2 {
+        font-size: 22px;
+    }
+
+    .summary-header p {
+        font-size: 12px;
+    }
+
+    .summary-data-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-data:nth-child(odd) {
+        border-right: 0;
+    }
+
+    .summary-data:last-child {
+        border-bottom: 0;
+    }
+
+    .summary-map {
+        height: 250px;
+    }
+}
+</style>
+
+<style>
+/* =========================================================
+   UBICACIÓN — CAPTURA SATÉLITE GUARDADA EN EL PASO 2
+   El Paso 7 no carga mapas ni teselas externas.
+   ========================================================= */
+.summary-map-wrap{margin-top:12px;display:none}
+.summary-map-wrap.visible{display:block}
+.summary-map{
+    width:100%;
+    height:280px;
+    border:1px solid #dfe6e1;
+    border-radius:12px;
+    overflow:hidden;
+    background:#eef2ee;
+    position:relative;
+}
+.summary-map-image{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:cover;
+}
+.summary-map-overlay{
+    position:absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    width:28px;
+    height:28px;
+    border-radius:50% 50% 50% 0;
+    background:#159447;
+    border:3px solid #fff;
+    box-shadow:0 2px 7px rgba(0,0,0,.28);
+    transform-origin:center;
+    rotate:-45deg;
+}
+.summary-map-overlay::after{
+    content:"";
+    position:absolute;
+    width:7px;
+    height:7px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%) rotate(45deg);
+    border-radius:50%;
+    background:#fff;
+}
+.summary-map-fallback{
+    height:100%;
+    display:grid;
+    place-items:center;
+    padding:22px;
+    text-align:center;
+    color:#657066;
+    font-size:11px;
+    line-height:1.5;
+    background:linear-gradient(135deg,#f5f8f5,#edf3ed);
+}
+.location-name{
+    margin-top:12px;
+    padding:13px 14px;
+    border:1px solid #e2e9e3;
+    border-radius:11px;
+    background:#fbfdfb;
+}
+.location-name strong{
+    display:block;
+    margin-bottom:4px;
+    font-size:10px;
+    color:#647067;
+}
+.location-name span{
+    display:block;
+    font-size:13px;
+    font-weight:800;
+    color:#171717;
+    line-height:1.35;
+}
+@media(max-width:640px){
+    .summary-map{height:250px}
+}
+</style>
+
+
+<style id="fincasinred-typography-v1">
+
+/* =========================================================
+   FINCASINRED — SISTEMA TIPOGRÁFICO GLOBAL V1
+   Unifica la lectura en móvil y ordenador sin alterar
+   la estructura ni la funcionalidad de la página.
+   ========================================================= */
+:root {
+  --fs-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 14px;
+  --fs-button: 16px;
+  --fs-card-title: 18px;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h1: clamp(30px, 4vw, 44px);
+  --fs-line-body: 1.55;
+  --fs-line-heading: 1.15;
+}
+
+/* Fuente común */
+html,
+body {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Texto de lectura */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Escala base */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--fs-line-body);
+}
+
+/* Jerarquía de títulos */
+h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h3 {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Texto normal */
+p {
+  font-size: var(--fs-body) !important;
+}
+
+/* Etiquetas y textos secundarios */
+label {
+  font-size: var(--fs-label) !important;
+}
+
+small,
+.helper,
+.hint,
+.description,
+.subtext {
+  font-size: var(--fs-small) !important;
+}
+
+/* Controles */
+button,
+input,
+select,
+textarea {
+  font-size: var(--fs-button) !important;
+}
+
+/* Progreso: deliberadamente algo más compacto, pero nunca microscópico */
+.progress-label,
+.progress-step,
+.step-title,
+.header-note {
+  font-size: var(--fs-caption) !important;
+}
+
+/* Cabeceras y textos de ayuda */
+.help-button,
+.help-button *,
+.help-icon {
+  font-size: var(--fs-small) !important;
+}
+
+/* Tarjetas y bloques informativos */
+.card-heading,
+.form-card-header,
+.option-title,
+.option-name,
+.choice-title,
+.feature-title,
+.element-title {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Datos importantes */
+.value,
+.summary-value,
+.data-value,
+.price,
+.total,
+.amount {
+  line-height: 1.2 !important;
+}
+
+/* Nunca permitir textos extremadamente pequeños en contenido */
+.page,
+.app,
+.page-shell,
+.page-container,
+.app-container,
+.content,
+.content-section,
+main,
+section {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Móvil: mantener legibilidad y reducir solo títulos si hace falta */
+@media (max-width: 640px) {
+  :root {
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 13px;
+    --fs-label: 14px;
+    --fs-button: 16px;
+    --fs-card-title: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* PASO 7 */
+.step-title { font-size: 13px !important; }
+h1 { font-size: clamp(30px, 4vw, 44px) !important; }
+.summary-section > h2, .section-title { font-size: 24px !important; }
+.summary-card h3, .summary-card .summary-title, .summary-card .card-title { font-size: 18px !important; }
+.summary-card p, .summary-card li { font-size: 14px !important; }
+.summary-value, .data-value, .value { font-size: 16px !important; }
+.price, .amount, .total { font-size: clamp(30px, 4vw, 40px) !important; }
+.small, .legal, .privacy, .footer { font-size: 13px !important; }
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="app">
+
+<header class="header">
+
+  <div class="brand">
+
+    <div class="brand-logo" aria-label="FincaSinRed">
+
+    <img
+
+        src="./assets/logo-fincasinred-header.png"
+
+        alt="FincaSinRed"
+
+        class="brand-logo-image"
+
+    >
+
+</div>
+
+  </div>
+
+  <div class="privacy-top">
+
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 20 6v6c0 5-3.3 8.2-8 10-4.7-1.8-8-5-8-10V6l8-3Z"/><path d="m8 12 2.5 2.5L16 9"/></svg>
+
+    Tus datos son temporales y privados
+
+  </div>
+
+</header>
+
+<section class="progress-area">
+
+    <p class="step-title">PASO 7 DE 7 · Resumen de tu proyecto</p>
+
+  <div class="progress" aria-label="Progreso del proyecto">
+
+    <div class="progress-item"><div class="progress-step done">1</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step done">2</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step done">3</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step done">4</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step done">5</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step done">6</div><div class="progress-line done"></div></div>
+
+    <div class="progress-item"><div class="progress-step current">7</div></div>
+
+  </div>
+
+</section>
+
+<main class="content">
+
+<button class="back-link" id="backButton" type="button">← Volver al paso 6</button>
+
+<section class="hero">
+
+  <h1>Tu proyecto de riego</h1>
+
+  <p>Esto es lo que hemos podido determinar con la información que nos has dado.<br><strong>Después de comprar, nuestro asistente inteligente continuará contigo para completar lo que falte.</strong></p>
+
+</section>
+
+<section class="project-summary">
+
+  <div class="summary-header">
+    <div class="summary-kicker">RESUMEN DE TU FINCA</div>
+    <h2>Esto es lo que nos has contado</h2>
+    <p>Hemos reunido tus respuestas de los pasos 1 al 6 para que puedas comprobar, de un vistazo, que los datos de tu finca están correctamente recogidos.</p>
+  </div>
+
+  <div class="summary-list" id="projectSummaryList">
+
+    <article class="summary-step" data-summary-section="1">
+      <div class="summary-step-header">
+        <div class="summary-step-number">1</div>
+        <div>
+          <h3 class="summary-step-title">Cultivo y vegetación</h3>
+          <p class="summary-step-subtitle">Qué quieres regar y qué tienes plantado</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryCropData"></div>
+      </div>
+    </article>
+
+    <article class="summary-step" data-summary-section="2">
+      <div class="summary-step-header">
+        <div class="summary-step-number">2</div>
+        <div>
+          <h3 class="summary-step-title">Ubicación</h3>
+          <p class="summary-step-subtitle">Dónde está situada tu finca</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryLocationData"></div>
+        <div class="summary-map-wrap" id="summaryMapWrap">
+          <div class="summary-map" id="summaryMap"></div>
+          <p class="map-caption">Ubicación incorporada a tu proyecto</p>
+        </div>
+      </div>
+    </article>
+
+    <article class="summary-step" data-summary-section="3">
+      <div class="summary-step-header">
+        <div class="summary-step-number">3</div>
+        <div>
+          <h3 class="summary-step-title">Agua</h3>
+          <p class="summary-step-subtitle">De dónde procede y cómo llega a la zona de riego</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryWaterData"></div>
+      </div>
+    </article>
+
+    <article class="summary-step" data-summary-section="4">
+      <div class="summary-step-header">
+        <div class="summary-step-number">4</div>
+        <div>
+          <h3 class="summary-step-title">Distribución de la finca</h3>
+          <p class="summary-step-subtitle">Cómo están organizadas tus plantas y las características del terreno</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryDistributionData"></div>
+        <div class="plan-card" id="summaryPlanCard">
+          <div class="plan-card-heading">
+            <strong>Esquema de distribución</strong>
+            <span>Representación de los datos introducidos en el Paso 4</span>
+          </div>
+          <div class="plan-visual" id="summaryPlanVisual"></div>
+        </div>
+      </div>
+    </article>
+
+    <article class="summary-step" data-summary-section="5">
+      <div class="summary-step-header">
+        <div class="summary-step-number">5</div>
+        <div>
+          <h3 class="summary-step-title">Sistema de riego</h3>
+          <p class="summary-step-subtitle">Preferencias que has elegido para la instalación</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryIrrigationData"></div>
+      </div>
+    </article>
+
+    <article class="summary-step" data-summary-section="6">
+      <div class="summary-step-header">
+        <div class="summary-step-number">6</div>
+        <div>
+          <h3 class="summary-step-title">Agua y energía</h3>
+          <p class="summary-step-subtitle">Opción elegida para llevar el agua hasta el riego y alimentarla</p>
+        </div>
+      </div>
+      <div class="summary-step-body">
+        <div class="summary-data-grid" id="summaryEnergyData"></div>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="summary-complete">
+    <h3 class="summary-complete-title">Tu información ya está reunida</h3>
+    <p class="summary-complete-text">Estos son los datos que utilizaremos como base para preparar tu proyecto personalizado.</p>
+  </div>
+
+</section>
+
+<section class="card engine-status" aria-live="polite" aria-atomic="true">
+
+    <h2>Periodo de consulta SIAR</h2>
+
+    <p class="engine-status-summary">Indica las fechas que se utilizarán para consultar los datos diarios de la estación SIAR.</p>
+
+    <form class="siar-period-form" id="siarPeriodForm" novalidate>
+        <div class="siar-period-fields">
+            <div class="siar-period-field">
+                <label for="siarStartDate">Fecha inicial SIAR</label>
+                <input id="siarStartDate" name="startDate" type="date" required>
+            </div>
+            <div class="siar-period-field">
+                <label for="siarEndDate">Fecha final SIAR</label>
+                <input id="siarEndDate" name="endDate" type="date" required>
+            </div>
+        </div>
+        <p class="siar-period-error" id="siarPeriodError" role="alert" hidden></p>
+        <button class="siar-period-submit" type="submit">Comprobar cálculo técnico</button>
+    </form>
+
+    <h2>Estado del cálculo técnico</h2>
+
+    <p class="engine-status-summary" id="paso7EngineStatusSummary">Comprobando si hay datos técnicos disponibles.</p>
+
+    <div class="engine-status-details" id="paso7EngineStatusDetails"></div>
+
+</section>
+
+
+
+
+<section class="card workflow">
+
+  <h2>¿Qué ocurre después de comprar?</h2>
+
+  <p class="workflow-intro">No tendrás que empezar de cero. El asistente utilizará la información que ya nos has proporcionado.</p>
+
+  <div class="steps">
+
+    <div class="workflow-step">
+
+      <div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 3h10v18H7z"/><path d="M9 7h6M9 11h6M9 15h3"/><path d="m14 18 2 2 4-4"/></svg></div>
+
+      <h3>1 · Compras el proyecto</h3>
+
+      <p>Realizas el pago único de <strong>19,99 €</strong> para continuar con tu proyecto personalizado.</p>
+
+    </div>
+
+    <div class="workflow-step">
+
+      <div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5h16v11H7l-3 3V5Z"/><circle cx="9" cy="10.5" r=".8" fill="currentColor"/><circle cx="12" cy="10.5" r=".8" fill="currentColor"/><circle cx="15" cy="10.5" r=".8" fill="currentColor"/></svg></div>
+
+      <h3>2 · Hablas con el asistente inteligente</h3>
+
+      <p>Revisa tus datos y te hace <strong>solo las preguntas necesarias</strong> para completar la información técnica.</p>
+
+    </div>
+
+    <div class="workflow-step">
+
+      <div class="circle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v5h5M9 13h6M9 16h6"/><path d="m9 10 1.5 1.5L14 8"/></svg></div>
+
+      <h3>3 · Terminamos tu proyecto</h3>
+
+      <p>Con toda la información, se completa el diseño, los cálculos, materiales y documentación del proyecto.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="card includes">
+
+  <div class="includes-heading">
+
+    <h2>Tu proyecto completo incluye</h2>
+
+    <p>Todo lo que necesitas para instalar tu sistema de riego con confianza.</p>
+
+  </div>
+
+  <div class="includes-layout">
+
+    <div class="includes-main-grid">
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M9 12c4 0 8 3 11 7-3 4-7 7-11 7 0-4 1-8 4-11-3-1-4-2-4-3Z" stroke="currentColor" stroke-width="2"/>
+
+            <path d="M20 19c2-5 6-8 11-8 0 5-3 9-8 11M20 19v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+            <path d="M20 24c-4-2-7-5-8-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Diseño del sistema</strong>
+
+        <span>Diseño adaptado a tu finca, cultivos y necesidades de agua.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M20 6c0 0-9 11-9 18a9 9 0 0 0 18 0C29 17 20 6 20 6Z" fill="currentColor"/>
+
+            <path d="M16 15c-2 4-3 7-2 10" stroke="#fff" stroke-width="1.7" stroke-linecap="round" opacity=".75"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Cálculos hidráulicos</strong>
+
+        <span>Caudales, presiones, velocidades y dimensionamiento completo.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <rect x="8" y="9" width="24" height="22" rx="2" stroke="currentColor" stroke-width="1.8"/>
+
+            <path d="M13 26V14h14v12M13 20h14M18 14v12" stroke="currentColor" stroke-width="1.6"/>
+
+            <path d="M6 12h3M31 12h3M6 28h3M31 28h3" stroke="currentColor" stroke-width="1.6"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Plano técnico</strong>
+
+        <span>Plano de tu finca con la distribución del riego y sectores.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <circle cx="10" cy="20" r="3" stroke="currentColor" stroke-width="1.8"/>
+
+            <circle cx="30" cy="11" r="3" stroke="currentColor" stroke-width="1.8"/>
+
+            <circle cx="30" cy="29" r="3" stroke="currentColor" stroke-width="1.8"/>
+
+            <path d="m13 19 14-7M13 21l14 7" stroke="currentColor" stroke-width="1.8"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Esquema hidráulico</strong>
+
+        <span>Esquema del sistema para que entiendas cómo funciona.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M7 11h26l-2 21H9L7 11Z" stroke="currentColor" stroke-width="1.8"/>
+
+            <path d="M5 11h30M13 17h14M14 23h4M22 23h4M15 28h10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+
+            <path d="M29 5v10M24 10h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Presupuesto detallado</strong>
+
+        <span>Inversión estimada y desglose por partidas.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M8 29h24M11 25h18M14 21h12M17 17h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+            <path d="M11 29V13M29 29V13M14 13l6-5 6 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Instalación paso a paso</strong>
+
+        <span>Guía práctica para instalar el sistema correctamente.</span>
+
+      </article>
+
+      <article class="include">
+
+        <div class="include-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M20 33V15" stroke="currentColor" stroke-width="2"/>
+
+            <path d="M20 21c-7-1-10-5-11-11 6 0 10 4 11 11Z" fill="currentColor"/>
+
+            <path d="M20 25c7-1 10-5 11-11-6 0-10 4-11 11Z" fill="currentColor" opacity=".75"/>
+
+            <path d="M20 15c-3-5-2-9 1-12 4 4 4 8-1 12Z" fill="currentColor" opacity=".9"/>
+
+          </svg>
+
+        </div>
+
+        <strong>Recomendaciones y consejos</strong>
+
+        <span>Consejos prácticos para el uso y mantenimiento.</span>
+
+      </article>
+
+    </div>
+
+    <article class="include include-featured">
+
+      <div class="featured-top">
+
+        <div class="include-icon cart-icon">
+
+          <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+
+            <path d="M7 9h4l3 18h16l4-13H12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <circle cx="17" cy="33" r="2.2" fill="currentColor"/>
+
+            <circle cx="29" cy="33" r="2.2" fill="currentColor"/>
+
+            <path d="M22 7v12M16 13h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+
+          </svg>
+
+        </div>
+
+        <span class="featured-badge"><span>●</span> DESTACADO</span>
+
+      </div>
+
+      <strong>Lista de la compra completa</strong>
+
+      <span class="featured-description">Lista completa de todos los materiales necesarios.</span>
+
+      <ul class="featured-list">
+
+        <li>Cantidades exactas</li>
+
+        <li>Características técnicas</li>
+
+        <li>Productos recomendados</li>
+
+        <li>Enlaces directos de compra*</li>
+
+      </ul>
+
+      <small>*Enlaces de afiliación sin coste adicional para ti.</small>
+
+    </article>
+
+  </div>
+
+</section>
+
+<section class="purchase">
+
+  <div>
+
+    <div class="price-title">TU PROYECTO COMPLETO POR SOLO</div>
+
+    <div class="price">19,99 €</div>
+
+    <div class="price-note">Pago único · Sin suscripciones ni cuotas</div>
+
+    <div class="benefits">
+
+      <div class="benefit">Proyecto personalizado con tus datos</div>
+
+      <div class="benefit">Continuamos contigo mediante el asistente inteligente</div>
+
+      <div class="benefit">Lista de compra completa y documentación profesional</div>
+
+      <div class="benefit">El asistente te preguntará solo lo que todavía necesite saber</div>
+
+    </div>
+
+  </div>
+
+  <div>
+
+    <button class="buy-button" id="buyButton" type="button">QUIERO MI PROYECTO COMPLETO →</button>
+
+    <div class="buy-note">Pago seguro · La integración de Stripe se conectará en la siguiente fase</div>
+
+  </div>
+
+</section>
+
+</main>
+
+<footer class="footer">
+
+  <span>🔒 Pago seguro y protegido</span>
+
+  <span>Tus datos se utilizan para tu proyecto y son temporales durante el proceso.</span>
+
+  <span>¿Dudas? Consulta las preguntas frecuentes.</span>
+
+</footer>
+
+</div>
+
+</div>
+
+
+
+
+<script src="./dist/paso7-browser.js"></script>
+
+<script>
+(() => {
+    "use strict";
+
+    /*
+     * FINCASINRED — PASO 7
+     * ÚNICO MOTOR DEL RESUMEN
+     *
+     * Lee exclusivamente los datos guardados por los pasos 1–6.
+     * No carga Leaflet, mapas ni teselas externas.
+     * Si el Paso 2 ha guardado una captura satélite en sessionStorage,
+     * se muestra directamente como imagen.
+     */
+
+    const STORAGE = {
+        paso1: "fincasinred_paso1",
+        paso2: "fincasinred_paso2",
+        paso3: "fincasinred_paso3",
+        paso4: "fincasinred_paso4",
+        paso5: "fincasinred_paso5",
+        paso6: "fincasinred_paso6"
+    };
+
+    const readJSON = (key) => {
+        try {
+            const raw = sessionStorage.getItem(key);
+            if (!raw) return {};
+            const data = JSON.parse(raw);
+            return data && typeof data === "object" && !Array.isArray(data)
+                ? data
+                : {};
+        } catch (error) {
+            console.warn("No se pudieron leer los datos de " + key + ".", error);
+            return {};
+        }
+    };
+
+    const clean = (value) => {
+        if (value === null || value === undefined) return null;
+        if (typeof value === "string") {
+            const text = value.trim();
+            return text === "" ? null : text;
+        }
+        return value;
+    };
+
+    const first = (...values) => {
+        for (const candidate of values) {
+            const result = clean(candidate);
+            if (result !== null) return result;
+        }
+        return null;
+    };
+
+    const normalize = (value) => String(value ?? "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+
+    const numberValue = (value) => {
+        const result = clean(value);
+        if (result === null) return null;
+        const number = Number(String(result).replace(/\s/g, "").replace(",", "."));
+        return Number.isFinite(number) ? number : null;
+    };
+
+    const formatNumber = (value, decimals = 0) => {
+        const number = numberValue(value);
+        return number === null
+            ? null
+            : number.toLocaleString("es-ES", {
+                minimumFractionDigits: decimals,
+                maximumFractionDigits: decimals
+            });
+    };
+
+    const yesNo = (value) => {
+        const result = clean(value);
+        if (result === null) return null;
+        if (typeof result === "boolean") return result ? "Sí" : "No";
+
+        const normalized = normalize(result);
+
+        if (["true", "si", "sí", "yes"].includes(normalized)) return "Sí";
+        if (["false", "no"].includes(normalized)) return "No";
+
+        return String(result);
+    };
+
+    const mapLabel = (value, labels) => {
+        const result = clean(value);
+        if (result === null) return null;
+        return labels[normalize(result)] || String(result);
+    };
+
+    const labels = {
+        crop: {
+            cerezo: "Cerezos",
+            cerezos: "Cerezos",
+            olivo: "Olivos",
+            olivos: "Olivos",
+            ciruelo: "Ciruelos",
+            ciruelos: "Ciruelos",
+            almendro: "Almendros",
+            almendros: "Almendros",
+            pistacho: "Pistachos",
+            pistachos: "Pistachos",
+            vinedo: "Viñedo",
+            vinedos: "Viñedo",
+            vina: "Viña",
+            vinas: "Viñas",
+            huerto: "Huerto",
+            huertos: "Huertos",
+            "otros-frutales": "Otros árboles frutales"
+        },
+        water: {
+            pozo: "Pozo",
+            deposito: "Depósito / IBC",
+            "deposito-ibc": "Depósito / IBC",
+            "deposito / ibc": "Depósito / IBC",
+            red: "Red de agua",
+            rio: "Río / canal / acequia",
+            "rio/canal/acequia": "Río / canal / acequia",
+            estanque: "Estanque / balsa",
+            balsa: "Balsa / estanque",
+            manantial: "Manantial",
+            otra: "Otra fuente",
+            "no-se": "No lo sé"
+        },
+        flow: {
+            bomba: "Con una bomba",
+            gravedad: "Por gravedad",
+            red: "Por presión de la red",
+            "no-se": "No lo sé"
+        },
+        irrigation: {
+            goteo: "Goteo",
+            microaspersion: "Microaspersión",
+            aspersion: "Aspersión",
+            exudacion: "Exudación",
+            otro: "Otro sistema",
+            "otro sistema": "Otro sistema",
+            nose: "No lo sé",
+            "no-se": "No lo sé"
+        },
+        solution: {
+            gravedad: "Riego por gravedad",
+            bomba: "Instalación con bomba",
+            red: "Agua de red",
+            "no-se": "No lo sé"
+        },
+        energy: {
+            solar: "Placa solar",
+            "placa solar": "Placa solar",
+            red: "Electricidad de red",
+            "red electrica": "Electricidad de red",
+            "red eléctrica": "Electricidad de red",
+            generador: "Generador",
+            bateria: "Batería / estación de energía",
+            "bateria-estacion": "Batería / estación de energía",
+            nose: "No lo sé",
+            "no-se": "No lo sé"
+        },
+        soil: {
+            arenoso: "Arenoso",
+            arcilloso: "Arcilloso",
+            franco: "Franco",
+            pedregoso: "Pedregoso",
+            otro: "Otro",
+            "no-se": "No lo sé"
+        },
+        age: {
+            "menos-1": "Menos de 1 año",
+            "1-3": "1–3 años",
+            "4-7": "4–7 años",
+            "8-15": "8–15 años",
+            "mas-15": "Más de 15 años",
+            "no-se": "No lo sé"
+        },
+        stage: {
+            "recién-plantado": "Recién plantado",
+            crecimiento: "Crecimiento",
+            floracion: "Floración",
+            fructificacion: "Fructificación",
+            cosecha: "Cosecha",
+            "no-se": "No lo sé"
+        }
+    };
+
+    const paso1 = readJSON(STORAGE.paso1);
+    const paso2 = readJSON(STORAGE.paso2);
+    const paso3 = readJSON(STORAGE.paso3);
+    const paso4 = readJSON(STORAGE.paso4);
+    const paso5 = readJSON(STORAGE.paso5);
+    const paso6 = readJSON(STORAGE.paso6);
+
+    const add = (containerId, label, rawValue, full = false) => {
+        const value = clean(rawValue);
+        const container = document.getElementById(containerId);
+
+        if (!container || value === null) return;
+
+        const item = document.createElement("div");
+        item.className = "summary-data" + (full ? " full" : "");
+
+        const labelElement = document.createElement("span");
+        labelElement.className = "summary-label";
+        labelElement.textContent = label;
+
+        const valueElement = document.createElement("span");
+        valueElement.className = "summary-value";
+        valueElement.textContent = String(value);
+
+        item.append(labelElement, valueElement);
+        container.appendChild(item);
+    };
+
+    const hideEmptySection = (sectionNumber, containerId) => {
+        const section = document.querySelector(
+            `[data-summary-section="${sectionNumber}"]`
+        );
+        const container = document.getElementById(containerId);
+
+        if (section && container && container.children.length === 0) {
+            section.style.display = "none";
+        }
+    };
+
+    /* =========================================================
+       PASO 1 — CULTIVO Y VEGETACIÓN
+       ========================================================= */
+
+    const crop = mapLabel(
+        first(
+            paso1.cropName,
+            paso1.crop,
+            paso1.otherCropName,
+            paso1.cultivo
+        ),
+        labels.crop
+    );
+
+    const variety = first(
+        paso1.speciesOrVariety,
+        paso1.variety
+    );
+
+    const category = first(
+        paso1.category
+    );
+
+    const quantity = first(
+        paso1.quantity,
+        paso1.plantCount
+    );
+
+    const quantityUnit = first(
+        paso1.quantityUnit
+    );
+
+    add(
+        "summaryCropData",
+        "Planta, cultivo o vegetación",
+        crop
+    );
+
+    add(
+        "summaryCropData",
+        "Especie / variedad",
+        variety
+    );
+
+    add(
+        "summaryCropData",
+        "Tipo detectado",
+        category
+    );
+
+    if (quantity !== null) {
+        let unit = quantityUnit;
+
+        if (!unit) {
+            const categoryNormalized = normalize(category);
+
+            if (
+                categoryNormalized === "seto" ||
+                categoryNormalized === "hedge"
+            ) {
+                unit = "m";
+            } else if (
+                categoryNormalized === "superficie" ||
+                categoryNormalized === "surface"
+            ) {
+                unit = "m²";
+            } else {
+                unit = "plantas";
+            }
+        }
+
+        const normalizedUnit = normalize(unit);
+
+        const displayUnit =
+            normalizedUnit === "plantas"
+                ? "plantas"
+                : normalizedUnit === "m2" || normalizedUnit === "m²"
+                    ? "m²"
+                    : normalizedUnit === "metros"
+                        ? "m"
+                        : String(unit);
+
+        add(
+            "summaryCropData",
+            "Cantidad",
+            `${formatNumber(quantity) ?? quantity} ${displayUnit}`
+        );
+    }
+
+    hideEmptySection(1, "summaryCropData");
+
+    /* =========================================================
+       PASO 2 — UBICACIÓN
+       ========================================================= */
+
+    const locationType = first(
+        paso2.locationType,
+        paso2.tipoUbicacion,
+        sessionStorage.getItem("fincasinred_ubicacion_tipo")
+    );
+
+    const locationName = first(
+        paso2.locationLabel,
+        paso2.locationText,
+        paso2.location,
+        paso2.ubicacion,
+        paso2.localizacion,
+        paso2.municipio,
+        paso2.localidad,
+        paso2.poblacion,
+        sessionStorage.getItem("fincasinred_ubicacion_texto")
+    );
+
+    const latitude = numberValue(
+        first(
+            paso2.latitude,
+            paso2.latitud,
+            paso2.lat,
+            sessionStorage.getItem("fincasinred_ubicacion_latitud")
+        )
+    );
+
+    const longitude = numberValue(
+        first(
+            paso2.longitude,
+            paso2.longitud,
+            paso2.lng,
+            paso2.lon,
+            sessionStorage.getItem("fincasinred_ubicacion_longitud")
+        )
+    );
+
+    const hasCoordinates =
+        latitude !== null &&
+        longitude !== null;
+
+    let locationMethod = null;
+
+    if (normalize(locationType) === "map") {
+        locationMethod = "Señalada en el mapa";
+    } else if (
+        ["write", "written", "texto"].includes(normalize(locationType))
+    ) {
+        locationMethod = "Ubicación escrita";
+    } else if (locationType) {
+        locationMethod = String(locationType);
+    }
+
+    add(
+        "summaryLocationData",
+        "Forma de indicar la ubicación",
+        locationMethod
+    );
+
+    add(
+        "summaryLocationData",
+        "Ubicación",
+        locationName,
+        true
+    );
+
+    const locationReference = first(
+        paso2.locationReference,
+        paso2.ubicacionReferencia,
+        sessionStorage.getItem("fincasinred_ubicacion_referencia")
+    );
+
+    if (locationReference) {
+        add(
+            "summaryLocationData",
+            "Referencia indicada",
+            locationReference,
+            true
+        );
+    }
+
+    if (hasCoordinates) {
+        add(
+            "summaryLocationData",
+            "Coordenadas",
+            `${latitude.toFixed(6)}, ${longitude.toFixed(6)}`
+        );
+    }
+
+    /*
+     * La captura debe venir del Paso 2.
+     * Se aceptan varios nombres para mantener compatibilidad
+     * con diferentes versiones del Paso 2.
+     */
+    const satelliteImage = first(
+        paso2.satelliteImage,
+        paso2.satelliteImageData,
+        paso2.mapScreenshot,
+        paso2.mapCapture,
+        paso2.satelliteCapture,
+        paso2.capturaMapa,
+        paso2.capturaSatelite,
+        paso2.imagenSatelite,
+        sessionStorage.getItem("fincasinred_ubicacion_captura"),
+        sessionStorage.getItem("fincasinred_ubicacion_captura_satelite"),
+        sessionStorage.getItem("fincasinred_mapa_captura"),
+        sessionStorage.getItem("fincasinred_satelite_captura")
+    );
+
+    const mapWrap = document.getElementById("summaryMapWrap");
+    const mapElement = document.getElementById("summaryMap");
+
+    if (
+        mapWrap &&
+        mapElement &&
+        satelliteImage
+    ) {
+        mapWrap.classList.add("visible");
+
+        const image = document.createElement("img");
+        image.className = "summary-map-image";
+        image.alt = locationName
+            ? `Vista satélite de ${locationName}`
+            : "Vista satélite de la ubicación de la finca";
+
+        image.src = String(satelliteImage);
+        image.addEventListener("error", function () {
+            const fallback = document.createElement("div");
+            fallback.className = "summary-map-fallback";
+            fallback.textContent = hasCoordinates
+                ? "Vista satélite no disponible en este momento. La ubicación y las coordenadas están guardadas correctamente."
+                : "Vista satélite no disponible en este momento.";
+            mapElement.replaceChildren(fallback);
+        }, { once: true });
+
+        const marker = document.createElement("div");
+        marker.className = "summary-map-overlay";
+        marker.setAttribute("aria-hidden", "true");
+
+        mapElement.replaceChildren(
+            image,
+            marker
+        );
+    } else if (
+        mapWrap &&
+        mapElement &&
+        hasCoordinates &&
+        normalize(locationType) === "map"
+    ) {
+        /*
+         * No reconstruimos el mapa ni cargamos servicios externos.
+         * Si el Paso 2 aún no ha guardado la captura, dejamos una
+         * indicación clara en lugar de mostrar un mapa en blanco.
+         */
+        mapWrap.classList.add("visible");
+
+        const fallback = document.createElement("div");
+        fallback.className = "summary-map-fallback";
+        fallback.textContent =
+            "La ubicación está guardada correctamente. " +
+            "La vista satélite se mostrará aquí cuando el Paso 2 " +
+            "guarde la captura del mapa.";
+
+        mapElement.replaceChildren(fallback);
+    }
+
+    hideEmptySection(2, "summaryLocationData");
+
+    /* =========================================================
+       PASO 3 — AGUA
+       ========================================================= */
+
+    add(
+        "summaryWaterData",
+        "Origen del agua",
+        mapLabel(
+            first(
+                paso3.source,
+                paso3.sourceName,
+                paso3.origenAgua,
+                paso3.fuenteAgua
+            ),
+            labels.water
+        )
+    );
+
+    add(
+        "summaryWaterData",
+        "Cómo se moverá el agua",
+        mapLabel(
+            first(
+                paso3.flow,
+                paso3.pumpMode,
+                paso3.movement,
+                paso3.movimiento
+            ),
+            labels.flow
+        )
+    );
+
+    add(
+        "summaryWaterData",
+        "Almacenamiento",
+        first(
+            paso3.storageType,
+            paso3.storage,
+            paso3.almacenamiento
+        )
+    );
+
+    const distance = first(
+        paso3.distanceMeters,
+        paso3.distance,
+        paso3.distancia,
+        paso3.distanciaAgua
+    );
+
+    const elevation = first(
+        paso3.elevationDifferenceMeters,
+        paso3.elevation,
+        paso3.desnivel,
+        paso3.desnivelFinca,
+        paso3.altura
+    );
+
+    if (distance !== null) {
+        add(
+            "summaryWaterData",
+            "Distancia hasta la zona de riego",
+            `${formatNumber(distance, 1) ?? distance} m`
+        );
+    }
+
+    if (elevation !== null) {
+        add(
+            "summaryWaterData",
+            "Desnivel hasta el punto más alto",
+            `${formatNumber(elevation, 1) ?? elevation} m`
+        );
+    }
+
+    if (
+        paso3.unknownDistanceElevation === true ||
+        paso3.unknownDistance === true ||
+        paso3.unknownElevation === true
+    ) {
+        add(
+            "summaryWaterData",
+            "Distancia y desnivel",
+            "No lo sé exactamente"
+        );
+    }
+
+    const otherSource = first(
+        paso3.otherSource,
+        paso3.otraFuente
+    );
+
+    if (
+        normalize(first(paso3.source, paso3.sourceName)) === "otra" &&
+        otherSource !== null
+    ) {
+        add(
+            "summaryWaterData",
+            "Otra fuente indicada",
+            otherSource,
+            true
+        );
+    }
+
+    hideEmptySection(3, "summaryWaterData");
+
+    /* =========================================================
+       PASO 4 — DISTRIBUCIÓN
+       ========================================================= */
+
+    const distributionType = normalize(
+        first(
+            paso4.tipoDistribucion,
+            paso4.projectType,
+            paso4.tipo
+        )
+    );
+
+    const distributionTypeLabel = {
+        trees: "Plantación de árboles / cultivo permanente",
+        annual: "Cultivo anual / hortícola",
+        hedge: "Seto",
+        surface: "Superficie / césped"
+    }[distributionType];
+
+    add(
+        "summaryDistributionData",
+        "Tipo de distribución",
+        distributionTypeLabel || first(
+            paso4.tipoDistribucion,
+            paso4.projectType,
+            paso4.tipo
+        )
+    );
+
+    const soilRaw = first(
+        paso4.tipoSuelo,
+        paso4.suelo
+    );
+
+    const soilLabel = mapLabel(
+        soilRaw,
+        labels.soil
+    );
+
+    const otherSoil = first(
+        paso4.otroSuelo
+    );
+
+    add(
+        "summaryDistributionData",
+        "Tipo de suelo",
+        normalize(soilRaw) === "otro" && otherSoil
+            ? otherSoil
+            : soilLabel
+    );
+
+    if (
+        distributionType === "trees" ||
+        distributionType === "annual" ||
+        paso4.filas !== undefined ||
+        paso4.distribucionFilas !== undefined
+    ) {
+        const rows = numberValue(
+            first(
+                paso4.filas,
+                paso4.totalFilas,
+                paso4.numeroFilas
+            )
+        );
+
+        const distribution = Array.isArray(paso4.distribucionFilas)
+            ? paso4.distribucionFilas
+                .map(numberValue)
+                .filter(value => value !== null)
+            : [];
+
+        if (rows !== null) {
+            add(
+                "summaryDistributionData",
+                "Filas",
+                formatNumber(rows)
+            );
+        }
+
+        if (distribution.length > 0) {
+            add(
+                "summaryDistributionData",
+                "Plantas por fila",
+                distribution.join(" · "),
+                true
+            );
+        } else {
+            const equalPlants = numberValue(
+                first(
+                    paso4.plantasPorFila,
+                    paso4.plantasPorLinea,
+                    paso4.arbolesPorFila,
+                    paso4.plantasFila
+                )
+            );
+
+            if (equalPlants !== null) {
+                add(
+                    "summaryDistributionData",
+                    "Plantas por fila",
+                    formatNumber(equalPlants)
+                );
+            }
+        }
+
+        const plantSpacing = numberValue(
+            first(
+                paso4.separacionPlantas,
+                paso4.distanciaPlantas,
+                paso4.distanciaEntrePlantas
+            )
+        );
+
+        const rowSpacing = numberValue(
+            first(
+                paso4.separacionFilas,
+                paso4.distanciaFilas,
+                paso4.distanciaEntreFilas
+            )
+        );
+
+        if (plantSpacing !== null) {
+            add(
+                "summaryDistributionData",
+                "Separación entre plantas",
+                `${formatNumber(plantSpacing, 2)} m`
+            );
+        }
+
+        if (rowSpacing !== null) {
+            add(
+                "summaryDistributionData",
+                "Separación entre filas",
+                `${formatNumber(rowSpacing, 2)} m`
+            );
+        }
+
+        if (distributionType === "annual") {
+            add(
+                "summaryDistributionData",
+                "Fase del cultivo",
+                mapLabel(
+                    first(
+                        paso4.faseCultivo,
+                        paso4.fase
+                    ),
+                    labels.stage
+                )
+            );
+        } else {
+            add(
+                "summaryDistributionData",
+                "Edad del cultivo",
+                mapLabel(
+                    first(
+                        paso4.edadCultivo,
+                        paso4.edad
+                    ),
+                    labels.age
+                )
+            );
+        }
+    }
+
+    if (distributionType === "hedge") {
+        const hedgeLength = numberValue(
+            first(
+                paso4.longitudSeto,
+                paso4.longitud
+            )
+        );
+
+        const hedgeSpacing = numberValue(
+            first(
+                paso4.separacionSeto,
+                paso4.separacionPlantas
+            )
+        );
+
+        if (hedgeLength !== null) {
+            add(
+                "summaryDistributionData",
+                "Longitud del seto",
+                `${formatNumber(hedgeLength, 1)} m`
+            );
+        }
+
+        if (hedgeSpacing !== null) {
+            add(
+                "summaryDistributionData",
+                "Separación entre plantas",
+                `${formatNumber(hedgeSpacing, 2)} m`
+            );
+        }
+    }
+
+    if (distributionType === "surface") {
+        const surface = numberValue(
+            first(
+                paso4.superficie,
+                paso4.superficieM2
+            )
+        );
+
+        if (surface !== null) {
+            add(
+                "summaryDistributionData",
+                "Superficie",
+                `${formatNumber(surface, 1)} m²`
+            );
+        }
+    }
+
+    /* =========================================================
+       ESQUEMA VISUAL DEL PASO 4
+       ========================================================= */
+
+    const planCard = document.getElementById("summaryPlanCard");
+    const planVisual = document.getElementById("summaryPlanVisual");
+
+    const distribution = Array.isArray(paso4.distribucionFilas)
+        ? paso4.distribucionFilas
+            .map(numberValue)
+            .filter(value => value !== null)
+        : [];
+
+    const equalPlants = numberValue(
+        first(
+            paso4.plantasPorFila,
+            paso4.plantasPorLinea,
+            paso4.arbolesPorFila,
+            paso4.plantasFila
+        )
+    );
+
+    const rows = numberValue(
+        first(
+            paso4.filas,
+            paso4.totalFilas,
+            paso4.numeroFilas
+        )
+    );
+
+    let visualRows = distribution.slice();
+
+    if (
+        visualRows.length === 0 &&
+        rows !== null &&
+        equalPlants !== null
+    ) {
+        visualRows = Array.from(
+            { length: rows },
+            () => equalPlants
+        );
+    }
+
+    if (
+        planCard &&
+        planVisual &&
+        (distributionType === "trees" || distributionType === "annual") &&
+        visualRows.length > 0
+    ) {
+        const width = 700;
+        const left = 48;
+        const right = 36;
+        const top = 28;
+        const rowGap = 42;
+        const usableWidth = width - left - right;
+        const height = top + visualRows.length * rowGap + 28;
+
+        const svg = [
+            `<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Esquema de distribución de las filas de plantas">`
+        ];
+
+        visualRows.forEach((count, index) => {
+            const y = top + index * rowGap;
+            const safeCount = Math.max(1, Math.min(Math.round(count), 100));
+
+            svg.push(
+                `<path d="M${left} ${y + 8}H${width - right}" stroke="#dfe7df" stroke-width="2" stroke-linecap="round"/>`
+            );
+
+            for (let plant = 0; plant < safeCount; plant++) {
+                const x =
+                    safeCount === 1
+                        ? left + usableWidth / 2
+                        : left + usableWidth * plant / (safeCount - 1);
+
+                svg.push(
+                    `<path d="M${x.toFixed(1)} ${y + 7}V${y - 1}" stroke="#765035" stroke-width="2.4" stroke-linecap="round"/>`
+                );
+
+                svg.push(
+                    `<circle cx="${x.toFixed(1)}" cy="${y - 4}" r="6.5" fill="#7fc56c" stroke="#4d9b51" stroke-width="1.5"/>`
+                );
+
+                svg.push(
+                    `<circle cx="${(x - 3.5).toFixed(1)}" cy="${(y - 5).toFixed(1)}" r="3" fill="#9edb88"/>`
+                );
+            }
+
+            svg.push(
+                `<text x="9" y="${y + 5}" font-size="10" font-weight="700" fill="#657066">F${index + 1}</text>`
+            );
+
+            svg.push(
+                `<text x="${width - right + 7}" y="${y + 5}" font-size="9" fill="#657066">${Math.round(count)}</text>`
+            );
+        });
+
+        svg.push("</svg>");
+
+        planVisual.innerHTML = svg.join("");
+    } else if (planCard) {
+        planCard.style.display = "none";
+    }
+
+    hideEmptySection(4, "summaryDistributionData");
+
+    /* =========================================================
+       PASO 5 — SISTEMA DE RIEGO
+       ========================================================= */
+
+    add(
+        "summaryIrrigationData",
+        "Tipo de riego",
+        mapLabel(
+            first(
+                paso5.irrigation,
+                paso5.sistemaRiego
+            ),
+            labels.irrigation
+        )
+    );
+
+    add(
+        "summaryIrrigationData",
+        "Varios sectores de riego",
+        yesNo(
+            first(
+                paso5.sectores,
+                paso5.sectoresRiego
+            )
+        )
+    );
+
+    add(
+        "summaryIrrigationData",
+        "Sistema de filtrado",
+        yesNo(
+            first(
+                paso5.filtrado,
+                paso5.filtracion
+            )
+        )
+    );
+
+    add(
+        "summaryIrrigationData",
+        "Aplicar fertilizante a través del riego",
+        yesNo(
+            first(
+                paso5.fertilizantes,
+                paso5.fertirrigacion
+            )
+        )
+    );
+
+    hideEmptySection(5, "summaryIrrigationData");
+
+    /* =========================================================
+       PASO 6 — SOLUCIÓN DE AGUA Y ENERGÍA
+       ========================================================= */
+
+    const solutionRaw = first(
+        paso6.solucionAgua,
+        paso6.opcionAgua
+    );
+
+    const solution = mapLabel(
+        solutionRaw,
+        labels.solution
+    );
+
+    add(
+        "summaryEnergyData",
+        "Opción para llevar el agua",
+        solution
+    );
+
+    if (normalize(solutionRaw) === "bomba") {
+        add(
+            "summaryEnergyData",
+            "Alimentación de la bomba",
+            mapLabel(
+                first(
+                    paso6.energiaBomba,
+                    paso6.energia,
+                    paso6.energy
+                ),
+                labels.energy
+            )
+        );
+    }
+
+    add(
+        "summaryEnergyData",
+        "Automatización del riego",
+        first(
+            paso6.automatizacion,
+            paso6.automation
+        )
+    );
+
+    hideEmptySection(6, "summaryEnergyData");
+
+    /* =========================================================
+       SNAPSHOT GLOBAL
+       ========================================================= */
+
+    try {
+        sessionStorage.setItem(
+            "fincasinred_proyecto",
+            JSON.stringify({
+                paso1,
+                paso2,
+                paso3,
+                paso4,
+                paso5,
+                paso6,
+                ubicacion: {
+                    tipo: locationType,
+                    nombre: locationName,
+                    latitud: latitude,
+                    longitud: longitude,
+                    capturaSatelite: satelliteImage || null
+                }
+            })
+        );
+    } catch (error) {
+        console.warn(
+            "No se pudo guardar el snapshot de FincaSinRed.",
+            error
+        );
+    }
+
+    /* =========================================================
+       NAVEGACIÓN
+       ========================================================= */
+
+    const backButton = document.getElementById("backButton");
+
+    if (backButton) {
+        backButton.addEventListener("click", () => {
+            window.location.href = "PASO.6.html";
+        });
+    }
+
+    const buyButton = document.getElementById("buyButton");
+
+    if (buyButton) {
+        buyButton.addEventListener("click", () => {
+            sessionStorage.setItem(
+                "fincasinred_compra_iniciada",
+                "true"
+            );
+
+            window.location.href = "PASO.PAGO.html";
+        });
+    }
+
+    const engineStatusSummary = document.getElementById(
+        "paso7EngineStatusSummary"
+    );
+    const engineStatusDetails = document.getElementById(
+        "paso7EngineStatusDetails"
+    );
+
+    const clearEngineStatusDetails = () => {
+        if (engineStatusDetails) engineStatusDetails.replaceChildren();
+    };
+
+    const addEngineStatusItem = (label, value, className = "") => {
+        if (!engineStatusDetails) return;
+
+        const item = document.createElement("div");
+        item.className = `engine-status-item ${className}`.trim();
+
+        const labelElement = document.createElement("strong");
+        labelElement.textContent = label;
+
+        const valueElement = document.createElement("span");
+        valueElement.textContent = String(value);
+
+        item.append(labelElement, valueElement);
+        engineStatusDetails.appendChild(item);
+    };
+
+    const addEngineStatusList = (label, values, className = "") => {
+        if (!engineStatusDetails || values.length === 0) return;
+
+        const item = document.createElement("div");
+        item.className = `engine-status-item ${className}`.trim();
+
+        const labelElement = document.createElement("strong");
+        labelElement.textContent = label;
+
+        const list = document.createElement("ul");
+        list.className = "engine-status-list";
+
+        values.forEach((value) => {
+            const listItem = document.createElement("li");
+            listItem.textContent = String(value);
+            list.appendChild(listItem);
+        });
+
+        item.append(labelElement, list);
+        engineStatusDetails.appendChild(item);
+    };
+
+    const formatEngineValue = (value) => {
+        if (!value || typeof value !== "object") return null;
+
+        const technicalValue = value;
+        if (
+            typeof technicalValue.value !== "number" ||
+            typeof technicalValue.unit !== "string"
+        ) {
+            return null;
+        }
+
+        return `${technicalValue.value} ${technicalValue.unit}`;
+    };
+
+    const siarPeriodForm = document.getElementById("siarPeriodForm");
+    const siarStartDate = document.getElementById("siarStartDate");
+    const siarEndDate = document.getElementById("siarEndDate");
+    const siarPeriodError = document.getElementById("siarPeriodError");
+
+    const isCalendarDate = (value) => {
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+        const date = new Date(`${value}T00:00:00.000Z`);
+        return date.toISOString().slice(0, 10) === value;
+    };
+
+    const readSiarPeriod = () => {
+        const startDate = siarStartDate?.value ?? "";
+        const endDate = siarEndDate?.value ?? "";
+        if (
+            !isCalendarDate(startDate) ||
+            !isCalendarDate(endDate) ||
+            startDate > endDate
+        ) {
+            return null;
+        }
+        return { startDate, endDate };
+    };
+
+    const showSiarPeriodError = (message) => {
+        if (!siarPeriodError) return;
+        siarPeriodError.textContent = message;
+        siarPeriodError.hidden = false;
+    };
+
+    const clearSiarPeriodError = () => {
+        if (!siarPeriodError) return;
+        siarPeriodError.textContent = "";
+        siarPeriodError.hidden = true;
+    };
+
+    const renderEngineExecution = async (siarPeriod) => {
+        clearEngineStatusDetails();
+
+        if (!engineStatusSummary) return;
+
+        if (siarPeriod === null) {
+            engineStatusSummary.textContent =
+                "PENDING: introduce el periodo de consulta SIAR para ejecutar el cálculo.";
+            addEngineStatusList(
+                "Campos pendientes",
+                ["siar.siarPeriod"],
+                "engine-status-pending"
+            );
+            return;
+        }
+
+        const browserApi = globalThis.FincaSinRedPaso7;
+        if (
+            !browserApi ||
+            typeof browserApi.executePaso7ProjectExecutionFromBrowser !== "function"
+        ) {
+            engineStatusSummary.textContent =
+                "PENDING: el motor técnico todavía no está disponible en esta página.";
+            addEngineStatusItem(
+                "Datos pendientes",
+                "No se ha fabricado ningún resultado técnico.",
+                "engine-status-pending"
+            );
+            return;
+        }
+
+        const result = await browserApi.executePaso7ProjectExecutionFromBrowser({
+            siarPeriod
+        });
+
+        if (result.kind === "PENDING") {
+            engineStatusSummary.textContent =
+                "PENDING: faltan datos técnicos para ejecutar el cálculo.";
+            addEngineStatusList(
+                "Campos pendientes",
+                result.missingFields,
+                "engine-status-pending"
+            );
+            return;
+        }
+
+        if (result.kind === "ADAPTER_FAILURE") {
+            engineStatusSummary.textContent = "FAILED: el adaptador no pudo ejecutar el motor.";
+            addEngineStatusItem("Mensaje real", result.error.message, "engine-status-failed");
+            return;
+        }
+
+        const execution = result.execution;
+        if (result.status === "PENDING") {
+            engineStatusSummary.textContent =
+                "PENDING: el motor todavía espera datos técnicos autorizados.";
+            addEngineStatusList(
+                "Incidencias reales",
+                execution.issues.map((issue) => issue.message),
+                "engine-status-pending"
+            );
+            return;
+        }
+
+        if (result.status === "COMPLETED") {
+            engineStatusSummary.textContent =
+                "COMPLETED: resultados agronómicos obtenidos por el motor.";
+
+            execution.intermediateResults.forEach((intermediateResult) => {
+                const path = intermediateResult.value.identity.path;
+                const formattedValue = formatEngineValue(intermediateResult.value);
+                if (formattedValue !== null) {
+                    addEngineStatusItem(path, formattedValue, "engine-status-completed");
+                }
+            });
+            return;
+        }
+
+        if (result.status === "BLOCKED") {
+            engineStatusSummary.textContent = "BLOCKED: el motor no puede continuar.";
+            addEngineStatusList(
+                "Incidencias reales",
+                execution.issues.map((issue) => issue.message),
+                "engine-status-blocked"
+            );
+            return;
+        }
+
+        engineStatusSummary.textContent = "FAILED: el motor no pudo completar el cálculo.";
+        addEngineStatusList(
+            "Incidencias reales",
+            execution.issues.map((issue) => issue.message),
+            "engine-status-failed"
+        );
+    };
+
+    siarPeriodForm?.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const siarPeriod = readSiarPeriod();
+        if (siarPeriod === null) {
+            showSiarPeriodError(
+                "Introduce dos fechas reales en formato YYYY-MM-DD y asegúrate de que la fecha inicial no sea posterior a la final."
+            );
+            return;
+        }
+        clearSiarPeriodError();
+        void renderEngineExecution(siarPeriod);
+    });
+
+    void renderEngineExecution(null);
+})();
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FincaSinRed | Proyecto completo</title>
+    <meta
+        name="description"
+        content="Contrata tu proyecto completo de riego personalizado en FincaSinRed."
+    >
+    <style>
+        :root {
+            --green: #159447;
+            --green-dark: #087b35;
+            --green-soft: #f2fbf4;
+            --border: #dfe7e1;
+            --text: #171717;
+            --muted: #606060;
+            --white: #ffffff;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Roboto, Arial, sans-serif;
+            color: var(--text);
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            width: min(900px, calc(100% - 24px));
+            margin: 30px auto;
+        }
+
+        .card {
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--white);
+            box-shadow: 0 4px 18px rgba(0,0,0,.04);
+        }
+
+        header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #ededed;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand img {
+    display: block;
+    width: 205px;
+    height: auto;
+}
+
+        .secure {
+            color: #267445;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        main {
+            padding: 36px 28px 32px;
+            text-align: center;
+        }
+
+        .icon {
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--green-soft);
+            color: var(--green);
+            font-size: 32px;
+        }
+
+        h1 {
+            margin: 0 0 10px;
+            font-size: clamp(27px, 4vw, 38px);
+        }
+
+        .lead {
+            max-width: 650px;
+            margin: 0 auto 28px;
+            color: var(--muted);
+            line-height: 1.55;
+        }
+
+        .price {
+            font-size: 36px;
+            font-weight: 850;
+            color: var(--green);
+            margin-bottom: 4px;
+        }
+
+        .price-note {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .next {
+            max-width: 650px;
+            margin: 0 auto 26px;
+            padding: 18px;
+            border: 1px solid #cfe8d5;
+            border-radius: 12px;
+            background: var(--green-soft);
+            text-align: left;
+        }
+
+        .next strong {
+            display: block;
+            margin-bottom: 7px;
+            color: #236b3c;
+        }
+
+        .next p {
+            margin: 0;
+            color: #4f6355;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .pay {
+            width: min(440px, 100%);
+            min-height: 50px;
+            border: 1px solid #0d8138;
+            border-radius: 9px;
+            background: var(--green);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .pay:hover { background: var(--green-dark); }
+
+        .back {
+            display: inline-block;
+            margin-top: 15px;
+            color: #4b7457;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        footer {
+            padding: 15px 24px;
+            border-top: 1px solid #ededed;
+            color: #666666;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        @media (max-width: 640px) {
+            .page { width: 100%; margin: 0; }
+                .brand img { width: 174px; }
+            .card { border-radius: 0; border-left: 0; border-right: 0; }
+            header { padding: 16px; }
+            main { padding: 30px 18px; }
+        }
+    </style>
+<style>
+    .page { width: min(900px, calc(100% - 24px)); }
+    .brand img { width: 205px; }
+    h1 { font-size: 32px; }
+    .lead { font-size: 15px; }
+    .next p { font-size: 14px; }
+    .pay { min-height: 52px; font-size: 15px; }
+    @media (max-width: 640px) {
+        .brand img { width: 174px; }
+        main { padding: 30px 18px; }
+        h1 { font-size: 26px; }
+        .lead { font-size: 14px; }
+        .pay { min-height: 50px; font-size: 14px; }
+    }
+</style>
+
+<style id="fincasinred-typography-v1">
+
+/* =========================================================
+   FINCASINRED — SISTEMA TIPOGRÁFICO GLOBAL V1
+   Unifica la lectura en móvil y ordenador sin alterar
+   la estructura ni la funcionalidad de la página.
+   ========================================================= */
+:root {
+  --fs-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 14px;
+  --fs-button: 16px;
+  --fs-card-title: 18px;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h1: clamp(30px, 4vw, 44px);
+  --fs-line-body: 1.55;
+  --fs-line-heading: 1.15;
+}
+
+/* Fuente común */
+html,
+body {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Texto de lectura */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Escala base */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--fs-line-body);
+}
+
+/* Jerarquía de títulos */
+h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h3 {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Texto normal */
+p {
+  font-size: var(--fs-body) !important;
+}
+
+/* Etiquetas y textos secundarios */
+label {
+  font-size: var(--fs-label) !important;
+}
+
+small,
+.helper,
+.hint,
+.description,
+.subtext {
+  font-size: var(--fs-small) !important;
+}
+
+/* Controles */
+button,
+input,
+select,
+textarea {
+  font-size: var(--fs-button) !important;
+}
+
+/* Progreso: deliberadamente algo más compacto, pero nunca microscópico */
+.progress-label,
+.progress-step,
+.step-title,
+.header-note {
+  font-size: var(--fs-caption) !important;
+}
+
+/* Cabeceras y textos de ayuda */
+.help-button,
+.help-button *,
+.help-icon {
+  font-size: var(--fs-small) !important;
+}
+
+/* Tarjetas y bloques informativos */
+.card-heading,
+.form-card-header,
+.option-title,
+.option-name,
+.choice-title,
+.feature-title,
+.element-title {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Datos importantes */
+.value,
+.summary-value,
+.data-value,
+.price,
+.total,
+.amount {
+  line-height: 1.2 !important;
+}
+
+/* Nunca permitir textos extremadamente pequeños en contenido */
+.page,
+.app,
+.page-shell,
+.page-container,
+.app-container,
+.content,
+.content-section,
+main,
+section {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Móvil: mantener legibilidad y reducir solo títulos si hace falta */
+@media (max-width: 640px) {
+  :root {
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 13px;
+    --fs-label: 14px;
+    --fs-button: 16px;
+    --fs-card-title: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* PAGO */
+.card h1 { font-size: clamp(30px, 4vw, 40px) !important; }
+.lead { font-size: 16px !important; line-height: 1.55 !important; }
+.price { font-size: clamp(32px, 5vw, 44px) !important; }
+.price-note, .secure, .next, .back { font-size: 14px !important; }
+.pay { font-size: 16px !important; }
+
+</style>
+</head>
+<body>
+    <div class="page">
+        <div class="card">
+            <header>
+                <div class="brand">
+    <img
+        src="./assets/logo-fincasinred-header.png"
+        alt="FincaSinRed - Riego inteligente para tu finca"
+    >
+</div>
+                <div class="secure">🔒 Pago seguro</div>
+            </header>
+
+            <main>
+                <div class="icon" aria-hidden="true">✓</div>
+
+                <h1>Tu proyecto completo</h1>
+
+                <p class="lead">
+                    Has llegado al último paso antes de continuar con nuestro
+                    asistente inteligente. El proyecto completo tiene un coste
+                    único de 19,99 €.
+                </p>
+
+                <div class="price">19,99 €</div>
+                <div class="price-note">Pago único · Sin suscripción ni cuotas</div>
+
+                <section class="next">
+                    <strong>¿Qué ocurre después del pago?</strong>
+                    <p>
+                        No tendrás que empezar de cero. El asistente inteligente
+                        recibirá la información que ya has introducido y continuará
+                        contigo para hacer las preguntas adicionales que sean
+                        necesarias. Con esas respuestas podremos terminar de definir
+                        tu proyecto de riego.
+                    </p>
+                </section>
+
+                <!--
+                    Este botón queda preparado para Stripe.
+                    El cobro real debe crearse en el servidor mediante
+                    /api/create-checkout-session.
+                -->
+                <button class="pay" id="payButton" type="button">
+                    CONTINUAR AL PAGO SEGURO
+                </button>
+
+                <br>
+
+                <a class="back" href="PASO.7.html">
+                    ← Volver al resumen
+                </a>
+            </main>
+
+            <footer>
+                Tus datos se utilizan únicamente para tu proyecto y se mantienen
+                de forma temporal durante el proceso.
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        (() => {
+            "use strict";
+
+            const payButton = document.getElementById("payButton");
+
+            payButton.addEventListener("click", async () => {
+                /*
+                 * No se incluye ninguna clave de Stripe en el navegador.
+                 *
+                 * Cuando creemos el backend, este botón llamará a:
+                 * POST /api/create-checkout-session
+                 *
+                 * El servidor será quien cree la sesión de Stripe con el precio
+                 * de 19,99 € y devuelva la URL segura de Checkout.
+                 */
+
+                alert(
+                    "El pago seguro todavía necesita conectar el backend de Stripe. " +
+                    "No se ha realizado ningún cobro."
+                );
+            });
+        })();
+    </script>
+</body>
+</html>
+

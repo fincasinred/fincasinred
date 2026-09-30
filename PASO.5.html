@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FincaSinRed | Paso 5 de 7</title>
+
+    <meta
+        name="description"
+        content="Configura el sistema de riego que quieres para tu finca."
+    >
+
+    <style>
+        :root {
+            --green: #19a033;
+            --green-dark: #176c31;
+            --green-soft: #eef8ef;
+            --green-border: #a9d5af;
+            --text: #101827;
+            --muted: #59636e;
+            --border: #dfe5e2;
+            --page: #f6f9f7;
+            --blue: #2d9be8;
+            --blue-soft: #eef7ff;
+            --radius: 18px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--page);
+            color: var(--text);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+        }
+
+        button {
+            font: inherit;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:focus-visible {
+            outline: 3px solid rgba(25, 160, 51, .22);
+            outline-offset: 2px;
+        }
+
+        .page-shell {
+            width: min(100%, 940px);
+            min-height: 100vh;
+            margin: 0 auto;
+            background: #fff;
+            border-left: 1px solid #e0e6e2;
+            border-right: 1px solid #e0e6e2;
+            box-shadow: 0 8px 35px rgba(20, 50, 32, .06);
+        }
+
+        .app-container {
+            width: 100%;
+            padding: 0 22px;
+        }
+
+        /* CABECERA */
+
+        .top-header {
+            min-height: 82px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            border-bottom: 1px solid #e8ecea;
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 205px;
+            max-width: 58vw;
+            height: auto;
+            display: block;
+        }
+
+        .header-note {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #68736e;
+            font-size: 14px;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .header-note-icon {
+            width: 27px;
+            height: 27px;
+            color: var(--green);
+            flex: 0 0 27px;
+        }
+
+        .header-note-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        /* PROGRESO */
+
+        .progress-area {
+            padding: 16px 0 4px;
+        }
+
+        .progress-dots {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .progress-dots::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: calc(100% / 14);
+            right: calc(100% / 14);
+            height: 2px;
+            background: #dfe6e2;
+            z-index: 0;
+        }
+
+        .progress-step {
+            position: relative;
+            z-index: 1;
+            min-width: 0;
+            text-align: center;
+        }
+
+        .progress-circle {
+            width: 30px;
+            height: 30px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #cbd4cf;
+            border-radius: 50%;
+            color: #68736e;
+            background: #fff;
+            font-size: 13px;
+            font-weight: 850;
+        }
+
+        .progress-step.done .progress-circle,
+        .progress-step.current .progress-circle {
+            border-color: var(--green);
+            background: var(--green);
+            color: #fff;
+        }
+
+        .progress-step.done::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 14px;
+            left: 50%;
+            width: 100%;
+            height: 2px;
+            background: var(--green);
+        }
+
+        .progress-step:last-child::after {
+            display: none;
+        }
+
+        .progress-label {
+            display: block;
+            margin-top: 5px;
+            color: #68736e;
+            font-size: 12px;
+            font-weight: 750;
+            white-space: nowrap;
+        }
+
+        .progress-step.current .progress-label {
+            color: var(--green-dark);
+        }
+
+        /* TITULAR */
+
+        .hero {
+            display: flex;
+            align-items: center;
+            gap: 17px;
+            padding: 22px 4px 17px;
+        }
+
+        .hero-icon {
+            width: 54px;
+            height: 54px;
+            flex: 0 0 54px;
+            color: #2d9be8;
+        }
+
+        .hero-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .hero h1 {
+            margin: 0;
+            font-size: clamp(26px, 4vw, 34px);
+            line-height: 1.08;
+            letter-spacing: -.8px;
+            font-weight: 900;
+        }
+
+        .hero p {
+            margin: 5px 0 0;
+            color: #3f4853;
+            font-size: 16px;
+            line-height: 1.38;
+            font-weight: 500;
+        }
+
+        /* TARJETAS */
+
+        .card {
+            margin-top: 13px;
+            padding: 17px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: #fff;
+            box-shadow: 0 1px 5px rgba(25, 53, 35, .025);
+        }
+
+        .card-heading {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            margin-bottom: 14px;
+        }
+
+        .card-number {
+            width: 42px;
+            height: 42px;
+            flex: 0 0 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--green);
+            color: #fff;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .card-heading h2 {
+            margin: 0;
+            font-size: 21px;
+            line-height: 1.16;
+            font-weight: 900;
+        }
+
+        .card-heading p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.35;
+        }
+
+        /* SISTEMA DE RIEGO */
+
+        .irrigation-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 14px;
+        }
+
+        .irrigation-option {
+            position: relative;
+            min-height: 214px;
+            padding: 16px 12px 14px;
+            border: 2px solid #e0e5e2;
+            border-radius: 14px;
+            background: #fff;
+            color: var(--text);
+            text-align: center;
+            transition:
+                border-color .18s ease,
+                box-shadow .18s ease,
+                transform .18s ease,
+                background-color .18s ease;
+        }
+
+        .irrigation-option:hover {
+            border-color: #63b36d;
+            transform: translateY(-1px);
+        }
+
+        .irrigation-option.selected {
+            border-color: #55a95d;
+            box-shadow: 0 0 0 1px #55a95d;
+            background: #fbfefb;
+        }
+
+        .selection-dot {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 22px;
+            height: 22px;
+            border: 2px solid #bdc8c2;
+            border-radius: 50%;
+            background: #fff;
+        }
+
+        .irrigation-option.selected .selection-dot {
+            border-color: #55a95d;
+        }
+
+        .irrigation-option.selected .selection-dot::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .irrigation-illustration {
+            width: 150px;
+            height: 105px;
+            margin: 5px auto 4px;
+            display: block;
+        }
+
+        .irrigation-option strong {
+            display: block;
+            font-size: 17px;
+            line-height: 1.15;
+            font-weight: 900;
+        }
+
+        .irrigation-option span.description {
+            display: block;
+            max-width: 205px;
+            margin: 5px auto 0;
+            color: #5b6570;
+            font-size: 13px;
+            line-height: 1.32;
+        }
+
+        /* OPCIONES SÍ / NO */
+
+        .choice-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .choice-button {
+            min-height: 76px;
+            padding: 11px 14px;
+            border: 2px solid #e0e5e2;
+            border-radius: 13px;
+            background: #fff;
+            color: var(--text);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition:
+                border-color .18s ease,
+                box-shadow .18s ease,
+                background-color .18s ease;
+        }
+
+        .choice-button:hover {
+            border-color: #63b36d;
+        }
+
+        .choice-button.selected {
+            border-color: #55a95d;
+            box-shadow: 0 0 0 1px #55a95d;
+            background: #f8fcf8;
+        }
+
+        .choice-radio {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 22px;
+            border: 2px solid #bdc8c2;
+            border-radius: 50%;
+            position: relative;
+            background: #fff;
+        }
+
+        .choice-button.selected .choice-radio {
+            border-color: var(--green);
+        }
+
+        .choice-button.selected .choice-radio::after {
+            content: "";
+            position: absolute;
+            inset: 4px;
+            border-radius: 50%;
+            background: var(--green);
+        }
+
+        .choice-content strong {
+            display: block;
+            font-size: 15px;
+            line-height: 1.15;
+            font-weight: 900;
+        }
+
+        .choice-content span {
+            display: block;
+            margin-top: 4px;
+            color: #626d77;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+
+        /* NAVEGACIÓN */
+
+        .navigation {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 25px 0 28px;
+        }
+
+        .back-button,
+        .continue-button {
+            min-height: 52px;
+            border-radius: 11px;
+            font-size: 16px;
+            font-weight: 850;
+            transition:
+                background-color .18s ease,
+                border-color .18s ease,
+                transform .18s ease;
+        }
+
+        .back-button {
+            padding: 0 22px;
+            border: 1px solid #d5ddd8;
+            background: #fff;
+            color: #26312b;
+        }
+
+        .back-button:hover {
+            background: #f7fbf8;
+            border-color: #70b77a;
+        }
+
+        .continue-button {
+            min-width: 185px;
+            padding: 0 23px;
+            border: 0;
+            background: var(--green);
+            color: #fff;
+        }
+
+        .continue-button:hover {
+            background: #168d2d;
+        }
+
+        .continue-button:active,
+        .back-button:active {
+            transform: translateY(1px);
+        }
+
+        .continue-button:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+        }
+
+        /* PIE */
+
+        .privacy-note {
+            padding: 0 0 24px;
+            text-align: center;
+            color: #68736e;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .privacy-note svg {
+            width: 18px;
+            height: 18px;
+            vertical-align: -4px;
+            margin-right: 5px;
+        }
+
+        /* AYUDA */
+
+        .help-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(15, 28, 20, .42);
+        }
+
+        .help-modal.open {
+            display: flex;
+        }
+
+        .help-dialog {
+            width: min(100%, 480px);
+            padding: 25px;
+            border-radius: 18px;
+            background: #fff;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .18);
+        }
+
+        .help-dialog-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .help-dialog h2 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 900;
+        }
+
+        .help-dialog p {
+            margin: 10px 0 0;
+            color: #4f5b54;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .help-close {
+            width: 36px;
+            height: 36px;
+            flex: 0 0 36px;
+            border: 0;
+            border-radius: 50%;
+            background: #f3f6f4;
+            color: #26312b;
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .help-ok {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 22px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--green);
+            color: #fff;
+            font-weight: 850;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 760px) {
+            .irrigation-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .irrigation-option {
+                min-height: 205px;
+            }
+
+            .choice-button {
+                min-height: 70px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .app-container {
+                padding: 0 14px;
+            }
+
+            .top-header {
+                min-height: 72px;
+            }
+
+            .brand-logo {
+                width: 174px;
+            }
+
+            .header-note {
+                display: none;
+            }
+
+            .progress-area {
+                padding-top: 18px;
+            }
+
+            .progress-label {
+                font-size: 10px;
+            }
+
+            .progress-circle {
+                width: 25px;
+                height: 25px;
+                font-size: 11px;
+            }
+
+            .progress-dots::before {
+                top: 12px;
+            }
+
+            .progress-step.done::after {
+                top: 11.5px;
+            }
+
+            .hero {
+                gap: 12px;
+                padding-top: 21px;
+            }
+
+            .hero-icon {
+                width: 46px;
+                height: 46px;
+                flex-basis: 46px;
+            }
+
+            .hero h1 {
+                font-size: 25px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .card {
+                padding: 15px;
+                border-radius: 16px;
+            }
+
+            .card-heading h2 {
+                font-size: 18px;
+            }
+
+            .card-heading p {
+                font-size: 13px;
+            }
+
+            .card-number {
+                width: 38px;
+                height: 38px;
+                flex-basis: 38px;
+                font-size: 19px;
+            }
+
+            .irrigation-grid {
+                gap: 9px;
+            }
+
+            .irrigation-option {
+                min-height: 185px;
+                padding: 12px 8px 12px;
+            }
+
+            .irrigation-illustration {
+                width: 125px;
+                height: 88px;
+                margin-top: 4px;
+            }
+
+            .irrigation-option strong {
+                font-size: 15px;
+            }
+
+            .irrigation-option span.description {
+                font-size: 11px;
+            }
+
+            .choice-grid {
+                grid-template-columns: 1fr;
+                gap: 9px;
+            }
+
+            .choice-button {
+                min-height: 64px;
+            }
+
+            .navigation {
+                padding-top: 22px;
+                padding-bottom: 22px;
+            }
+
+            .back-button,
+            .continue-button {
+                min-height: 52px;
+                font-size: 15px;
+            }
+
+            .continue-button {
+                min-width: 0;
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .progress-label {
+                font-size: 9px;
+            }
+
+            .irrigation-option {
+                min-height: 175px;
+            }
+
+            .irrigation-illustration {
+                width: 110px;
+                height: 80px;
+            }
+
+            .irrigation-option span.description {
+                display: none;
+            }
+
+            .back-button {
+                padding: 0 16px;
+            }
+        }
+    </style>
+
+<style id="fincasinred-typography-v1">
+
+/* =========================================================
+   FINCASINRED — SISTEMA TIPOGRÁFICO GLOBAL V1
+   Unifica la lectura en móvil y ordenador sin alterar
+   la estructura ni la funcionalidad de la página.
+   ========================================================= */
+:root {
+  --fs-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 14px;
+  --fs-button: 16px;
+  --fs-card-title: 18px;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h1: clamp(30px, 4vw, 44px);
+  --fs-line-body: 1.55;
+  --fs-line-heading: 1.15;
+}
+
+/* Fuente común */
+html,
+body {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Texto de lectura */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Escala base */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--fs-line-body);
+}
+
+/* Jerarquía de títulos */
+h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h3 {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Texto normal */
+p {
+  font-size: var(--fs-body) !important;
+}
+
+/* Etiquetas y textos secundarios */
+label {
+  font-size: var(--fs-label) !important;
+}
+
+small,
+.helper,
+.hint,
+.description,
+.subtext {
+  font-size: var(--fs-small) !important;
+}
+
+/* Controles */
+button,
+input,
+select,
+textarea {
+  font-size: var(--fs-button) !important;
+}
+
+/* Progreso: deliberadamente algo más compacto, pero nunca microscópico */
+.progress-label,
+.progress-step,
+.step-title,
+.header-note {
+  font-size: var(--fs-caption) !important;
+}
+
+/* Cabeceras y textos de ayuda */
+.help-button,
+.help-button *,
+.help-icon {
+  font-size: var(--fs-small) !important;
+}
+
+/* Tarjetas y bloques informativos */
+.card-heading,
+.form-card-header,
+.option-title,
+.option-name,
+.choice-title,
+.feature-title,
+.element-title {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Datos importantes */
+.value,
+.summary-value,
+.data-value,
+.price,
+.total,
+.amount {
+  line-height: 1.2 !important;
+}
+
+/* Nunca permitir textos extremadamente pequeños en contenido */
+.page,
+.app,
+.page-shell,
+.page-container,
+.app-container,
+.content,
+.content-section,
+main,
+section {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Móvil: mantener legibilidad y reducir solo títulos si hace falta */
+@media (max-width: 640px) {
+  :root {
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 13px;
+    --fs-label: 14px;
+    --fs-button: 16px;
+    --fs-card-title: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* PASO 5 */
+.step-title { font-size: clamp(28px, 3.5vw, 38px) !important; }
+.form-title, .section-title, h2 { font-size: 24px !important; }
+.option-title, .choice-title { font-size: 18px !important; }
+.option-description, .choice-description { font-size: 14px !important; }
+input, select { font-size: 16px !important; }
+
+</style>
+</head>
+
+<body>
+    <main class="page-shell">
+        <div class="app-container">
+
+            <header class="top-header">
+                <a
+                    class="brand-link"
+                    href="portada-v12-responsive-ajustada.html"
+                    aria-label="Volver a FincaSinRed"
+                >
+                    <img
+                        class="brand-logo"
+                        src="./assets/logo-fincasinred-header.png"
+                        alt="FincaSinRed - Riego inteligente para tu finca"
+                    >
+                </a>
+
+                <div class="header-note" aria-hidden="true">
+                    <span class="header-note-icon">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 27V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            <path d="M16 17C11.2 17 8 13.9 8 9.3C12.9 9.2 16 11.9 16 17Z" fill="currentColor" opacity=".85"/>
+                            <path d="M16 19C20.8 19 24 15.9 24 11.3C19.1 11.2 16 13.9 16 19Z" fill="currentColor" opacity=".62"/>
+                            <path d="M9 27H23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </span>
+                    Tu proyecto de riego paso a paso
+                </div>
+            </header>
+
+            <section class="progress-area" aria-label="Progreso del formulario">
+                <div class="progress-dots">
+                    <div class="progress-step done">
+                        <div class="progress-circle">1</div>
+                        <span class="progress-label">Cultivo</span>
+                    </div>
+
+                    <div class="progress-step done">
+                        <div class="progress-circle">2</div>
+                        <span class="progress-label">Ubicación</span>
+                    </div>
+
+                    <div class="progress-step done">
+                        <div class="progress-circle">3</div>
+                        <span class="progress-label">Agua</span>
+                    </div>
+
+                    <div class="progress-step done">
+                        <div class="progress-circle">4</div>
+                        <span class="progress-label">Terreno</span>
+                    </div>
+
+                    <div class="progress-step current" aria-current="step">
+                        <div class="progress-circle">5</div>
+                        <span class="progress-label">Riego</span>
+                    </div>
+
+                    <div class="progress-step">
+                        <div class="progress-circle">6</div>
+                        <span class="progress-label">Energía</span>
+                    </div>
+
+                    <div class="progress-step">
+                        <div class="progress-circle">7</div>
+                        <span class="progress-label">Resultado</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="hero">
+                <div class="hero-icon" aria-hidden="true">
+                    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M32 5C32 5 15 25 15 37.5C15 47.2 22.6 55 32 55C41.4 55 49 47.2 49 37.5C49 25 32 5 32 5Z"
+                            fill="currentColor"
+                            opacity=".94"
+                        />
+                        <path
+                            d="M25 39.5C25 44.3 28.1 47.7 32.8 48.4"
+                            stroke="#ffffff"
+                            stroke-width="3.4"
+                            stroke-linecap="round"
+                            opacity=".78"
+                        />
+                    </svg>
+                </div>
+
+                <div>
+                    <h1>¿Cómo quieres regar tu finca?</h1>
+                    <p>
+                        Indícanos cómo te gustaría que funcione el sistema de riego.
+                        Si no lo sabes, FincaSinRed podrá recomendarte la opción más adecuada.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 1. TIPO DE RIEGO -->
+
+            <section class="card" aria-labelledby="irrigationTitle">
+                <div class="card-heading">
+                    <div class="card-number">1</div>
+                    <div>
+                        <h2 id="irrigationTitle">Tipo de riego</h2>
+                        <p>
+                            Selecciona el sistema de riego que prefieres. Si no estás seguro,
+                            nosotros te recomendaremos el más adecuado según tu cultivo y terreno.
+                        </p>
+                    </div>
+                </div>
+
+                <div
+                    id="irrigationOptions"
+                    class="irrigation-grid"
+                    role="radiogroup"
+                    aria-label="Tipo de riego"
+                >
+
+                    <!-- GOTEO -->
+
+                    <button
+                        type="button"
+                        class="irrigation-option"
+                        data-value="goteo"
+                        role="radio"
+                        aria-checked="false"
+                        onclick="selectIrrigation(this)"
+                    >
+                        <span class="selection-dot" aria-hidden="true"></span>
+
+                        <svg
+                            class="irrigation-illustration"
+                            viewBox="0 0 180 125"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path d="M20 89H160" stroke="#5B3925" stroke-width="9" stroke-linecap="round"/>
+                            <path d="M90 88V63" stroke="#5B3925" stroke-width="7" stroke-linecap="round"/>
+                            <path d="M90 67C72 64 61 52 61 37C78 37 90 48 90 67Z" fill="#35A947"/>
+                            <path d="M90 67C108 64 119 52 119 37C102 37 90 48 90 67Z" fill="#6DBF59"/>
+                            <path d="M77 61C65 55 57 46 56 33C69 34 79 44 82 57" stroke="#248E38" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M103 61C115 55 123 46 124 33C111 34 101 44 98 57" stroke="#4BAE4F" stroke-width="2.2" stroke-linecap="round"/>
+                            <path d="M47 89V96" stroke="#242C2A" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M90 89V96" stroke="#242C2A" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M133 89V96" stroke="#242C2A" stroke-width="3" stroke-linecap="round"/>
+                            <path d="M47 100C47 100 42 106 42 109.5C42 112.3 44.2 114.5 47 114.5C49.8 114.5 52 112.3 52 109.5C52 106 47 100 47 100Z" fill="#2D9BE8"/>
+                            <path d="M90 100C90 100 85 106 85 109.5C85 112.3 87.2 114.5 90 114.5C92.8 114.5 95 112.3 95 109.5C95 106 90 100 90 100Z" fill="#2D9BE8"/>
+                            <path d="M133 100C133 100 128 106 128 109.5C128 112.3 130.2 114.5 133 114.5C135.8 114.5 138 112.3 138 109.5C138 106 133 100 133 100Z" fill="#2D9BE8"/>
+                        </svg>
+
+                        <strong>Goteo</strong>
+                        <span class="description">Agua directamente junto a las plantas.</span>
+                    </button>
+
+                    <!-- MICROASPERSIÓN -->
+
+                    <button
+                        type="button"
+                        class="irrigation-option"
+                        data-value="microaspersion"
+                        role="radio"
+                        aria-checked="false"
+                        onclick="selectIrrigation(this)"
+                    >
+                        <span class="selection-dot" aria-hidden="true"></span>
+
+                        <svg
+                            class="irrigation-illustration"
+                            viewBox="0 0 180 125"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <rect x="31" y="84" width="118" height="18" rx="5" fill="#8B5A34"/>
+                            <path d="M90 84V56" stroke="#5B3925" stroke-width="6" stroke-linecap="round"/>
+                            <path d="M90 57C78 54 70 44 70 32C82 32 90 40 90 57Z" fill="#36A948"/>
+                            <path d="M90 57C102 54 110 44 110 32C98 32 90 40 90 57Z" fill="#6BC65B"/>
+                            <path d="M90 54V48" stroke="#242C2A" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M90 48C77 42 66 39 55 39" stroke="#2D9BE8" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M90 48C103 42 114 39 125 39" stroke="#2D9BE8" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M90 48C79 35 73 28 68 20" stroke="#2D9BE8" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M90 48C101 35 107 28 112 20" stroke="#2D9BE8" stroke-width="2.4" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <circle cx="53" cy="39" r="2.8" fill="#2D9BE8"/>
+                            <circle cx="127" cy="39" r="2.8" fill="#2D9BE8"/>
+                            <circle cx="66" cy="18" r="2.8" fill="#2D9BE8"/>
+                            <circle cx="114" cy="18" r="2.8" fill="#2D9BE8"/>
+                        </svg>
+
+                        <strong>Microaspersión</strong>
+                        <span class="description">Pequeñas gotas distribuidas alrededor de las plantas.</span>
+                    </button>
+
+                    <!-- ASPERSIÓN -->
+
+                    <button
+                        type="button"
+                        class="irrigation-option"
+                        data-value="aspersion"
+                        role="radio"
+                        aria-checked="false"
+                        onclick="selectIrrigation(this)"
+                    >
+                        <span class="selection-dot" aria-hidden="true"></span>
+
+                        <svg
+                            class="irrigation-illustration"
+                            viewBox="0 0 180 125"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <rect x="27" y="88" width="126" height="15" rx="4" fill="#8B5A34"/>
+                            <path d="M90 88V60" stroke="#242C2A" stroke-width="6" stroke-linecap="round"/>
+                            <rect x="82" y="55" width="16" height="9" rx="3" fill="#242C2A"/>
+                            <path d="M89 58C69 46 50 39 31 37" stroke="#2D9BE8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M91 58C111 46 130 39 149 37" stroke="#2D9BE8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M87 55C75 40 67 29 63 19" stroke="#2D9BE8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <path d="M93 55C105 40 113 29 117 19" stroke="#2D9BE8" stroke-width="2.2" stroke-linecap="round" stroke-dasharray="1 6"/>
+                            <circle cx="29" cy="37" r="2.7" fill="#2D9BE8"/>
+                            <circle cx="151" cy="37" r="2.7" fill="#2D9BE8"/>
+                            <circle cx="62" cy="18" r="2.7" fill="#2D9BE8"/>
+                            <circle cx="118" cy="18" r="2.7" fill="#2D9BE8"/>
+                        </svg>
+
+                        <strong>Aspersión</strong>
+                        <span class="description">Riego mediante aspersores que cubren una superficie más amplia.</span>
+                    </button>
+
+                    <!-- NO LO SÉ -->
+
+                    <button
+                        type="button"
+                        class="irrigation-option"
+                        data-value="no-se"
+                        role="radio"
+                        aria-checked="false"
+                        onclick="selectIrrigation(this)"
+                    >
+                        <span class="selection-dot" aria-hidden="true"></span>
+
+                        <svg
+                            class="irrigation-illustration"
+                            viewBox="0 0 180 125"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <circle cx="90" cy="60" r="38" fill="#EDF3FA"/>
+                            <circle cx="90" cy="60" r="38" stroke="#D9E3EE" stroke-width="2"/>
+                            <path
+                                d="M78 48C79.8 41.7 85.1 38 92.2 38C100.7 38 106 43 106 50.1C106 56.8 101.9 59.8 97.1 62.8C93 65.3 90.8 67.5 90.8 72"
+                                stroke="#2E4A6A"
+                                stroke-width="7"
+                                stroke-linecap="round"
+                            />
+                            <circle cx="90.8" cy="82.5" r="4.2" fill="#2E4A6A"/>
+                        </svg>
+
+                        <strong>No lo sé</strong>
+                        <span class="description">FincaSinRed te recomendará el sistema más adecuado.</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 2. SECTORES -->
+
+            <section class="card" aria-labelledby="sectorsTitle">
+                <div class="card-heading">
+                    <div class="card-number">2</div>
+                    <div>
+                        <h2 id="sectorsTitle">¿Quieres dividir el riego en varias zonas que funcionen por separado?</h2>
+                        <p>
+                            Dividir la finca en sectores permite regar distintas zonas de forma independiente
+                            y adaptar el riego a las necesidades de cada área.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="choice-grid" data-choice-group="sectores" role="radiogroup" aria-label="Sectores de riego">
+                    <button type="button" class="choice-button" data-value="si" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>Sí</strong>
+                            <span>Quiero que el riego funcione por sectores independientes.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No</strong>
+                            <span>Prefiero un solo sector para toda la finca.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no-se" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No lo sé</strong>
+                            <span>Que FincaSinRed lo determine según mi proyecto.</span>
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 3. FILTRADO -->
+
+            <section class="card" aria-labelledby="filterTitle">
+                <div class="card-heading">
+                    <div class="card-number">3</div>
+                    <div>
+                        <h2 id="filterTitle">¿Quieres incluir un sistema de filtrado?</h2>
+                        <p>
+                            El sistema de filtrado ayuda a proteger la instalación de riego
+                            frente a partículas e impurezas del agua.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="choice-grid" data-choice-group="filtrado" role="radiogroup" aria-label="Sistema de filtrado">
+                    <button type="button" class="choice-button" data-value="si" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>Sí</strong>
+                            <span>Quiero incluir un sistema de filtrado en el proyecto.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No</strong>
+                            <span>No quiero incluir filtrado.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no-se" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No lo sé</strong>
+                            <span>Que FincaSinRed lo determine según el origen del agua.</span>
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 4. FERTIRRIGACIÓN -->
+
+            <section class="card" aria-labelledby="fertilizerTitle">
+                <div class="card-heading">
+                    <div class="card-number">4</div>
+                    <div>
+                        <h2 id="fertilizerTitle">¿Quieres aplicar fertilizante a través del riego?</h2>
+                        <p>
+                            La fertirrigación permite incorporar fertilizante al agua de riego
+                            para distribuirlo directamente a las plantas.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="choice-grid" data-choice-group="fertilizantes" role="radiogroup" aria-label="Fertirrigación">
+                    <button type="button" class="choice-button" data-value="si" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>Sí</strong>
+                            <span>Quiero incluir fertirrigación en el proyecto.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No</strong>
+                            <span>No quiero aplicar fertilizante a través del riego.</span>
+                        </span>
+                    </button>
+
+                    <button type="button" class="choice-button" data-value="no-se" role="radio" aria-checked="false" onclick="selectChoice(this)">
+                        <span class="choice-radio" aria-hidden="true"></span>
+                        <span class="choice-content">
+                            <strong>No lo sé</strong>
+                            <span>Que FincaSinRed lo determine según mi cultivo y sistema de riego.</span>
+                        </span>
+                    </button>
+                </div>
+            </section>
+
+            <nav class="navigation" aria-label="Navegación del formulario">
+                <button
+                    type="button"
+                    id="backButton"
+                    class="back-button"
+                >
+                    ←&nbsp; Atrás
+                </button>
+
+                <button
+                    type="button"
+                    id="continueButton"
+                    class="continue-button"
+                >
+                    Continuar&nbsp; →
+                </button>
+            </nav>
+
+            <div class="privacy-note">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <path d="M8 10V7C8 4.79 9.79 3 12 3C14.21 3 16 4.79 16 7V10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <circle cx="12" cy="15" r="1.5" fill="currentColor"/>
+                </svg>
+                Tus datos son temporales y se eliminan tras generar tu PDF.
+            </div>
+        </div>
+    </main>
+
+    <!-- MODAL DE AYUDA -->
+
+    <div
+        id="helpModal"
+        class="help-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="helpTitle"
+    >
+        <div class="help-dialog">
+            <div class="help-dialog-header">
+                <div>
+                    <h2 id="helpTitle">Ayuda</h2>
+                    <p>
+                        En este paso eliges cómo quieres que funcione el sistema de riego.
+                        No necesitas conocer datos técnicos como caudal, presión, diámetro
+                        de tuberías o potencia de la bomba. FincaSinRed los determinará más adelante.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="help-close"
+                    id="helpClose"
+                    aria-label="Cerrar ayuda"
+                >
+                    ×
+                </button>
+            </div>
+
+            <button type="button" class="help-ok" id="helpOk">
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const STORAGE_KEY = "fincasinred_paso5";
+
+        const state = {
+            irrigation: null,
+            sectores: null,
+            filtrado: null,
+            fertilizantes: null
+        };
+
+        function readSavedStep5() {
+            try {
+                const raw = sessionStorage.getItem(STORAGE_KEY);
+
+                if (!raw) {
+                    return {};
+                }
+
+                const parsed = JSON.parse(raw);
+
+                if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+                    return {};
+                }
+
+                return parsed;
+            } catch (error) {
+                console.warn("No se pudieron recuperar los datos del Paso 5.", error);
+                return {};
+            }
+        }
+
+        function selectIrrigation(button) {
+            const buttons = document.querySelectorAll(".irrigation-option");
+
+            buttons.forEach(function (item) {
+                const selected = item === button;
+
+                item.classList.toggle("selected", selected);
+                item.setAttribute("aria-checked", String(selected));
+            });
+
+            state.irrigation = button.dataset.value;
+        }
+
+        function selectChoice(button) {
+            const group = button.closest("[data-choice-group]");
+
+            if (!group) {
+                return;
+            }
+
+            const buttons = group.querySelectorAll(".choice-button");
+
+            buttons.forEach(function (item) {
+                const selected = item === button;
+
+                item.classList.toggle("selected", selected);
+                item.setAttribute("aria-checked", String(selected));
+            });
+
+            state[group.dataset.choiceGroup] = button.dataset.value;
+        }
+
+        function restoreSelection(selector, value) {
+            if (value === undefined || value === null || value === "") {
+                return;
+            }
+
+            const buttons = document.querySelectorAll(selector);
+
+            buttons.forEach(function (button) {
+                const selected = button.dataset.value === String(value);
+
+                button.classList.toggle("selected", selected);
+                button.setAttribute("aria-checked", String(selected));
+            });
+        }
+
+        function restoreState() {
+            const saved = readSavedStep5();
+
+            state.irrigation =
+                saved.irrigation ??
+                saved.sistemaRiego ??
+                saved.riego ??
+                null;
+
+            state.sectores =
+                saved.sectores ??
+                saved.sectoresRiego ??
+                null;
+
+            state.filtrado =
+                saved.filtrado ??
+                saved.filtracion ??
+                null;
+
+            state.fertilizantes =
+                saved.fertilizantes ??
+                saved.fertirrigacion ??
+                null;
+
+            restoreSelection(".irrigation-option", state.irrigation);
+
+            restoreSelection(
+                '[data-choice-group="sectores"] .choice-button',
+                state.sectores
+            );
+
+            restoreSelection(
+                '[data-choice-group="filtrado"] .choice-button',
+                state.filtrado
+            );
+
+            restoreSelection(
+                '[data-choice-group="fertilizantes"] .choice-button',
+                state.fertilizantes
+            );
+        }
+
+        function saveStep5() {
+            const previous = readSavedStep5();
+
+            const next = {
+                ...previous,
+
+                irrigation: state.irrigation,
+                sistemaRiego: state.irrigation,
+
+                sectores: state.sectores,
+                filtrado: state.filtrado,
+                fertilizantes: state.fertilizantes
+            };
+
+            try {
+                sessionStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(next)
+                );
+
+                return true;
+            } catch (error) {
+                console.error("No se pudieron guardar los datos del Paso 5.", error);
+                return false;
+            }
+        }
+
+        function validateStep5() {
+            if (!state.irrigation) {
+                alert("Selecciona cómo quieres regar tu finca o elige «No lo sé».");
+                document.querySelector(".irrigation-option")?.focus();
+                return false;
+            }
+
+            if (!state.sectores) {
+                alert("Indica si quieres dividir el riego en varias zonas.");
+                document.querySelector('[data-choice-group="sectores"] .choice-button')?.focus();
+                return false;
+            }
+
+            if (!state.filtrado) {
+                alert("Indica si quieres incluir un sistema de filtrado.");
+                document.querySelector('[data-choice-group="filtrado"] .choice-button')?.focus();
+                return false;
+            }
+
+            if (!state.fertilizantes) {
+                alert("Indica si quieres aplicar fertilizante a través del riego.");
+                document.querySelector('[data-choice-group="fertilizantes"] .choice-button')?.focus();
+                return false;
+            }
+
+            return true;
+        }
+
+        function goToStep6() {
+            if (!validateStep5()) {
+                return;
+            }
+
+            if (!saveStep5()) {
+                alert("No hemos podido guardar temporalmente tus respuestas. Inténtalo de nuevo.");
+                return;
+            }
+
+            window.location.href = "PASO.6.html";
+        }
+
+        function goToStep4() {
+            saveStep5();
+            window.location.href = "PASO.4.html";
+        }
+
+        function closeHelp() {
+            const modal = document.getElementById("helpModal");
+
+            modal.classList.remove("open");
+        }
+
+        document
+            .getElementById("continueButton")
+            .addEventListener("click", goToStep6);
+
+        document
+            .getElementById("backButton")
+            .addEventListener("click", goToStep4);
+
+        document
+            .getElementById("helpClose")
+            .addEventListener("click", closeHelp);
+
+        document
+            .getElementById("helpOk")
+            .addEventListener("click", closeHelp);
+
+        document
+            .getElementById("helpModal")
+            .addEventListener("click", function (event) {
+                if (event.target === this) {
+                    closeHelp();
+                }
+            });
+
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape") {
+                closeHelp();
+            }
+        });
+
+        restoreState();
+    </script>
+</body>
+</html>

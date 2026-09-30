@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FincaSinRed | Paso 1</title>
+
+    <meta
+        name="description"
+        content="Paso 1 de 7 para preparar el sistema de riego de tu finca."
+    >
+
+    <style>
+        :root {
+            --green: #19a033;
+            --green-dark: #168d2d;
+            --green-deep: #218b32;
+            --green-soft: #edf9f0;
+            --green-border: #a8d1ae;
+            --blue-soft: #eef7ff;
+            --blue-border: #d5e9fb;
+            --text: #111111;
+            --muted: #555555;
+            --light-muted: #707070;
+            --border: #e1e1e1;
+            --border-light: #eeeeee;
+            --white: #ffffff;
+            --background: #ffffff;
+            --danger: #b42318;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.035);
+            --radius: 14px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+            background: var(--background);
+            color: var(--text);
+            font-family:
+                Inter,
+                ui-sans-serif,
+                system-ui,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        button:focus-visible,
+        input:focus-visible {
+            outline: 3px solid rgba(33, 139, 50, 0.22);
+            outline-offset: 2px;
+        }
+
+        .page-shell {
+            width: 100%;
+            min-height: 100vh;
+            background: #ffffff;
+        }
+
+        .app {
+            width: min(900px, 100%);
+            min-height: 100vh;
+            margin: 0 auto;
+            padding: 0 16px;
+            background: #ffffff;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 18px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .brand-link {
+            display: inline-flex;
+            align-items: center;
+            min-width: 0;
+            text-decoration: none;
+        }
+
+        .brand-logo {
+            width: 205px;
+            height: auto;
+            display: block;
+        }
+
+        .help-button {
+            min-height: 42px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-shrink: 0;
+            padding: 8px 15px;
+            border: 1px solid #d4d4d4;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #111111;
+            font-size: 14px;
+            font-weight: 700;
+            transition:
+                background-color 0.18s ease,
+                border-color 0.18s ease;
+        }
+
+        .help-button:hover {
+            background: #fafafa;
+            border-color: #c5c5c5;
+        }
+
+        .help-icon {
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #222222;
+            border-radius: 50%;
+            font-size: 15px;
+            line-height: 1;
+        }
+
+        .progress-area {
+            padding: 24px 0 16px;
+            text-align: center;
+        }
+
+        .step-title {
+            margin: 0;
+            font-size: 23px;
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        .progress {
+            width: min(560px, 100%);
+            margin: 16px auto 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .progress-item {
+            display: flex;
+            align-items: center;
+            flex: 1 1 0;
+        }
+
+        .progress-item:last-child {
+            flex: 0 0 auto;
+        }
+
+        .progress-step {
+            position: relative;
+            width: 27px;
+            height: 27px;
+            flex: 0 0 27px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #cccccc;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #666666;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .progress-step.current {
+            border-color: var(--green-dark);
+            background: var(--green-dark);
+            color: #ffffff;
+        }
+
+        .progress-line {
+            width: 100%;
+            height: 2px;
+            margin: 0 5px;
+            background: #d9d9d9;
+        }
+
+        .content {
+            padding: 28px 0 24px;
+        }
+
+        .heading {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .heading-icon {
+            width: 56px;
+            height: 56px;
+            flex: 0 0 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .heading-icon svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .heading h2 {
+            margin: 0;
+            font-size: 30px;
+            line-height: 1.1;
+            font-weight: 800;
+            letter-spacing: -0.7px;
+        }
+
+        .heading p {
+            margin: 5px 0 0;
+            font-size: 15px;
+            line-height: 1.45;
+            font-weight: 500;
+            color: #444444;
+        }
+
+        .form-card {
+            margin-top: 24px;
+            padding: 22px;
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius);
+            background: #ffffff;
+            box-shadow: var(--shadow);
+        }
+
+        .field-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+        }
+
+        .field-icon {
+            width: 48px;
+            height: 48px;
+            flex: 0 0 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--green-soft);
+            color: var(--green-deep);
+        }
+
+        .field-icon svg {
+            width: 27px;
+            height: 27px;
+        }
+
+        .field-content {
+            min-width: 0;
+            width: 100%;
+        }
+
+        .field-label {
+            display: block;
+            margin: 0;
+            font-size: 20px;
+            line-height: 1.25;
+            font-weight: 800;
+        }
+
+        .required {
+            color: var(--danger);
+        }
+
+        .field-description {
+            margin: 4px 0 0;
+            font-size: 15px;
+            line-height: 1.45;
+            color: var(--muted);
+        }
+
+        .search-wrap {
+            position: relative;
+            margin-top: 13px;
+        }
+
+        .search-icon {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            width: 22px;
+            height: 22px;
+            transform: translateY(-50%);
+            color: #222222;
+            pointer-events: none;
+        }
+
+        .search-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            min-height: 56px;
+            padding: 12px 50px 12px 48px;
+            border: 2px solid #d7d7d7;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #111111;
+            font-size: 17px;
+            line-height: 1.35;
+        }
+
+        .search-input::placeholder {
+            color: #777777;
+        }
+
+        .dropdown-arrow {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            width: 16px;
+            height: 16px;
+            transform: translateY(-60%);
+            border-right: 2px solid #333333;
+            border-bottom: 2px solid #333333;
+            rotate: 45deg;
+            pointer-events: none;
+        }
+
+        .suggestions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 11px;
+        }
+
+        .suggestion-button {
+            min-height: 34px;
+            padding: 6px 12px;
+            border: 1px solid #dcefe0;
+            border-radius: 999px;
+            background: #f1f9f3;
+            color: #1f3c25;
+            font-size: 14px;
+            font-weight: 700;
+            transition:
+                background-color 0.18s ease,
+                border-color 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        .suggestion-button:hover {
+            background: #e6f5e9;
+            border-color: #b9dcbf;
+            transform: translateY(-1px);
+        }
+
+        .info-box {
+            margin-top: 12px;
+            padding: 10px 13px;
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            border: 1px solid var(--blue-border);
+            border-radius: 10px;
+            background: var(--blue-soft);
+            color: #1f4f78;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .info-dot {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #2585c7;
+            color: #ffffff;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .field-error {
+            display: none;
+            margin-top: 9px;
+            color: var(--danger);
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .field-error.visible {
+            display: block;
+        }
+
+        .variety-card,
+        .type-card,
+        .quantity-card {
+            margin-top: 16px;
+        }
+
+        .optional {
+            font-weight: 500;
+            color: #666666;
+        }
+
+        .checkbox-row {
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #222222;
+            font-size: 15px;
+            line-height: 1.4;
+            cursor: pointer;
+        }
+
+        .checkbox-row input {
+            width: 21px;
+            height: 21px;
+            margin: 0;
+            flex: 0 0 21px;
+            accent-color: var(--green-deep);
+        }
+
+        .helper-text {
+            margin: 7px 0 0 31px;
+            color: #666666;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .type-card {
+            border-color: #dbeedb;
+            background: #ffffff;
+        }
+
+        .type-panel {
+            margin-top: 13px;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 12px 15px;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #eef9f0, #f5faf6);
+        }
+
+        .type-symbol {
+            width: 40px;
+            height: 40px;
+            flex: 0 0 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 29px;
+            line-height: 1;
+        }
+
+        .type-name {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .type-empty {
+            color: #777777;
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .type-note {
+            margin: 9px 0 0;
+            color: #4d684f;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .quantity-input {
+            width: 100%;
+            min-height: 56px;
+            margin-top: 13px;
+            padding: 12px 15px;
+            border: 2px solid #d7d7d7;
+            border-radius: 12px;
+            background: #ffffff;
+            color: #111111;
+            font-size: 23px;
+            line-height: 1.25;
+        }
+
+        .quantity-input:focus,
+        .search-input:focus {
+            border-color: #55a95d;
+            box-shadow: 0 0 0 3px rgba(85, 169, 93, 0.12);
+            outline: none;
+        }
+
+        .quantity-help {
+            margin: 7px 0 0;
+            color: #555555;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .quantity-unknown {
+            margin-top: 11px;
+        }
+
+        .navigation {
+            margin-top: 22px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .action-button {
+            min-height: 54px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-size: 17px;
+            font-weight: 800;
+            transition:
+                background-color 0.18s ease,
+                border-color 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        .back-button {
+            min-width: 230px;
+            border: 2px solid var(--green-border);
+            background: #ffffff;
+            color: var(--green-deep);
+        }
+
+        .back-button:hover {
+            background: #f8fbf8;
+            border-color: #55a95d;
+        }
+
+        .continue-button {
+            min-width: 300px;
+            border: 2px solid var(--green);
+            background: var(--green);
+            color: #ffffff;
+        }
+
+        .continue-button:hover {
+            background: var(--green-dark);
+            border-color: var(--green-dark);
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            padding: 14px 0 20px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+        }
+
+        .privacy-note {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            color: #333333;
+            font-size: 13px;
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .privacy-icon {
+            width: 22px;
+            height: 22px;
+            flex: 0 0 22px;
+        }
+
+        .dropdown {
+            position: absolute;
+            z-index: 20;
+            top: calc(100% + 7px);
+            left: 0;
+            right: 0;
+            max-height: 290px;
+            overflow-y: auto;
+            padding: 7px;
+            border: 1px solid #d7d7d7;
+            border-radius: 12px;
+            background: #ffffff;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+        }
+
+        .dropdown.hidden {
+            display: none;
+        }
+
+        .dropdown-item {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 12px;
+            border: 0;
+            border-radius: 9px;
+            background: #ffffff;
+            color: #171717;
+            text-align: left;
+        }
+
+        .dropdown-item:hover,
+        .dropdown-item:focus-visible {
+            background: #f1f8f2;
+            outline: none;
+        }
+
+        .dropdown-icon {
+            width: 30px;
+            flex: 0 0 30px;
+            text-align: center;
+            font-size: 22px;
+        }
+
+        .dropdown-main {
+            min-width: 0;
+        }
+
+        .dropdown-name {
+            display: block;
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        .dropdown-category {
+            display: block;
+            margin-top: 2px;
+            color: #6b6b6b;
+            font-size: 12px;
+        }
+
+        .dropdown-empty {
+            padding: 14px 12px;
+            color: #666666;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .selected-chip {
+            display: none;
+            margin-top: 10px;
+            padding: 9px 12px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border: 1px solid #cfe5d2;
+            border-radius: 10px;
+            background: #f4faf5;
+        }
+
+        .selected-chip.visible {
+            display: flex;
+        }
+
+        .selected-chip-text {
+            min-width: 0;
+            color: #1f3c25;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .clear-selection {
+            flex: 0 0 auto;
+            padding: 4px 8px;
+            border: 0;
+            border-radius: 7px;
+            background: transparent;
+            color: #4e6a53;
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .clear-selection:hover {
+            background: #e8f4ea;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.42);
+        }
+
+        .modal.open {
+            display: flex;
+        }
+
+        .modal-card {
+            width: min(480px, 100%);
+            padding: 25px;
+            border-radius: 16px;
+            background: #ffffff;
+            box-shadow: 0 18px 55px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        .modal-text {
+            margin: 10px 0 0;
+            color: #444444;
+            font-size: 15px;
+            line-height: 1.55;
+        }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border: 0;
+            border-radius: 50%;
+            background: transparent;
+            color: #555555;
+            font-size: 25px;
+            line-height: 1;
+        }
+
+        .modal-close:hover {
+            background: #f2f2f2;
+        }
+
+        .modal-ok {
+            width: 100%;
+            min-height: 48px;
+            margin-top: 20px;
+            border: 0;
+            border-radius: 10px;
+            background: var(--green);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        @media (max-width: 640px) {
+            .app {
+                padding: 0 14px;
+            }
+
+            .header {
+                padding: 14px 0;
+            }
+
+            .brand-logo {
+                width: 174px;
+                max-width: 58vw;
+            }
+
+            .help-button {
+                min-height: 38px;
+                padding: 7px 10px;
+                gap: 6px;
+                font-size: 13px;
+            }
+
+            .help-icon {
+                width: 22px;
+                height: 22px;
+                font-size: 14px;
+            }
+
+            .progress-area {
+                padding: 22px 0 14px;
+            }
+
+            .step-title {
+                font-size: 20px;
+            }
+
+            .progress {
+                width: min(330px, 100%);
+                margin-top: 14px;
+            }
+
+            .progress-step {
+                width: 20px;
+                height: 20px;
+                flex-basis: 20px;
+                font-size: 9px;
+            }
+
+            .progress-line {
+                margin: 0 3px;
+            }
+
+            .content {
+                padding: 22px 0 20px;
+            }
+
+            .heading {
+                gap: 12px;
+            }
+
+            .heading-icon {
+                width: 48px;
+                height: 48px;
+                flex-basis: 48px;
+            }
+
+            .heading h2 {
+                font-size: 25px;
+                letter-spacing: -0.4px;
+            }
+
+            .heading p {
+                margin-top: 4px;
+                font-size: 14px;
+            }
+
+            .form-card {
+                margin-top: 18px;
+                padding: 18px;
+            }
+
+            .field-header {
+                gap: 10px;
+            }
+
+            .field-icon {
+                width: 40px;
+                height: 40px;
+                flex-basis: 40px;
+            }
+
+            .field-icon svg {
+                width: 23px;
+                height: 23px;
+            }
+
+            .field-label {
+                font-size: 18px;
+            }
+
+            .field-description {
+                font-size: 14px;
+            }
+
+            .search-input,
+            .quantity-input {
+                min-height: 52px;
+            }
+
+            .search-input {
+                font-size: 16px;
+                padding-left: 44px;
+            }
+
+            .suggestions {
+                gap: 6px;
+            }
+
+            .suggestion-button {
+                font-size: 13px;
+                padding: 5px 10px;
+            }
+
+            .info-box {
+                font-size: 13px;
+            }
+
+            .type-name {
+                font-size: 18px;
+            }
+
+            .quantity-input {
+                font-size: 22px;
+            }
+
+            .navigation {
+                flex-direction: column-reverse;
+                gap: 10px;
+            }
+
+            .action-button,
+            .back-button,
+            .continue-button {
+                width: 100%;
+                min-width: 0;
+                min-height: 52px;
+                font-size: 17px;
+            }
+
+            .footer {
+                padding-top: 13px;
+                padding-bottom: 14px;
+            }
+
+            .privacy-note {
+                font-size: 12px;
+            }
+        }
+    </style>
+
+<style id="fincasinred-typography-v1">
+
+/* =========================================================
+   FINCASINRED — SISTEMA TIPOGRÁFICO GLOBAL V1
+   Unifica la lectura en móvil y ordenador sin alterar
+   la estructura ni la funcionalidad de la página.
+   ========================================================= */
+:root {
+  --fs-font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-caption: 13px;
+  --fs-label: 14px;
+  --fs-button: 16px;
+  --fs-card-title: 18px;
+  --fs-h2: clamp(24px, 3vw, 32px);
+  --fs-h1: clamp(30px, 4vw, 44px);
+  --fs-line-body: 1.55;
+  --fs-line-heading: 1.15;
+}
+
+/* Fuente común */
+html,
+body {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Texto de lectura */
+p,
+li,
+label,
+input,
+select,
+textarea,
+button {
+  font-family: var(--fs-font-family) !important;
+}
+
+/* Escala base */
+body {
+  font-size: var(--fs-body);
+  line-height: var(--fs-line-body);
+}
+
+/* Jerarquía de títulos */
+h1 {
+  font-size: var(--fs-h1) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h2 {
+  font-size: var(--fs-h2) !important;
+  line-height: var(--fs-line-heading) !important;
+}
+
+h3 {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Texto normal */
+p {
+  font-size: var(--fs-body) !important;
+}
+
+/* Etiquetas y textos secundarios */
+label {
+  font-size: var(--fs-label) !important;
+}
+
+small,
+.helper,
+.hint,
+.description,
+.subtext {
+  font-size: var(--fs-small) !important;
+}
+
+/* Controles */
+button,
+input,
+select,
+textarea {
+  font-size: var(--fs-button) !important;
+}
+
+/* Progreso: deliberadamente algo más compacto, pero nunca microscópico */
+.progress-label,
+.progress-step,
+.step-title,
+.header-note {
+  font-size: var(--fs-caption) !important;
+}
+
+/* Cabeceras y textos de ayuda */
+.help-button,
+.help-button *,
+.help-icon {
+  font-size: var(--fs-small) !important;
+}
+
+/* Tarjetas y bloques informativos */
+.card-heading,
+.form-card-header,
+.option-title,
+.option-name,
+.choice-title,
+.feature-title,
+.element-title {
+  font-size: var(--fs-card-title) !important;
+  line-height: 1.25 !important;
+}
+
+/* Datos importantes */
+.value,
+.summary-value,
+.data-value,
+.price,
+.total,
+.amount {
+  line-height: 1.2 !important;
+}
+
+/* Nunca permitir textos extremadamente pequeños en contenido */
+.page,
+.app,
+.page-shell,
+.page-container,
+.app-container,
+.content,
+.content-section,
+main,
+section {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Móvil: mantener legibilidad y reducir solo títulos si hace falta */
+@media (max-width: 640px) {
+  :root {
+    --fs-body: 16px;
+    --fs-small: 14px;
+    --fs-caption: 13px;
+    --fs-label: 14px;
+    --fs-button: 16px;
+    --fs-card-title: 18px;
+  }
+
+  p {
+    line-height: 1.5;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* PASO 1 */
+.step-title { font-size: clamp(28px, 3.5vw, 38px) !important; }
+.page-title, .page-title-row h1 { font-size: clamp(30px, 4vw, 42px) !important; }
+.page-subtitle, .subtitle { font-size: 16px !important; }
+.search-input, input, select { font-size: 16px !important; }
+.option, .choice, .option-label { font-size: 16px !important; }
+.option-description, .choice-description { font-size: 14px !important; }
+
+</style>
+</head>
+
+<body>
+    <main class="page-shell">
+        <div class="app">
+
+            <header class="header">
+                <a
+                    class="brand-link"
+                    href="portada-v12-responsive-ajustada.html"
+                    aria-label="Volver a FincaSinRed"
+                >
+                    <img
+                        class="brand-logo"
+                        src="./assets/logo-fincasinred-header.png"
+                        alt="FincaSinRed - Riego inteligente para tu finca"
+                    >
+                </a>
+
+                <button
+                    type="button"
+                    class="help-button"
+                    id="helpButton"
+                    aria-label="Abrir ayuda"
+                >
+                    <span class="help-icon" aria-hidden="true">?</span>
+                    <span>AYUDA</span>
+                </button>
+            </header>
+
+            <section
+                class="progress-area"
+                aria-label="Progreso del formulario"
+            >
+                <h1 class="step-title">PASO 1 DE 7</h1>
+
+                <div class="progress" aria-hidden="true">
+                    <div class="progress-item">
+                        <span class="progress-step current">1</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">2</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">3</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">4</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">5</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">6</span>
+                        <span class="progress-line"></span>
+                    </div>
+
+                    <div class="progress-item">
+                        <span class="progress-step">7</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content">
+                <div class="heading">
+                    <div class="heading-icon" aria-hidden="true">
+                        <svg
+                            viewBox="0 0 80 80"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                d="M39 65V40"
+                                stroke="#3BAE46"
+                                stroke-width="5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M39 47C31 43 26 36 27 28"
+                                stroke="#3BAE46"
+                                stroke-width="5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M39 48C47 43 54 36 54 26"
+                                stroke="#3BAE46"
+                                stroke-width="5"
+                                stroke-linecap="round"
+                            />
+                            <path
+                                d="M27 28C18 29 12 35 11 44C20 45 26 39 27 28Z"
+                                fill="#3BAE46"
+                            />
+                            <path
+                                d="M54 26C62 27 68 32 70 40C61 41 55 35 54 26Z"
+                                fill="#3BAE46"
+                            />
+                            <path
+                                d="M16 65H61"
+                                stroke="#6CBF55"
+                                stroke-width="5"
+                                stroke-linecap="round"
+                            />
+                        </svg>
+                    </div>
+
+                    <div>
+                        <h2>¿Qué quieres regar?</h2>
+                        <p>
+                            Indica el nombre de la planta, cultivo o vegetación que quieres incluir en tu proyecto.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-card">
+                    <div class="field-header">
+                        <div class="field-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 21V11"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M12 14C8.5 13.2 6.5 10.6 6.8 7.3C10.1 7.5 12 9.4 12 12.4"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M12 14C15.5 13.2 17.5 10.6 17.2 7.3C13.9 7.5 12 9.4 12 12.4"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M6 21H18"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="field-content">
+                            <label class="field-label" for="cropSearch">
+                                Planta, cultivo o vegetación
+                                <span class="required">*</span>
+                            </label>
+
+                            <p class="field-description">
+                                Escribe o selecciona qué quieres regar.
+                            </p>
+
+                            <div class="search-wrap">
+                                <span class="search-icon" aria-hidden="true">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle
+                                            cx="10.8"
+                                            cy="10.8"
+                                            r="6.8"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                        />
+                                        <path
+                                            d="M16 16L21 21"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <input
+                                    id="cropSearch"
+                                    class="search-input"
+                                    type="text"
+                                    autocomplete="off"
+                                    placeholder="Ej. tomates, cerezos, olivos, seto, flores..."
+                                    aria-label="Planta, cultivo o vegetación"
+                                    aria-autocomplete="list"
+                                    aria-controls="cropDropdown"
+                                    aria-expanded="false"
+                                >
+
+                                <span
+                                    class="dropdown-arrow"
+                                    aria-hidden="true"
+                                ></span>
+
+                                <div
+                                    id="cropDropdown"
+                                    class="dropdown hidden"
+                                    role="listbox"
+                                ></div>
+                            </div>
+
+                            <div
+                                id="selectedCropChip"
+                                class="selected-chip"
+                                aria-live="polite"
+                            >
+                                <span
+                                    id="selectedCropText"
+                                    class="selected-chip-text"
+                                ></span>
+
+                                <button
+                                    type="button"
+                                    id="clearCrop"
+                                    class="clear-selection"
+                                >
+                                    Cambiar
+                                </button>
+                            </div>
+
+                            <div
+                                id="suggestions"
+                                class="suggestions"
+                                aria-label="Sugerencias populares"
+                            ></div>
+
+                            <div class="info-box">
+                                <span class="info-dot" aria-hidden="true">i</span>
+                                <span>
+                                    Puedes escribir el nombre aunque no aparezca en la lista.
+                                </span>
+                            </div>
+
+                            <p
+                                id="cropError"
+                                class="field-error"
+                                role="alert"
+                            >
+                                Indica qué planta, cultivo o vegetación quieres regar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card variety-card">
+                    <div class="field-header">
+                        <div class="field-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 21V10"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M12 14C7.2 14 4.5 11.1 4.7 6.2C9.6 6.1 12 8.8 12 13"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M12 12C12.2 7.4 14.9 4.8 19.4 5C19.5 9.6 16.8 12 12 12"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="field-content">
+                            <label
+                                class="field-label"
+                                for="varietyInput"
+                            >
+                                Especie / Variedad
+                                <span class="optional">(opcional)</span>
+                            </label>
+
+                            <p class="field-description">
+                                Indica la variedad, especie o tipo concreto si la conoces.
+                            </p>
+
+                            <div class="search-wrap">
+                                <span class="search-icon" aria-hidden="true">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle
+                                            cx="10.8"
+                                            cy="10.8"
+                                            r="6.8"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                        />
+                                        <path
+                                            d="M16 16L21 21"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <input
+                                    id="varietyInput"
+                                    class="search-input"
+                                    type="text"
+                                    autocomplete="off"
+                                    placeholder="Ej. Lapins, Roma, Ciprés de Leyland..."
+                                >
+                            </div>
+
+                            <label class="checkbox-row">
+                                <input
+                                    id="unknownVariety"
+                                    type="checkbox"
+                                >
+                                <span>No lo sé exactamente</span>
+                            </label>
+
+                            <p class="helper-text">
+                                Si no conoces la variedad o especie concreta, puedes continuar sin ella.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card type-card">
+                    <div class="field-header">
+                        <div class="field-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M7 7H17L20 10L12 18L4 10L7 7Z"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linejoin="round"
+                                />
+                                <circle
+                                    cx="8.2"
+                                    cy="9.8"
+                                    r="1.2"
+                                    fill="currentColor"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="field-content">
+                            <div class="field-label">
+                                Tipo detectado automáticamente
+                            </div>
+
+                            <p class="field-description">
+                                Según la información que indiques, asignaremos automáticamente el tipo.
+                            </p>
+
+                            <div class="type-panel">
+                                <span
+                                    id="typeSymbol"
+                                    class="type-symbol"
+                                    aria-hidden="true"
+                                >
+                                    🌱
+                                </span>
+
+                                <span
+                                    id="typeName"
+                                    class="type-empty"
+                                >
+                                    Selecciona primero qué quieres regar
+                                </span>
+                            </div>
+
+                            <p class="type-note">
+                                El tipo se actualiza automáticamente según el elemento que selecciones.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card quantity-card">
+                    <div class="field-header">
+                        <div class="field-icon" aria-hidden="true">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    d="M12 21V11"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                                <path
+                                    d="M12 14C8.5 13.2 6.5 10.6 6.8 7.3C10.1 7.5 12 9.4 12 12.4"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M12 14C15.5 13.2 17.5 10.6 17.2 7.3C13.9 7.5 12 9.4 12 12.4"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                />
+                                <path
+                                    d="M6 21H18"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                />
+                            </svg>
+                        </div>
+
+                        <div class="field-content">
+                            <label
+                                id="quantityLabel"
+                                class="field-label"
+                                for="quantityInput"
+                            >
+                                ¿Cuántas plantas tienes?
+                                <span class="required">*</span>
+                            </label>
+
+                            <p class="field-description">
+                                Introduce la cantidad aproximada.
+                            </p>
+
+                            <input
+                                id="quantityInput"
+                                class="quantity-input"
+                                type="number"
+                                min="1"
+                                step="1"
+                                inputmode="numeric"
+                                value=""
+                                aria-describedby="quantityHelp"
+                            >
+
+                            <p
+                                id="quantityHelp"
+                                class="quantity-help"
+                            >
+                                Número aproximado de plantas.
+                            </p>
+
+                            <label class="checkbox-row quantity-unknown">
+                                <input
+                                    id="unknownQuantity"
+                                    type="checkbox"
+                                >
+                                <span>No lo sé exactamente</span>
+                            </label>
+
+                            <p class="helper-text">
+                                Si no conoces la cantidad exacta, podrás indicarlo más adelante en el proyecto.
+                            </p>
+
+                            <p
+                                id="quantityError"
+                                class="field-error"
+                                role="alert"
+                            >
+                                Indica una cantidad válida o marca «No lo sé exactamente».
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="navigation">
+                    <button
+                        type="button"
+                        id="backButton"
+                        class="action-button back-button"
+                    >
+                        <span aria-hidden="true">←</span>
+                        <span> ATRÁS</span>
+                    </button>
+
+                    <button
+                        type="button"
+                        id="continueButton"
+                        class="action-button continue-button"
+                    >
+                        <span>CONTINUAR</span>
+                        <span aria-hidden="true"> →</span>
+                    </button>
+                </div>
+            </section>
+
+            <footer class="footer">
+                <div class="privacy-note">
+                    <svg
+                        class="privacy-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                    >
+                        <rect
+                            x="5"
+                            y="10"
+                            width="14"
+                            height="10"
+                            rx="2"
+                            stroke="#222222"
+                            stroke-width="2"
+                        />
+                        <path
+                            d="M8 10V7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7V10"
+                            stroke="#222222"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                        />
+                        <circle
+                            cx="12"
+                            cy="15"
+                            r="1.5"
+                            fill="#222222"
+                        />
+                    </svg>
+
+                    <span>
+                        Tus datos son temporales y se eliminan tras generar tu PDF.
+                    </span>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <div
+        id="helpModal"
+        class="modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="helpTitle"
+    >
+        <div class="modal-card">
+            <div class="modal-header">
+                <div>
+                    <h2 id="helpTitle" class="modal-title">Ayuda</h2>
+                    <p class="modal-text">
+                        Indica qué planta, cultivo o vegetación quieres regar. Si conoces la especie o variedad, puedes añadirla. El tipo se clasificará automáticamente y la cantidad puede ser aproximada.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    id="closeHelp"
+                    class="modal-close"
+                    aria-label="Cerrar ayuda"
+                >
+                    ×
+                </button>
+            </div>
+
+            <button
+                type="button"
+                id="closeHelpOk"
+                class="modal-ok"
+            >
+                Entendido
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const CROP_CATALOG = [
+            {
+                id: "cerezo",
+                name: "Cerezo",
+                aliases: ["cerezos", "cereza", "cerezas"],
+                category: "Frutal",
+                symbol: "🍒",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Lapins", "Burlat", "Sweetheart", "California", "Otra variedad"]
+            },
+            {
+                id: "olivo",
+                name: "Olivo",
+                aliases: ["olivos", "aceituna", "aceitunas"],
+                category: "Olivar",
+                symbol: "🫒",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de olivos.",
+                varieties: ["Arbequina", "Picual", "Hojiblanca", "Cornicabra", "Otra variedad"]
+            },
+            {
+                id: "vid",
+                name: "Vid",
+                aliases: ["viña", "viñas", "uva", "parra"],
+                category: "Viña",
+                symbol: "🍇",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas o cepas.",
+                varieties: ["Tempranillo", "Garnacha", "Macabeo", "Airén", "Otra variedad"]
+            },
+            {
+                id: "tomate",
+                name: "Tomate",
+                aliases: ["tomates"],
+                category: "Hortícola",
+                symbol: "🍅",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Roma", "Cherry", "Raf", "Otra variedad"]
+            },
+            {
+                id: "pimiento",
+                name: "Pimiento",
+                aliases: ["pimientos"],
+                category: "Hortícola",
+                symbol: "🫑",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Italiano", "Padrón", "California", "Otra variedad"]
+            },
+            {
+                id: "calabacin",
+                name: "Calabacín",
+                aliases: ["calabacines"],
+                category: "Hortícola",
+                symbol: "🥒",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "berenjena",
+                name: "Berenjena",
+                aliases: ["berenjenas"],
+                category: "Hortícola",
+                symbol: "🍆",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "lechuga",
+                name: "Lechuga",
+                aliases: ["lechugas"],
+                category: "Hortícola",
+                symbol: "🥬",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Romana", "Iceberg", "Otra variedad"]
+            },
+            {
+                id: "fresa",
+                name: "Fresa",
+                aliases: ["fresas", "fresón", "fresones"],
+                category: "Frutal",
+                symbol: "🍓",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "almendro",
+                name: "Almendro",
+                aliases: ["almendros", "almendra", "almendras"],
+                category: "Frutal de fruto seco",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Marcona", "Guara", "Lauranne", "Otra variedad"]
+            },
+            {
+                id: "pistacho",
+                name: "Pistacho",
+                aliases: ["pistachos"],
+                category: "Frutal de fruto seco",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Kerman", "Larnaka", "Sirora", "Otra variedad"]
+            },
+            {
+                id: "nogal",
+                name: "Nogal",
+                aliases: ["nogales", "nuez", "nueces"],
+                category: "Frutal de fruto seco",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Chandler", "Franquette", "Otra variedad"]
+            },
+            {
+                id: "castano",
+                name: "Castaño",
+                aliases: ["castaños", "castaña", "castañas"],
+                category: "Frutal de fruto seco",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "ciruelo",
+                name: "Ciruelo",
+                aliases: ["ciruelos", "ciruela", "ciruelas"],
+                category: "Frutal",
+                symbol: "🍑",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "melocotonero",
+                name: "Melocotonero",
+                aliases: ["melocotoneros", "melocotón", "melocotones"],
+                category: "Frutal",
+                symbol: "🍑",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "manzano",
+                name: "Manzano",
+                aliases: ["manzanos", "manzana", "manzanas"],
+                category: "Frutal",
+                symbol: "🍎",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Golden", "Fuji", "Gala", "Otra variedad"]
+            },
+            {
+                id: "peral",
+                name: "Peral",
+                aliases: ["perales", "pera", "peras"],
+                category: "Frutal",
+                symbol: "🍐",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Conference", "Ercolini", "Otra variedad"]
+            },
+            {
+                id: "higuera",
+                name: "Higuera",
+                aliases: ["higueras", "higo", "higos"],
+                category: "Frutal",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "granado",
+                name: "Granado",
+                aliases: ["granados", "granada", "granadas"],
+                category: "Frutal",
+                symbol: "🌳",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántos árboles tienes?",
+                quantityHelp: "Número aproximado de árboles.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "seto",
+                name: "Seto",
+                aliases: ["setos", "cierre vegetal", "pantalla vegetal"],
+                category: "Seto / ornamental",
+                symbol: "🌿",
+                quantityUnit: "metros",
+                quantityLabel: "¿Cuántos metros de seto tienes?",
+                quantityHelp: "Longitud aproximada del seto que quieres regar.",
+                varieties: ["Ciprés de Leyland", "Tuya", "Laurel", "Photinia", "Otra especie"]
+            },
+            {
+                id: "flores",
+                name: "Flores",
+                aliases: ["flor", "flores ornamentales", "plantas con flor"],
+                category: "Ornamental",
+                symbol: "🌸",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Rosales", "Geranios", "Lavanda", "Otra especie o variedad"]
+            },
+            {
+                id: "rosal",
+                name: "Rosales",
+                aliases: ["rosal", "rosas", "rosa"],
+                category: "Ornamental",
+                symbol: "🌹",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "lavanda",
+                name: "Lavanda",
+                aliases: ["lavandas", "espliego"],
+                category: "Ornamental / aromática",
+                symbol: "🌿",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "cesped",
+                name: "Césped",
+                aliases: ["cesped", "césped", "pradera"],
+                category: "Superficie vegetal",
+                symbol: "🌱",
+                quantityUnit: "m2",
+                quantityLabel: "¿Cuántos m² de césped tienes?",
+                quantityHelp: "Superficie aproximada que quieres regar.",
+                varieties: ["Otra variedad"]
+            },
+            {
+                id: "aromaticas",
+                name: "Plantas aromáticas",
+                aliases: ["aromáticas", "aromaticas", "hierbas aromáticas"],
+                category: "Aromática",
+                symbol: "🌿",
+                quantityUnit: "plantas",
+                quantityLabel: "¿Cuántas plantas tienes?",
+                quantityHelp: "Número aproximado de plantas.",
+                varieties: ["Romero", "Tomillo", "Orégano", "Otra especie"]
+            }
+        ];
+
+        const POPULAR_IDS = [
+            "tomate",
+            "cerezo",
+            "olivo",
+            "vid",
+            "seto",
+            "flores"
+        ];
+
+        const cropSearch = document.getElementById("cropSearch");
+        const cropDropdown = document.getElementById("cropDropdown");
+        const selectedCropChip = document.getElementById("selectedCropChip");
+        const selectedCropText = document.getElementById("selectedCropText");
+        const clearCrop = document.getElementById("clearCrop");
+        const suggestions = document.getElementById("suggestions");
+        const cropError = document.getElementById("cropError");
+
+        const varietyInput = document.getElementById("varietyInput");
+        const unknownVariety = document.getElementById("unknownVariety");
+
+        const typeSymbol = document.getElementById("typeSymbol");
+        const typeName = document.getElementById("typeName");
+
+        const quantityLabel = document.getElementById("quantityLabel");
+        const quantityInput = document.getElementById("quantityInput");
+        const quantityHelp = document.getElementById("quantityHelp");
+        const unknownQuantity = document.getElementById("unknownQuantity");
+        const quantityError = document.getElementById("quantityError");
+
+        const continueButton = document.getElementById("continueButton");
+        const backButton = document.getElementById("backButton");
+
+        const helpButton = document.getElementById("helpButton");
+        const helpModal = document.getElementById("helpModal");
+        const closeHelp = document.getElementById("closeHelp");
+        const closeHelpOk = document.getElementById("closeHelpOk");
+
+        let selectedCrop = null;
+        let selectedCatalogItem = null;
+
+        function normalizeText(value) {
+            return String(value || "")
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .toLowerCase()
+                .trim();
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function findCropByText(value) {
+            const normalized = normalizeText(value);
+
+            if (!normalized) {
+                return null;
+            }
+
+            return CROP_CATALOG.find((item) => {
+                const names = [
+                    item.name,
+                    item.id,
+                    ...(item.aliases || [])
+                ];
+
+                return names.some(
+                    (name) => normalizeText(name) === normalized
+                );
+            }) || null;
+        }
+
+        function getFilteredCrops(value) {
+            const normalized = normalizeText(value);
+
+            if (!normalized) {
+                return CROP_CATALOG.slice();
+            }
+
+            return CROP_CATALOG.filter((item) => {
+                const searchable = [
+                    item.name,
+                    item.id,
+                    ...(item.aliases || []),
+                    item.category
+                ]
+                    .map(normalizeText)
+                    .join(" ");
+
+                return searchable.includes(normalized);
+            });
+        }
+
+        function renderDropdown(items, allowCustomValue) {
+            cropDropdown.innerHTML = "";
+
+            if (!items.length) {
+                const empty = document.createElement("div");
+                empty.className = "dropdown-empty";
+                empty.textContent = allowCustomValue
+                    ? "No aparece en la lista. Puedes continuar y utilizar el nombre que has escrito."
+                    : "No se han encontrado coincidencias.";
+                cropDropdown.appendChild(empty);
+                cropDropdown.classList.remove("hidden");
+                cropSearch.setAttribute("aria-expanded", "true");
+                return;
+            }
+
+            items.forEach((item) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "dropdown-item";
+                button.setAttribute("role", "option");
+
+                button.innerHTML = `
+                    <span class="dropdown-icon" aria-hidden="true">${escapeHtml(item.symbol)}</span>
+                    <span class="dropdown-main">
+                        <span class="dropdown-name">${escapeHtml(item.name)}</span>
+                        <span class="dropdown-category">${escapeHtml(item.category)}</span>
+                    </span>
+                `;
+
+                button.addEventListener("click", () => {
+                    selectCatalogCrop(item);
+                });
+
+                cropDropdown.appendChild(button);
+            });
+
+            if (allowCustomValue && cropSearch.value.trim()) {
+                const customButton = document.createElement("button");
+                customButton.type = "button";
+                customButton.className = "dropdown-item";
+                customButton.setAttribute("role", "option");
+
+                customButton.innerHTML = `
+                    <span class="dropdown-icon" aria-hidden="true">✏️</span>
+                    <span class="dropdown-main">
+                        <span class="dropdown-name">Usar «${escapeHtml(cropSearch.value.trim())}»</span>
+                        <span class="dropdown-category">Cultivo o vegetación introducido manualmente</span>
+                    </span>
+                `;
+
+                customButton.addEventListener("click", () => {
+                    selectCustomCrop(cropSearch.value.trim());
+                });
+
+                cropDropdown.appendChild(customButton);
+            }
+
+            cropDropdown.classList.remove("hidden");
+            cropSearch.setAttribute("aria-expanded", "true");
+        }
+
+        function openCropDropdown() {
+            const items = getFilteredCrops(cropSearch.value);
+            renderDropdown(items, true);
+        }
+
+        function closeCropDropdown() {
+            cropDropdown.classList.add("hidden");
+            cropSearch.setAttribute("aria-expanded", "false");
+        }
+
+        function selectCatalogCrop(item) {
+            selectedCatalogItem = item;
+            selectedCrop = item.name;
+
+            cropSearch.value = item.name;
+            cropError.classList.remove("visible");
+
+            selectedCropText.textContent = `${item.name} · ${item.category}`;
+            selectedCropChip.classList.add("visible");
+
+            typeSymbol.textContent = item.symbol;
+            typeName.textContent = item.category;
+            typeName.classList.remove("type-empty");
+
+            updateQuantityForCrop(item);
+            renderVarietySuggestions(item);
+
+            closeCropDropdown();
+        }
+
+        function selectCustomCrop(name) {
+            selectedCatalogItem = null;
+            selectedCrop = name;
+
+            cropSearch.value = name;
+            cropError.classList.remove("visible");
+
+            selectedCropText.textContent = `${name} · clasificación pendiente`;
+            selectedCropChip.classList.add("visible");
+
+            typeSymbol.textContent = "🌱";
+            typeName.textContent = "Pendiente de clasificación";
+            typeName.classList.add("type-empty");
+
+            quantityLabel.innerHTML = '¿Cuántas unidades tienes? <span class="required">*</span>';
+            quantityHelp.textContent = "Indica la cantidad aproximada. Podremos concretar el tipo de unidad más adelante.";
+            quantityInput.step = "1";
+            quantityInput.min = "1";
+
+            renderVarietySuggestions(null);
+            closeCropDropdown();
+        }
+
+        function updateQuantityForCrop(item) {
+            quantityLabel.innerHTML =
+                `${escapeHtml(item.quantityLabel)} <span class="required">*</span>`;
+
+            quantityHelp.textContent = item.quantityHelp;
+
+            if (item.quantityUnit === "m2") {
+                quantityInput.step = "0.1";
+                quantityInput.min = "0.1";
+                quantityInput.inputMode = "decimal";
+            } else {
+                quantityInput.step = "1";
+                quantityInput.min = "1";
+                quantityInput.inputMode = "numeric";
+            }
+
+            quantityError.classList.remove("visible");
+        }
+
+        function renderVarietySuggestions(item) {
+            const oldSuggestions = document.getElementById("varietySuggestions");
+
+            if (oldSuggestions) {
+                oldSuggestions.remove();
+            }
+
+            if (!item || !Array.isArray(item.varieties) || !item.varieties.length) {
+                return;
+            }
+
+            const wrapper = document.createElement("div");
+            wrapper.id = "varietySuggestions";
+            wrapper.className = "suggestions";
+            wrapper.setAttribute("aria-label", "Variedades sugeridas");
+
+            item.varieties.forEach((variety) => {
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "suggestion-button";
+                button.textContent = variety;
+
+                button.addEventListener("click", () => {
+                    if (variety.startsWith("Otra ")) {
+                        varietyInput.value = "";
+                        varietyInput.focus();
+                        return;
+                    }
+
+                    varietyInput.value = variety;
+                    unknownVariety.checked = false;
+                });
+
+                wrapper.appendChild(button);
+            });
+
+            varietyInput.parentElement.insertAdjacentElement(
+                "afterend",
+                wrapper
+            );
+        }
+
+        function renderPopularSuggestions() {
+            suggestions.innerHTML = "";
+
+            POPULAR_IDS.forEach((id) => {
+                const item = CROP_CATALOG.find(
+                    (candidate) => candidate.id === id
+                );
+
+                if (!item) {
+                    return;
+                }
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "suggestion-button";
+                button.textContent = item.name;
+
+                button.addEventListener("click", () => {
+                    selectCatalogCrop(item);
+                });
+
+                suggestions.appendChild(button);
+            });
+        }
+
+        function updateQuantityDisabledState() {
+            const disabled = unknownQuantity.checked;
+
+            quantityInput.disabled = disabled;
+
+            if (disabled) {
+                quantityInput.value = "";
+                quantityError.classList.remove("visible");
+            } else {
+                quantityInput.focus();
+            }
+        }
+
+        function restoreStep1() {
+            const savedStep1 = sessionStorage.getItem(
+                "fincasinred_paso1"
+            );
+
+            if (!savedStep1) {
+                renderPopularSuggestions();
+                return;
+            }
+
+            try {
+                const savedData = JSON.parse(savedStep1);
+
+                const savedCrop =
+                    savedData.cropName ||
+                    savedData.crop ||
+                    savedData.otherCropName ||
+                    "";
+
+                if (savedCrop) {
+                    const catalogItem = findCropByText(savedCrop);
+
+                    if (catalogItem) {
+                        selectCatalogCrop(catalogItem);
+                    } else {
+                        selectCustomCrop(savedCrop);
+                    }
+                } else {
+                    renderPopularSuggestions();
+                }
+
+                const savedVariety =
+                    savedData.variety ||
+                    savedData.speciesOrVariety ||
+                    "";
+
+                if (savedVariety) {
+                    varietyInput.value = savedVariety;
+                    unknownVariety.checked = false;
+                } else if (savedData.unknownVariety === true) {
+                    unknownVariety.checked = true;
+                }
+
+                if (
+                    savedData.plantCount !== null &&
+                    savedData.plantCount !== undefined &&
+                    savedData.plantCount !== ""
+                ) {
+                    quantityInput.value = savedData.plantCount;
+                    unknownQuantity.checked = false;
+                } else if (
+                    savedData.unknownPlantCount === true ||
+                    savedData.unknownQuantity === true
+                ) {
+                    unknownQuantity.checked = true;
+                    quantityInput.value = "";
+                }
+            } catch (error) {
+                console.warn(
+                    "No se pudieron recuperar los datos del PASO 1.",
+                    error
+                );
+                renderPopularSuggestions();
+            }
+
+            updateQuantityDisabledState();
+        }
+
+        function continueToStep2() {
+            const cropName = cropSearch.value.trim();
+
+            if (!cropName) {
+                cropError.classList.add("visible");
+                cropSearch.focus();
+                return;
+            }
+
+            const variety =
+                unknownVariety.checked
+                    ? ""
+                    : varietyInput.value.trim();
+
+            const quantityUnknown = unknownQuantity.checked;
+            const rawQuantity = quantityInput.value.trim();
+
+            if (!quantityUnknown) {
+                const quantity = Number(rawQuantity);
+
+                if (
+                    !Number.isFinite(quantity) ||
+                    quantity <= 0
+                ) {
+                    quantityError.classList.add("visible");
+                    quantityInput.focus();
+                    return;
+                }
+
+                quantityError.classList.remove("visible");
+            }
+
+            const category =
+                selectedCatalogItem
+                    ? selectedCatalogItem.category
+                    : "";
+
+            const quantityUnit =
+                selectedCatalogItem
+                    ? selectedCatalogItem.quantityUnit
+                    : "unidades";
+
+            const plantCount =
+                quantityUnit === "plantas" && !quantityUnknown
+                    ? Number(rawQuantity)
+                    : null;
+
+            const quantity =
+                !quantityUnknown
+                    ? Number(rawQuantity)
+                    : null;
+
+            const step1Data = {
+                crop: cropName,
+                cropName: cropName,
+                otherCropName: selectedCatalogItem ? "" : cropName,
+                variety: variety,
+                speciesOrVariety: variety,
+                category: category,
+                quantity: quantity,
+                quantityUnit: quantityUnit,
+                plantCount: plantCount,
+                unknownPlantCount:
+                    quantityUnit === "plantas"
+                        ? quantityUnknown
+                        : false,
+                unknownQuantity: quantityUnknown,
+                cropId:
+                    selectedCatalogItem
+                        ? selectedCatalogItem.id
+                        : null,
+                multipleCrops: false
+            };
+
+            sessionStorage.setItem(
+                "fincasinred_paso1",
+                JSON.stringify(step1Data)
+            );
+
+            window.location.href = "PASO.2.html";
+        }
+
+        function goBack() {
+            window.location.href =
+                "portada-v12-responsive-ajustada.html";
+        }
+
+        function openHelp() {
+            helpModal.classList.add("open");
+        }
+
+        function closeHelpModal() {
+            helpModal.classList.remove("open");
+        }
+
+        cropSearch.addEventListener("focus", openCropDropdown);
+
+        cropSearch.addEventListener("input", () => {
+            selectedCatalogItem = findCropByText(cropSearch.value);
+
+            if (
+                selectedCatalogItem &&
+                normalizeText(selectedCatalogItem.name) ===
+                    normalizeText(cropSearch.value)
+            ) {
+                selectCatalogCrop(selectedCatalogItem);
+                return;
+            }
+
+            selectedCrop = null;
+            selectedCropChip.classList.remove("visible");
+            typeSymbol.textContent = "🌱";
+            typeName.textContent = "Selecciona primero qué quieres regar";
+            typeName.classList.add("type-empty");
+
+            renderDropdown(
+                getFilteredCrops(cropSearch.value),
+                true
+            );
+        });
+
+        cropSearch.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                event.preventDefault();
+
+                const value = cropSearch.value.trim();
+
+                if (!value) {
+                    return;
+                }
+
+                const catalogItem = findCropByText(value);
+
+                if (catalogItem) {
+                    selectCatalogCrop(catalogItem);
+                } else {
+                    selectCustomCrop(value);
+                }
+            }
+
+            if (event.key === "Escape") {
+                closeCropDropdown();
+            }
+        });
+
+        clearCrop.addEventListener("click", () => {
+            selectedCrop = null;
+            selectedCatalogItem = null;
+            cropSearch.value = "";
+            selectedCropChip.classList.remove("visible");
+
+            typeSymbol.textContent = "🌱";
+            typeName.textContent = "Selecciona primero qué quieres regar";
+            typeName.classList.add("type-empty");
+
+            varietyInput.value = "";
+            unknownVariety.checked = false;
+
+            quantityInput.value = "";
+            unknownQuantity.checked = false;
+            updateQuantityDisabledState();
+
+            renderPopularSuggestions();
+            cropSearch.focus();
+            openCropDropdown();
+        });
+
+        unknownVariety.addEventListener("change", () => {
+            if (unknownVariety.checked) {
+                varietyInput.value = "";
+                varietyInput.disabled = true;
+            } else {
+                varietyInput.disabled = false;
+            }
+        });
+
+        unknownQuantity.addEventListener(
+            "change",
+            updateQuantityDisabledState
+        );
+
+        document.addEventListener("click", (event) => {
+            if (
+                !event.target.closest(".search-wrap") &&
+                !event.target.closest(".suggestion-button")
+            ) {
+                closeCropDropdown();
+            }
+        });
+
+        cropSearch.addEventListener("blur", () => {
+            window.setTimeout(() => {
+                const value = cropSearch.value.trim();
+
+                if (!value) {
+                    return;
+                }
+
+                const catalogItem = findCropByText(value);
+
+                if (catalogItem) {
+                    selectCatalogCrop(catalogItem);
+                } else if (!selectedCrop) {
+                    selectCustomCrop(value);
+                }
+            }, 120);
+        });
+
+        continueButton.addEventListener(
+            "click",
+            continueToStep2
+        );
+
+        backButton.addEventListener(
+            "click",
+            goBack
+        );
+
+        helpButton.addEventListener(
+            "click",
+            openHelp
+        );
+
+        closeHelp.addEventListener(
+            "click",
+            closeHelpModal
+        );
+
+        closeHelpOk.addEventListener(
+            "click",
+            closeHelpModal
+        );
+
+        helpModal.addEventListener("click", (event) => {
+            if (event.target === helpModal) {
+                closeHelpModal();
+            }
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape") {
+                closeHelpModal();
+            }
+        });
+
+        renderPopularSuggestions();
+        restoreStep1();
+    </script>
+</body>
+</html>

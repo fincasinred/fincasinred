@@ -1,0 +1,8 @@
+export enum ValidationStatus {
+  VALIDATED = "VALIDATED",
+  PROVISIONAL = "PROVISIONAL",
+  PENDING = "PENDING",
+  BLOCKED = "BLOCKED",
+  INVALID = "INVALID",
+  OBSOLETE = "OBSOLETE",
+}
