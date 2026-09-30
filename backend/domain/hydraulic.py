@@ -246,6 +246,205 @@ def pressure_margin_mca(
 
     return available - required
 
+def calculate_hazen_williams_head_loss(
+    length_m: float,
+    flow_m3s: float,
+    diameter_m: float,
+    hazen_williams_c: float,
+) -> float:
+    """
+    Calcula la pérdida de carga por fricción mediante Hazen-Williams.
+
+    Unidades:
+    - length_m: metros
+    - flow_m3s: m³/s
+    - diameter_m: metros
+    - hazen_williams_c: coeficiente C de Hazen-Williams
+
+    Devuelve:
+    - pérdida de carga en metros de columna de agua.
+
+    La ecuación SI utilizada es:
+
+        hf = 10.67 * L * Q^1.852 /
+             (C^1.852 * D^4.87)
+
+    Esta función está destinada a agua en tuberías presurizadas.
+    """
+
+    length = _positive_or_zero(length_m, "length_m")
+    flow = _positive_or_zero(flow_m3s, "flow_m3s")
+    diameter = _positive_or_zero(diameter_m, "diameter_m")
+    coefficient = _positive_or_zero(
+        hazen_williams_c,
+        "hazen_williams_c",
+    )
+
+    if length is None:
+        length = 0.0
+
+    if flow is None:
+        flow = 0.0
+
+    if diameter is None or diameter <= 0:
+        raise HydraulicInputError(
+            "diameter_m.invalid"
+        )
+
+    if coefficient is None or coefficient <= 0:
+        raise HydraulicInputError(
+            "hazen_williams_c.invalid"
+        )
+
+    if length == 0.0 or flow == 0.0:
+        return 0.0
+
+    head_loss = (
+        10.67
+        * length
+        * flow ** 1.852
+        / (
+            coefficient ** 1.852
+            * diameter ** 4.87
+        )
+    )
+
+    if not isfinite(head_loss):
+        raise HydraulicInputError(
+            "head_loss.value_not_finite"
+        )
+
+    return head_loss
+
+
+def calculate_total_head_mca(
+    static_head_m: float,
+    required_pressure_mca: float,
+    friction_loss_mca: float = 0.0,
+    fixed_losses_mca: float = 0.0,
+) -> float:
+    """
+    Calcula la altura manométrica total de diseño.
+
+    HMT = desnivel + presión requerida + pérdidas.
+
+    Todos los valores se expresan en m.c.a.
+    """
+
+    static_head = _positive_or_zero(
+        static_head_m,
+        "static_head_m",
+    )
+
+    required_pressure = _positive_or_zero(
+        required_pressure_mca,
+        "required_pressure_mca",
+    )
+
+    friction_loss = _positive_or_zero(
+        friction_loss_mca,
+        "friction_loss_mca",
+    )
+
+    fixed_losses = _positive_or_zero(
+        fixed_losses_mca,
+        "fixed_losses_mca",
+    )
+
+    return (
+        (static_head or 0.0)
+        + (required_pressure or 0.0)
+        + (friction_loss or 0.0)
+        + (fixed_losses or 0.0)
+    )
+
+
+def calculate_hydraulic_power_w(
+    flow_m3s: float,
+    head_mca: float,
+    *,
+    water_density_kg_m3: float = 1000.0,
+    gravity_m_s2: float = 9.81,
+) -> float:
+    """
+    Calcula la potencia hidráulica teórica en vatios.
+
+    P = rho * g * Q * H
+    """
+
+    flow = _positive_or_zero(
+        flow_m3s,
+        "flow_m3s",
+    )
+
+    head = _positive_or_zero(
+        head_mca,
+        "head_mca",
+    )
+
+    density = _positive_or_zero(
+        water_density_kg_m3,
+        "water_density_kg_m3",
+    )
+
+    gravity = _positive_or_zero(
+        gravity_m_s2,
+        "gravity_m_s2",
+    )
+
+    power = (
+        (density or 0.0)
+        * (gravity or 0.0)
+        * (flow or 0.0)
+        * (head or 0.0)
+    )
+
+    if not isfinite(power):
+        raise HydraulicInputError(
+            "hydraulic_power.value_not_finite"
+        )
+
+    return power
+
+
+def calculate_electrical_power_w(
+    hydraulic_power_w: float,
+    efficiency: float,
+) -> float:
+    """
+    Calcula la potencia eléctrica estimada a partir de la potencia
+    hidráulica y del rendimiento global.
+
+    efficiency debe expresarse como valor decimal:
+    0.55 = 55 %.
+    """
+
+    hydraulic_power = _positive_or_zero(
+        hydraulic_power_w,
+        "hydraulic_power_w",
+    )
+
+    normalized_efficiency = _finite_or_error(
+        efficiency,
+        "efficiency",
+    )
+
+    if normalized_efficiency is None or not 0 < normalized_efficiency <= 1:
+        raise HydraulicInputError(
+            "efficiency.invalid"
+        )
+
+    electrical_power = (
+        (hydraulic_power or 0.0)
+        / normalized_efficiency
+    )
+
+    if not isfinite(electrical_power):
+        raise HydraulicInputError(
+            "electrical_power.value_not_finite"
+        )
+
+    return electrical_power
 
 def calculate_sector(
     endpoint: HydraulicEndpoint | Mapping[str, Any],

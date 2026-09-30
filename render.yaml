@@ -1,6 +1,34 @@
 services:
   - type: web
+    name: fincasinred-v12
+    runtime: static
+    branch: v12-development
+    buildCommand: npm ci && npm run build:static-site
+    staticPublishPath: ./dist
+    envVars:
+      - key: FINCASINRED_FASTAPI_BASE_URL
+        sync: false
+      - key: FINCASINRED_SIAR_BASE_URL
+        sync: false
+  - type: web
     name: fincasinred
     runtime: docker
     healthCheckPath: /health
     dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FINCASINRED_V12_ORIGIN
+        sync: false
+      - key: FINCASINRED_SIAR_API_TOKEN
+        sync: false
+  - type: web
+    name: fincasinred-siar
+    runtime: node
+    repo: https://github.com/fincasinred/fincasinred.git
+    branch: v12-development
+    buildCommand: npm ci && npm run build:siar-server
+    startCommand: npm run start:siar-server
+    envVars:
+      - key: FINCASINRED_SIAR_API_TOKEN
+        sync: false
+      - key: FINCASINRED_V12_ORIGIN
+        sync: false

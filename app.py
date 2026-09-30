@@ -1,12 +1,18 @@
+from typing import Literal, Optional
+
 from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict, Field
 from fastapi.responses import FileResponse, StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 import os
 import json
 import zlib
 import base64
 import io
+import re
+from urllib.error import HTTPError, URLError
+from urllib.request import Request, urlopen
 from datetime import datetime
 from html import escape
 
@@ -27,8 +33,33 @@ from reportlab.platypus import (
 from reportlab.graphics.shapes import Drawing, Rect, Line, Circle, String, Polygon
 import stripe
 
+from backend.domain.hydraulic import HydraulicEndpoint, HydraulicInputError, calculate_sector
+from backend.domain.pump import (
+    PumpRequirementProvenance,
+    PumpRequirementStatus,
+    build_pump_requirement_from_sector,
+)
+
 app = FastAPI(title="FincaSinRed", version="8.0")
 stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
+
+cors_origins = [
+    origin.strip()
+    for origin in os.environ.get("FINCASINRED_V12_ORIGIN", "").split(",")
+    if origin.strip()
+]
+if cors_origins:
+    app.add_middleware(
+        CORSMiddleware,
+        allow_origins=cors_origins,
+        allow_credentials=False,
+        allow_methods=["GET", "POST"],
+        allow_headers=["accept", "content-type"],
+    )
+
+SIAR_API_BASE_URL = "https://servicio.mapa.gob.es/siarapi"
+SIAR_STATIONS_PATH = "/API/V1/Info/ESTACIONES"
+SIAR_API_TOKEN_ENV_VAR = "FINCASINRED_SIAR_API_TOKEN"
 
 @app.get("/")
 def home():
@@ -70,6 +101,345 @@ def satellite_el_colmenar():
 @app.get("/health")
 def health():
     return {"status": "ok", "version": app.version}
+
+
+def _siar_first(record, names):
+    for name in names:
+        value = record.get(name)
+        if value is not None and value != "":
+            return value
+    return None
+
+
+def _siar_coordinate(value):
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        match = re.fullmatch(r"(\d{2,3})(\d{2})(\d{2})(\d{3})([NSEW])", str(value).strip().upper())
+        if match is None:
+            return None
+        degrees, minutes, seconds, milliseconds, hemisphere = match.groups()
+        number = int(degrees) + int(minutes) / 60 + (
+            int(seconds) + int(milliseconds) / 1000
+        ) / 3600
+        if hemisphere in {"S", "W"}:
+            number = -number
+    return number if number == number and abs(number) != float("inf") else None
+
+
+def _siar_active(record):
+    active = _siar_first(record, ("Activa", "activa", "Active", "active"))
+    if isinstance(active, bool):
+        return active
+    if active is not None:
+        return str(active).strip().upper() in {"1", "TRUE", "SI", "SÍ", "ACTIVA", "ACTIVE"}
+
+    status = _siar_first(
+        record,
+        ("Estado", "estado", "Status", "status", "Situacion", "situacion"),
+    )
+    if status is not None:
+        return str(status).strip().upper() in {"1", "TRUE", "SI", "SÍ", "ACTIVA", "ACTIVE"}
+
+    discharge_date = _siar_first(record, ("Fecha_Baja", "fecha_baja", "FechaBaja", "fechaBaja"))
+    if discharge_date in (None, ""):
+        return True
+    try:
+        return datetime.fromisoformat(str(discharge_date).replace("Z", "+00:00")).date() > datetime.now().date()
+    except ValueError:
+        return False
+
+
+def _siar_rows(body):
+    if isinstance(body, list):
+        return [row for row in body if isinstance(row, dict)]
+    if not isinstance(body, dict):
+        return []
+    for key in ("datos", "Datos", "data", "Data", "estaciones", "Estaciones", "items"):
+        value = body.get(key)
+        if isinstance(value, list):
+            return [row for row in value if isinstance(row, dict)]
+    return [body]
+
+
+def _normalize_siar_station_catalog(body):
+    stations = []
+    for row in _siar_rows(body):
+        station_id = _siar_first(
+            row,
+            (
+                "CodigoEstacion",
+                "codigoEstacion",
+                "Codigo",
+                "codigo",
+                "IdEstacion",
+                "idEstacion",
+                "Estacion",
+                "estacion",
+            ),
+        )
+        latitude = _siar_coordinate(
+            _siar_first(row, ("Latitud", "latitud", "Latitude", "latitude", "Lat", "lat"))
+        )
+        longitude = _siar_coordinate(
+            _siar_first(row, ("Longitud", "longitud", "Longitude", "longitude", "Lon", "lon"))
+        )
+        if (
+            station_id is None
+            or latitude is None
+            or longitude is None
+            or not -90 <= latitude <= 90
+            or not -180 <= longitude <= 180
+        ):
+            continue
+        stations.append(
+            {
+                "stationId": str(station_id),
+                "coordinates": {"latitude": latitude, "longitude": longitude},
+                "active": _siar_active(row),
+            }
+        )
+    return stations
+
+
+@app.get("/api/siar/stations")
+def siar_stations():
+    token = os.environ.get(SIAR_API_TOKEN_ENV_VAR)
+    if not token:
+        raise HTTPException(status_code=503, detail="SIAR station catalog is not configured")
+
+    request = Request(
+        f"{SIAR_API_BASE_URL}{SIAR_STATIONS_PATH}?token={token}",
+        headers={"Accept": "application/json"},
+        method="GET",
+    )
+    try:
+        with urlopen(request, timeout=10) as response:
+            body = json.loads(response.read().decode("utf-8"))
+    except (HTTPError, URLError, TimeoutError, ValueError, OSError) as error:
+        raise HTTPException(status_code=502, detail="SIAR station catalog unavailable") from error
+
+    stations = _normalize_siar_station_catalog(body)
+    if not stations:
+        raise HTTPException(status_code=502, detail="SIAR station catalog has no usable stations")
+    return {"stations": stations}
+
+
+class HydraulicApiUnits(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    pressure: Literal["mca"] = "mca"
+    flow: Literal["lpm"] = "lpm"
+
+
+class HydraulicApiSectorRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    sector_id: str = Field(min_length=1, max_length=120)
+    pressure_required_mca: float = 0.0
+    flow_lpm: float = 0.0
+    head_loss_mca: float = 0.0
+    available_pressure_mca: Optional[float] = None
+    minimum_pressure_mca: Optional[float] = None
+    pump_head_mca: Optional[float] = None
+    phase: int = 1
+
+
+class HydraulicApiPumpRequirementRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    scenarios: Optional[list[str]] = None
+    critical_point_id: Optional[str] = Field(default=None, max_length=120)
+    hydraulic_path_id: Optional[str] = Field(default=None, max_length=120)
+    distributed_losses_mca: Optional[float] = None
+    local_losses_mca: Optional[float] = None
+    source_system_restrictions: Optional[dict[str, str]] = None
+    split_source_system_restrictions: Optional[dict[str, str]] = None
+    provenance: Optional[
+        Literal["USER_PROVIDED", "MEASURED", "CALCULATED", "AUTOMATIC", "ESTIMATED"]
+    ] = None
+    status: Optional[
+        Literal["VALIDATED", "PROVISIONAL", "PENDING", "BLOCKED", "INVALID"]
+    ] = None
+    value_version: Optional[str] = Field(default=None, max_length=120)
+    pump_required: Optional[bool] = None
+    required_hmt_mca: Optional[float] = None
+
+
+class HydraulicApiCalculationRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    units: HydraulicApiUnits = Field(default_factory=HydraulicApiUnits)
+    sector: HydraulicApiSectorRequest
+    pump_requirement: Optional[HydraulicApiPumpRequirementRequest] = None
+
+
+class HydraulicApiSectorResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    sector_id: str
+    flow_lpm: float
+    head_loss_mca: float
+    required_pressure_mca: float
+    available_pressure_mca: Optional[float] = None
+    pressure_margin_mca: Optional[float] = None
+    minimum_pressure_mca: Optional[float] = None
+    pump_head_mca: Optional[float] = None
+    satisfied: Optional[bool] = None
+    phase: int
+
+
+class HydraulicApiPumpRequirementResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    sector_id: str
+    scenarios: Optional[list[str]] = None
+    design_flow_lpm: float
+    required_hmt_mca: Optional[float] = None
+    required_pressure_mca: float
+    available_pressure_mca: Optional[float] = None
+    pressure_margin_mca: Optional[float] = None
+    pump_required: Optional[bool] = None
+    critical_point_id: Optional[str] = None
+    hydraulic_path_id: Optional[str] = None
+    distributed_losses_mca: Optional[float] = None
+    local_losses_mca: Optional[float] = None
+    source_system_restrictions: Optional[dict[str, str]] = None
+    split_source_system_restrictions: Optional[dict[str, str]] = None
+    provenance: Optional[
+        Literal["USER_PROVIDED", "MEASURED", "CALCULATED", "AUTOMATIC", "ESTIMATED"]
+    ] = None
+    status: Optional[
+        Literal["VALIDATED", "PROVISIONAL", "PENDING", "BLOCKED", "INVALID"]
+    ] = None
+    value_version: Optional[str] = None
+
+
+class HydraulicApiCalculationResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    units: HydraulicApiUnits = Field(default_factory=HydraulicApiUnits)
+    sector: HydraulicApiSectorResponse
+    pump_requirement: Optional[HydraulicApiPumpRequirementResponse] = None
+
+
+def _hydraulic_http_error(message: str) -> HTTPException:
+    return HTTPException(
+        status_code=422,
+        detail={
+            "type": "hydraulic_calculation_error",
+            "message": str(message),
+        },
+    )
+
+
+def _build_hydraulic_endpoint(request: HydraulicApiSectorRequest) -> HydraulicEndpoint:
+    return HydraulicEndpoint(
+        sector_id=request.sector_id,
+        pressure_required_mca=request.pressure_required_mca,
+        flow_lpm=request.flow_lpm,
+    )
+
+
+def _build_hydraulic_pump_requirement_response(requirement) -> HydraulicApiPumpRequirementResponse:
+    return HydraulicApiPumpRequirementResponse(
+        sector_id=requirement.sector_id,
+        scenarios=list(requirement.scenarios) if requirement.scenarios is not None else None,
+        design_flow_lpm=requirement.design_flow_lpm,
+        required_hmt_mca=requirement.required_hmt_mca,
+        required_pressure_mca=requirement.required_pressure_mca,
+        available_pressure_mca=requirement.available_pressure_mca,
+        pressure_margin_mca=requirement.pressure_margin_mca,
+        pump_required=requirement.pump_required,
+        critical_point_id=requirement.critical_point_id,
+        hydraulic_path_id=requirement.hydraulic_path_id,
+        distributed_losses_mca=requirement.distributed_losses_mca,
+        local_losses_mca=requirement.local_losses_mca,
+        source_system_restrictions=(
+            dict(requirement.source_system_restrictions)
+            if requirement.source_system_restrictions is not None
+            else None
+        ),
+        split_source_system_restrictions=(
+            dict(requirement.split_source_system_restrictions)
+            if requirement.split_source_system_restrictions is not None
+            else None
+        ),
+        provenance=(
+            requirement.provenance.value if requirement.provenance is not None else None
+        ),
+        status=requirement.status.value if requirement.status is not None else None,
+        value_version=requirement.value_version,
+    )
+
+
+@app.post(
+    "/api/hydraulic/calculate",
+    response_model=HydraulicApiCalculationResponse,
+    response_model_exclude_none=True,
+)
+def calculate_hydraulic(request: HydraulicApiCalculationRequest):
+    try:
+        sector_result = calculate_sector(
+            _build_hydraulic_endpoint(request.sector),
+            head_loss_mca=request.sector.head_loss_mca,
+            available_pressure_mca=request.sector.available_pressure_mca,
+            minimum_pressure_mca=request.sector.minimum_pressure_mca,
+            pump_head_mca=request.sector.pump_head_mca,
+            phase=request.sector.phase,
+        )
+
+        pump_requirement_result = None
+        if request.pump_requirement is not None:
+            provenance = (
+                PumpRequirementProvenance(request.pump_requirement.provenance)
+                if request.pump_requirement.provenance is not None
+                else None
+            )
+            status = (
+                PumpRequirementStatus(request.pump_requirement.status)
+                if request.pump_requirement.status is not None
+                else None
+            )
+            pump_requirement_result = build_pump_requirement_from_sector(
+                sector_result,
+                scenarios=request.pump_requirement.scenarios,
+                critical_point_id=request.pump_requirement.critical_point_id,
+                hydraulic_path_id=request.pump_requirement.hydraulic_path_id,
+                distributed_losses_mca=request.pump_requirement.distributed_losses_mca,
+                local_losses_mca=request.pump_requirement.local_losses_mca,
+                source_system_restrictions=request.pump_requirement.source_system_restrictions,
+                split_source_system_restrictions=request.pump_requirement.split_source_system_restrictions,
+                provenance=provenance,
+                status=status,
+                value_version=request.pump_requirement.value_version,
+                pump_required=request.pump_requirement.pump_required,
+                required_hmt_mca=request.pump_requirement.required_hmt_mca,
+            )
+
+        response = HydraulicApiCalculationResponse(
+            sector=HydraulicApiSectorResponse(
+                sector_id=sector_result.sector_id,
+                flow_lpm=sector_result.flow_lpm,
+                head_loss_mca=sector_result.head_loss_mca,
+                required_pressure_mca=sector_result.required_pressure_mca,
+                available_pressure_mca=sector_result.available_pressure_mca,
+                pressure_margin_mca=sector_result.pressure_margin_mca,
+                minimum_pressure_mca=sector_result.minimum_pressure_mca,
+                pump_head_mca=sector_result.pump_head_mca,
+                satisfied=sector_result.satisfied,
+                phase=sector_result.phase,
+            ),
+            pump_requirement=(
+                None
+                if pump_requirement_result is None
+                else _build_hydraulic_pump_requirement_response(pump_requirement_result)
+            ),
+        )
+
+        return response
+    except HydraulicInputError as error:
+        raise _hydraulic_http_error(str(error))
 
 
 @app.post("/crear-pago")
